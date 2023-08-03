@@ -3,7 +3,7 @@ class CreateDoctors < ActiveRecord::Migration[7.0]
     create_table :doctors do |t|
       t.string :name
       t.text :location
-      t.string :working_hours, default: '12-13,14-16', null: false
+      t.string :working_hours, default: "12,14,15", null: false
 
       t.timestamps
     end
