@@ -5,6 +5,7 @@ class DoctorsController < ApplicationController
   def index
     @doctors = Doctor.all
     @next_available = @doctors.map { |doc| Doctor.next_available_slot(doc.id) }
+    Rails.logger.unknown "Check out this info!"
   end
 
   # GET /doctors/1 or /doctors/1.json
