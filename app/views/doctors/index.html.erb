@@ -1,14 +1,41 @@
-<p style="color: green"><%= notice %></p>
+<div class="row">
+  <div class="col col-lg-11 mx-auto px-5">
+    <div class="row g-0 my-3">
+      <div class="col-auto lh-sm">
+        <%= show_svg('stethoscope.svg') %>
+      </div>
+      <div class="col-auto my-auto fs-5 fw-semibold mx-3">
+        My Doctors
+      </div>
+    </div>
 
-<h1>Doctors</h1>
+    <div class="row" id="doctors">
+      <% @doctors.each_with_index do |doctor, index| %>
+        <div class="col-12 col-lg-5 p-3 my-3 mx-lg-4 bg-white border border-black rounded">
+          <div class="container-auto">
+            <div class="row g-0">
+              <div class="col-auto me-4">
+                <%= image_tag(doctor.avatar, size: "77x77", style: "border-radius: 4px; background-color: lightgray;") %>
+              </div>
+              <div class="col-auto py-3 gy-2">
+                <div class="row g-0 fw-bolder"><%= doctor.name %></div>
+                <div class="row g-0 fs-7 grey-font"><%= doctor.location %></div>
+              </div>
+            </div>
 
-<div id="doctors">
-  <% @doctors.each do |doctor| %>
-    <%= render doctor %>
-    <p>
-      <%= link_to "Show this doctor", doctor %>
-    </p>
-  <% end %>
+            <div class="row g-0">
+              <div class="col-auto row py-3 g-1">
+                <div class="fs-8 col-auto fw-semibold lime-green-font">Next available</div>
+                <div class="fs-8 col-auto grey-font"> - </div>
+                <div class="fs-8 col-auto fw-light grey-font"><%= @next_available[index] %></div>
+              </div>
+              <div class="col-auto ms-auto">
+                <%= link_to 'Book Visit',new_appointment_path(doctor_id: doctor.id) , method: :post,class: 'btn btn-primary btn-block py-3 px-5 fs-7 fw-bolder' %>
+              </div>
+            </div>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
 </div>
-
-<%= link_to "New doctor", new_doctor_path %>

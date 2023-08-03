@@ -4,6 +4,7 @@ class DoctorsController < ApplicationController
   # GET /doctors or /doctors.json
   def index
     @doctors = Doctor.all
+    @next_available = @doctors.each { |doc| Doctor.next_available_slot(doc.id) }
   end
 
   # GET /doctors/1 or /doctors/1.json

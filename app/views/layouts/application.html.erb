@@ -8,21 +8,39 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   </head>
 
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-6">
-        MediApp
+    <div class="container-fluid bg-header">
+      <div class="row py-2 d-block d-lg-none">
+      </div>
+      
+      <div class="row py-3">
+        <div class="col-5 col-lg-auto offset-1 fs-5 fw-bold">
+          Medi App
         </div>
-        <div class="col">
-        Header
+        <div class="col-lg-auto d-none d-lg-block">
+          |
+        </div>
+        <div class="col-6 col-lg-auto row gx-2">
+          <div class="col-auto lh-sm">
+            <%= show_svg('calendar.svg') %>
+          </div>
+          <div class="col-auto my-auto fs-7">
+            My Appointments
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="">
+    <div class="py-3">
+    </div>
+
+    <div class="container-lg mx-auto main-content-container px-3">
       <%= yield %>
     </div>
   </body>

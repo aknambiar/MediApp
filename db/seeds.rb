@@ -5,3 +5,39 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+Doctor.delete_all
+ActiveStorage::Attachment.all.each(&:purge)
+
+Doctor.create!(name: 'Neha Kakkar', location: 'Mumbai').avatar.attach(
+    io: File.open('storage/seed_avatars/img1.png'),
+    filename: 'img1.png'
+  )
+Doctor.create!(name: 'Rhea Mhatre', location: 'Delhi').avatar.attach(
+    io: File.open('storage/seed_avatars/img2.png'),
+    filename: 'img2.png'
+  )
+Doctor.create!(name: 'Neha Kakkar', location: 'Bangalore').avatar.attach(
+    io: File.open('storage/seed_avatars/img1.png'),
+    filename: 'img1.png'
+  )
+Doctor.create!(name: 'Rhea Mhatre', location: 'Hyderabad').avatar.attach(
+    io: File.open('storage/seed_avatars/img2.png'),
+    filename: 'img2.png'
+  )
+Doctor.create!(name: 'Neha Kakkar', location: 'Chennai').avatar.attach(
+    io: File.open('storage/seed_avatars/img1.png'),
+    filename: 'img1.png'
+  )
+Doctor.create!(name: 'Rhea Mhatre', location: 'Bangalore').avatar.attach(
+    io: File.open('storage/seed_avatars/img2.png'),
+    filename: 'img2.png'
+  )
+
+Client.delete_all
+Client.create(name: 'Anshu Mahal', email: 'am@mail.com', mobile_number: '8273645372', address: 'Bangalore')
+Client.create(name: 'Prabhat Karpe', email: 'pk@mail.com', mobile_number: '7374490533', address: 'Delhi')
+Client.create(name: 'Sahil De', email: 'sd@mail.com', mobile_number: '8498007398', address: 'Mumbai')
+
+Appointment.delete_all
+Appointment.create(date: '03/08/2023', time: '12', paid_amount: 500, doctor: Doctor.where(name: 'Neha Kakkar').first, client: Client.where(name: 'Anshu Mahal').first)

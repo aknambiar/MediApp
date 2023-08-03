@@ -1,1 +1,45 @@
+$spacer: 10px;
+
+$font-weight-semibold:        500;
+$font-weight-bold:            600;
+$font-weight-bolder:          700;
+
+// $box-shadow:                  0 4px 12px rgba(65, 52, 146, 0.12);
+
+$font-family-base: 'Inter';
+
+$body-bg: #F9F9FF;
+
+@media (min-width: 992px) {
+    .bg-header {
+      background-color: #FFFFFF;
+      box-shadow: 0px 4px 12px 0px rgba(65, 52, 146, 0.12), 0px 4px 6px 0px rgba(65, 52, 146, 0.06); 
+    }
+  }
+
 @import "bootstrap";
+
+.fs-7 { 
+    font-size: $font-size-base * 0.875;
+}
+
+.fs-8 { 
+    font-size: $font-size-base * 0.75;
+}
+
+.grey-font {
+    color: #6A6A6A;
+}
+
+.lime-green-font {
+    color: #3BA04C;
+}
+
+.blue-btn {
+    background-color: #443EFF;
+    color: #FFFFFF;
+}
+
+.main-content-container {
+    max-width: 820px;
+}
