@@ -1,4 +1,4 @@
-<div class="col-6 col-lg-auto row gx-2">
+<div class="col-6 col-lg-auto row gx-2 mb-3">
   <div class="col-auto lh-sm">
     <%= show_svg('Time Square.svg') %>
   </div>
@@ -7,24 +7,65 @@
   </div>
 </div>
 
-<div id="date-picker-carousel" class="carousel slide" data-ride="carousel" data-bs-interval="false" data-wrap="false">
-  <div class="carousel-inner text-center">
-    <div class="carousel-item active">
-      A
+<div class="row">
+  <div id="date-picker" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false" data-bs-wrap="false">
+    <div class="carousel-inner container-fluid g-0 text-center">
+      <div class="carousel-item active">
+        <div class="row mx-auto">
+          <div class="col-4">
+            <div class="row mx-auto"><div class="col">Today</div></div>
+            <div class="row mx-auto"><div class="col">Feb</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row mx-auto">
+          <div class="col-4">
+            <div class="row mx-auto"><div class="col">Tom</div></div>
+            <div class="row mx-auto"><div class="col">Feb</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row mx-auto">
+          <div class="col-4">
+            <div class="row mx-auto"><div class="col">Day After</div></div>
+            <div class="row mx-auto"><div class="col">Feb</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row mx-auto">
+          <div class="col-4">
+            <div class="row mx-auto"><div class="col">Day Day After</div></div>
+            <div class="row mx-auto"><div class="col">Feb</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row mx-auto">
+          <div class="col-4">
+            <div class="row mx-auto"><div class="col">Day Day Day After</div></div>
+            <div class="row mx-auto"><div class="col">Feb</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row mx-auto">
+          <div class="col-4">
+            <div class="row mx-auto"><div class="col">Day Day Day Day After</div></div>
+            <div class="row mx-auto"><div class="col">Feb</div></div>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="carousel-item">
-      B
-    </div>
-    <div class="carousel-item">
-      C
-    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#date-picker" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#date-picker" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
   </div>
-  <a class="carousel-control-prev" href="#date-picker-carousel" role="button" data-slide="prev">
-    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-    <span class="sr-only">Previous</span>
-  </a>
-  <a class="carousel-control-next" href="#date-picker-carousel" role="button" data-slide="next">
-    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-    <span class="sr-only">Next</span>
-  </a>
 </div>

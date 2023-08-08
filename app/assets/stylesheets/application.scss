@@ -10,6 +10,11 @@ $font-family-base: 'Inter';
 
 $body-bg: #F9F9FF;
 
+$carousel-transition-duration: .01s;
+$carousel-control-color: #0A0926;
+$carousel-control-width: 5%;
+$carousel-control-icon-width: 18px;
+
 @media (min-width: 992px) {
     .bg-header {
       background-color: #FFFFFF;
