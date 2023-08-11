@@ -52,6 +52,16 @@ $carousel-control-icon-width: 18px;
     max-width: 820px;
 }
 
-#date-picker button {
+#date-picker btn {
     border-width: 0px;
 }
+
+#date-picker .carousel-control-prev,
+#date-picker .carousel-control-next {
+  height: 50%;
+//   top: 7.5%;
+};
+
+// .date-picker input {
+//     display: none;
+// }

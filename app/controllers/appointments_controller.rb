@@ -12,6 +12,12 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments/new
   def new
+    @slots = Doctor.find(params[:doctor_id]).weekly_available_slots
+    @all_dates = (Date.today..Date.today + 7)
+    @dates = @all_dates.zip(@slots).to_h.compact
+
+    # logger.unknown(puts "Dates: #{@dates}")
+
     @appointment = Appointment.new
   end
 

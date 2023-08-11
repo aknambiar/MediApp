@@ -7,100 +7,73 @@
   </div>
 </div>
 
-<div class="row">
-  <div id="date-picker" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false" data-bs-wrap="false">
-    <div class="carousel-inner container-fluid g-0 text-center">
-      <div class="carousel-item active">
-        <div class="row mx-auto">
-          <div class="col-4 border-bottom border-primary border-5">
-            <button class="btn w-100">
-              <div class="row mx-auto"><div class="col">Today</div></div>
-              <div class="row mx-auto"><div class="col">Feb</div></div>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="row mx-auto">
-          <div class="col-4 border-bottom border-3">
-            <button class="btn w-100">
-              <div class="row mx-auto"><div class="col">Tom</div></div>
-              <div class="row mx-auto"><div class="col">Feb</div></div>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="row mx-auto">
-          <div class="col-4 border-bottom border-3">
-            <button class="btn w-100">
-              <div class="row mx-auto"><div class="col">Day After</div></div>
-              <div class="row mx-auto"><div class="col">Feb</div></div>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="row mx-auto">
-          <div class="col-4 border-bottom border-3">
-            <button class="btn w-100">
-              <div class="row mx-auto"><div class="col">1</div></div>
-              <div class="row mx-auto"><div class="col">Feb</div></div>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="row mx-auto">
-          <div class="col-4 border-bottom border-3">
-            <button class="btn w-100">
-              <div class="row mx-auto"><div class="col">2</div></div>
-              <div class="row mx-auto"><div class="col">Feb</div></div>
-            </button>
-          </div>
-        </div>
-      </div>
-      <div class="carousel-item">
-        <div class="row mx-auto">
-          <div class="col-4 border-bottom border-3">
-            <button class="btn w-100">
-              <div class="row mx-auto"><div class="col">3</div></div>
-              <div class="row mx-auto"><div class="col">Feb</div></div>
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <button class="carousel-control-prev" type="button" data-bs-target="#date-picker" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#date-picker" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button>
-  </div>
-</div>
-
-<div class="col-6 col-lg-auto row gx-2 mb-3 mt-5">
-  <div class="col-auto lh-sm">
-    <%= show_svg('time-square.svg') %>
-  </div>
-  <div class="col-auto my-auto fs-6">
-    Select a time for Friday
-  </div>
-</div>
-
-<div class="container">
+<%= form_with(model: appointment) do |form| %>
   <div class="row">
-    <div class="col-4">
-      <button class="btn btn-outline-primary p-3 w-100">3:00 PM</button>
-    </div>
-    <div class="col-4">
-      <button class="btn btn-outline-primary p-3 w-100">3:00 PM</button>
-    </div>
-    <div class="col-4">
-      <button class="btn btn-outline-primary p-3 w-100">3:00 PM</button>
+    <div id="date-picker" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false" data-bs-wrap="false">
+      <div class="carousel-inner container-fluid g-0 text-center">
+        <% @dates.each do |date,slot| %>
+          <div class="carousel-item">
+            <div class="row mx-auto">
+              <label class="col-4 pb-3 border-bottom border-3">
+                <input type="radio" class="d-none" name="appointment[date]" value=<%= date.strftime('%d/%m/%Y') %>>
+                <div class="row mx-auto"><div class="col-0"><%= "#{date.strftime('%a')}, #{date.strftime('%d')}" %></div></div>
+                <div class="row mx-auto"><div class="col-0">Feb</div></div>
+              </label>
+            </div>
+          </div>
+        <% end %>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#date-picker" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#date-picker" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
     </div>
   </div>
-</div>
+
+  <div class="pb-5 pt-3">
+  </div>
+
+  <% @dates.each do |date,slots| %>
+    <div class="container g-0 d-none slot-picker" id=<%= "slot-#{date.strftime('%d')}" %>>
+      <div class="col-6 col-lg-auto row gx-2 mb-4">
+        <div class="col-auto lh-sm">
+          <%= show_svg('time-square.svg') %>
+        </div>
+        <div class="col-auto my-auto fs-6">
+          <%= "Select a time for #{date.strftime("%A, #{date.day.ordinalize} %B")}" %>
+        </div>
+      </div>
+
+      <div class="row gy-4">
+        <% slots.each do |slot| %>
+          <div class="col-4">
+            <label class="w-100">
+              <input type="radio" class="btn-check" name="appointment[time]" value=<%= slot %>>
+              <div class="btn btn-outline-primary p-3 w-100"><%= "#{slot}:00" %></div>
+            </label>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="align-items-bottom my-3">
+    <div class="row">
+      <div class="col">
+        Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!
+      </div>
+    </div>
+
+    <div class="row my-4">
+      <div class="col">
+        <button class="btn btn-primary w-100 py-4"> Book Appointment </button>
+      </div>
+    </div>
+  </div>
+<% end %>
+
+<%= javascript_import_module_tag "date_picker" %>

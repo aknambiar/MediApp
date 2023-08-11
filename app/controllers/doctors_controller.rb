@@ -4,7 +4,8 @@ class DoctorsController < ApplicationController
   # GET /doctors or /doctors.json
   def index
     @doctors = Doctor.all
-    @next_available = @doctors.map(&:next_available_slot)
+    date_today = Date.today.strftime('%d/%m/%Y')
+    @next_available = @doctors.map { |doctor| doctor.available_slots(date_today).first }
   end
 
   # GET /doctors/1 or /doctors/1.json

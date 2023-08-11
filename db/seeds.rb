@@ -17,7 +17,7 @@ Doctor.create!(name: 'Neha Kakkar', location: 'Mumbai').avatar.attach(
     io: File.open('storage/seed_avatars/img1.png'),
     filename: 'img1.png'
   )
-Doctor.create!(name: 'Rhea Mhatre', location: 'Delhi').avatar.attach(
+Doctor.create!(name: 'Rhea Mhatre', location: 'Delhi', working_hours: "12,14,15,16,17,20").avatar.attach(
     io: File.open('storage/seed_avatars/img2.png'),
     filename: 'img2.png'
   )
