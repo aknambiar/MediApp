@@ -11,14 +11,13 @@
   <div class="row">
     <div id="date-picker" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false" data-bs-wrap="false">
       <div class="carousel-inner container-fluid g-0 text-center">
-        <% @dates.each do |date,slot| %>
+        <%= form.collection_radio_buttons(:date, @date_radio_options, :radio_value, :radio_text) do |button| %>
           <div class="carousel-item">
-            <div class="row mx-auto">
-              <label class="col-4 pb-3 border-bottom border-3">
-                <input type="radio" class="d-none" name="appointment[date]" value=<%= date.strftime('%d/%m/%Y') %>>
-                <div class="row mx-auto"><div class="col-0"><%= "#{date.strftime('%a')}, #{date.strftime('%d')}" %></div></div>
-                <div class="row mx-auto"><div class="col-0">Feb</div></div>
-              </label>
+            <div class="row gx-0">
+              <div class="col-4">
+              <%= button.radio_button(class: "d-none")%>
+                <%= button.label(class: "w-100 pb-3 border-bottom border-3") { "<div class=\"text\">#{button.text[:day]}</div> <div class=\"fs-7 grey-font\"> #{button.text[:month]}</div>".html_safe } %>
+              </div>
             </div>
           </div>
         <% end %>
@@ -38,28 +37,30 @@
   </div>
 
   <% @dates.each do |date,slots| %>
-    <div class="container g-0 d-none slot-picker" id=<%= "slot-#{date.strftime('%d')}" %>>
+    <div class="container g-0 d-none slot-picker" id=<%= date.radio_value %>>
       <div class="col-6 col-lg-auto row gx-2 mb-4">
         <div class="col-auto lh-sm">
           <%= show_svg('time-square.svg') %>
         </div>
         <div class="col-auto my-auto fs-6">
-          <%= "Select a time for #{date.strftime("%A, #{date.day.ordinalize} %B")}" %>
+          <%= "Select a time for <span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %B")}</span>".html_safe %>
         </div>
       </div>
 
-      <div class="row gy-4">
+      <div class="row g-4">
         <% slots.each do |slot| %>
           <div class="col-4">
             <label class="w-100">
-              <input type="radio" class="btn-check" name="appointment[time]" value=<%= slot %>>
+              <%= form.radio_button :time, slot, { class: "btn-check" } %>
               <div class="btn btn-outline-primary p-3 w-100"><%= "#{slot}:00" %></div>
             </label>
           </div>
-        <% end %>
+        <% end %>                 
       </div>
     </div>
   <% end %>
+
+  <%= form.hidden_field :doctor_id, value: @doctor.id %>
 
   <div class="align-items-bottom my-3">
     <div class="row">
@@ -70,7 +71,7 @@
 
     <div class="row my-4">
       <div class="col">
-        <button class="btn btn-primary w-100 py-4"> Book Appointment </button>
+        <%= form.submit "Book Appointment", class:"btn btn-primary w-100 py-4"%>
       </div>
     </div>
   </div>

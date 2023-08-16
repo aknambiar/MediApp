@@ -44,17 +44,18 @@ class DatePicker {
         this.carouselButtons.forEach((button) => {
             button.addEventListener('click', (event) => {
                 this.setUnderline(button)
-                let id = button.firstElementChild.value.slice(0,2)
+                console.log(button)
+                let id = button.parentNode.firstElementChild.value
                 this.slotButtons.forEach((element) => element.classList.add('d-none'));
-                let selectedDateSlots = document.querySelector("#slot-"+id);
+                let selectedDateSlots = document.getElementById(id);
                 selectedDateSlots.classList.remove('d-none');
           })
         })
     }
 
     setUnderline(target) {
-        this.carouselButtons.forEach((button) => button.classList = "col-4 pb-3 border-bottom border-3")
-        target.classList = "col-4 pb-3 border-bottom border-primary border-5"
+        this.carouselButtons.forEach((button) => button.classList.remove ("border-primary", "border-5"))
+        target.classList.add ("border-primary","border-5") 
     }
 }
 document.addEventListener("turbo:render", (event) => {

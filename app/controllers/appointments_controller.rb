@@ -12,12 +12,11 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments/new
   def new
-    @slots = Doctor.find(params[:doctor_id]).weekly_available_slots
-    @all_dates = (Date.today..Date.today + 7)
-    @dates = @all_dates.zip(@slots).to_h.compact
-
-    # logger.unknown(puts "Dates: #{@dates}")
-
+    @doctor = Doctor.find(params[:doctor_id])
+    @slots = @doctor.weekly_available_slots
+    @dates = (DateRadioButton.today..DateRadioButton.today + 7).zip(@slots).to_h.compact
+    # logger.unknown (@dates.keys.class)
+    @date_radio_options = @dates.keys
     @appointment = Appointment.new
   end
 
@@ -27,7 +26,11 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments or /appointments.json
   def create
+    # logger.unknown(params)
+    # logger.unknown(appointment_params)
     @appointment = Appointment.new(appointment_params)
+    logger.unknown(@appointment.valid?)
+    logger.unknown(@appointment.errors.messages)
 
     respond_to do |format|
       if @appointment.save
