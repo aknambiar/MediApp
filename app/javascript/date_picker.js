@@ -30,21 +30,10 @@ class DatePicker {
         })
     }
 
-    // addButtonListeners() {
-    //     this.carouselButtons.addEventListener('click', (event) => {
-    //         if (event.target.nodeName === 'BUTTON') {
-    //             this.slotButtons.forEach((element) => element.classList.add('d-none'));
-    //             let selectedDateSlots = document.querySelector("#slot-"+event.target.id.slice(-2));
-    //             selectedDateSlots.classList.remove('d-none');
-    //         }
-    //       })
-    // }
-
     addButtonListeners() {
         this.carouselButtons.forEach((button) => {
             button.addEventListener('click', (event) => {
                 this.setUnderline(button)
-                console.log(button)
                 let id = button.parentNode.firstElementChild.value
                 this.slotButtons.forEach((element) => element.classList.add('d-none'));
                 let selectedDateSlots = document.getElementById(id);

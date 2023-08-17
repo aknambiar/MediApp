@@ -35,6 +35,9 @@ module MediApp
     config.assets.precompile += %w( '.svg' )
     config.assets.css_compressor = :sass
 
+    # Add lib folder
+    config.autoload_paths += %W(#{Rails.root}/lib)
+
     # Don't generate system test files.
     config.generators.system_tests = nil
   end

@@ -70,4 +70,5 @@ Rails.application.configure do
 
   # Enable only info logging
   config.log_level = :unknown
+  # config.log_level = :info
 end

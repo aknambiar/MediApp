@@ -1,5 +1,7 @@
 class ClientsController < ApplicationController
   before_action :set_client, only: %i[ show edit update destroy ]
+  
+  include Constants
 
   # GET /clients or /clients.json
   def index
@@ -12,6 +14,11 @@ class ClientsController < ApplicationController
 
   # GET /clients/new
   def new
+    logger.unknown("Test")
+    # @a = app_id
+    # @accepted = ACCEPTED_CURRENCIES
+    # @price = PRICE
+    # @rates = { INR: 1.0 * @price, EUR: 0.011061740718660278 * @price, USD: 0.012033370838165238 * @price }
     @client = Client.new
   end
 

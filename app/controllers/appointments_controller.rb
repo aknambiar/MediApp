@@ -15,8 +15,8 @@ class AppointmentsController < ApplicationController
     @doctor = Doctor.find(params[:doctor_id])
     @slots = @doctor.weekly_available_slots
     @dates = (DateRadioButton.today..DateRadioButton.today + 7).zip(@slots).to_h.compact
-    # logger.unknown (@dates.keys.class)
     @date_radio_options = @dates.keys
+
     @appointment = Appointment.new
   end
 
@@ -26,15 +26,14 @@ class AppointmentsController < ApplicationController
 
   # POST /appointments or /appointments.json
   def create
-    # logger.unknown(params)
-    # logger.unknown(appointment_params)
     @appointment = Appointment.new(appointment_params)
-    logger.unknown(@appointment.valid?)
-    logger.unknown(@appointment.errors.messages)
 
     respond_to do |format|
       if @appointment.save
-        format.html { redirect_to appointment_url(@appointment), notice: "Appointment was successfully created." }
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('appointment_form', partial: 'clients/form', locals: { app_id: @appointment.id })
+        end
+        format.html { redirect_to new_client_path, notice: "Appointment was successfully created." }
         format.json { render :show, status: :created, location: @appointment }
       else
         format.html { render :new, status: :unprocessable_entity }

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_16_095549) do
+ActiveRecord::Schema[7.0].define(version: 2023_08_16_095938) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -47,15 +47,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_16_095549) do
     t.integer "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "exchange_rate"
     t.index ["client_id"], name: "index_appointments_on_client_id"
     t.index ["doctor_id"], name: "index_appointments_on_doctor_id"
   end
 
   create_table "clients", force: :cascade do |t|
-    t.string "name"
     t.string "email"
-    t.string "mobile_number"
-    t.text "address"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "currency_preference", default: "INR"

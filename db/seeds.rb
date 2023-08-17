@@ -38,8 +38,8 @@ Doctor.create!(name: 'Rhea Mhatre', location: 'Bangalore').avatar.attach(
     filename: 'img2.png'
   )
 
-Client.create(name: 'Anshu Mahal', email: 'am@mail.com', mobile_number: '8273645372', address: 'Bangalore')
-Client.create(name: 'Prabhat Karpe', email: 'pk@mail.com', mobile_number: '7374490533', address: 'Delhi')
-Client.create(name: 'Sahil De', email: 'sd@mail.com', mobile_number: '8498007398', address: 'Mumbai')
+Client.create(email: 'am@mail.com')
+Client.create(email: 'pk@mail.com')
+Client.create(email: 'sd@mail.com')
 
-Appointment.create(date: DateTime.now.strftime("%d/%m/%Y"), time: '12', paid_amount: 500, doctor: Doctor.where(name: 'Neha Kakkar').first, client: Client.where(name: 'Anshu Mahal').first)
+Appointment.create(date: DateTime.now.strftime("%d/%m/%Y"), time: '12', paid_amount: 500, doctor: Doctor.where(name: 'Neha Kakkar').first, client: Client.where(email: 'am@mail.com').first)
