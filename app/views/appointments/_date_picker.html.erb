@@ -11,7 +11,7 @@
   <div class="row">
     <div id="date-picker" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false" data-bs-wrap="false">
       <div class="carousel-inner container-fluid g-0 text-center">
-        <%= form.collection_radio_buttons(:date, @date_radio_options, :radio_value, :radio_text) do |button| %>
+        <%= form.collection_radio_buttons(:date, @date_radio_options, :radio_value, :radio_text, checked: @date_radio_options.first.radio_value) do |button| %>
           <div class="carousel-item">
             <div class="row gx-0">
               <div class="col-4">

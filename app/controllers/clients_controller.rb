@@ -14,12 +14,6 @@ class ClientsController < ApplicationController
 
   # GET /clients/new
   def new
-    logger.unknown("Test")
-    # @a = app_id
-    # @accepted = ACCEPTED_CURRENCIES
-    # @price = PRICE
-    # @rates = { INR: 1.0 * @price, EUR: 0.011061740718660278 * @price, USD: 0.012033370838165238 * @price }
-    @client = Client.new
   end
 
   # GET /clients/1/edit
@@ -29,9 +23,14 @@ class ClientsController < ApplicationController
   # POST /clients or /clients.json
   def create
     @client = Client.new(client_params)
+    @client_helper = ClientPartialHelper.new
+    @appointment = Appointment.find(params[:app_id])
 
     respond_to do |format|
-      if @client.save
+      if @client.save && @client_helper.update_appointment(@client, params)
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: { date: @appointment.date, time: @appointment.time })
+        end
         format.html { redirect_to client_url(@client), notice: "Client was successfully created." }
         format.json { render :show, status: :created, location: @client }
       else
@@ -72,6 +71,6 @@ class ClientsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def client_params
-      params.require(:client).permit(:name, :email, :mobile_number, :address)
+      params.require(:client).permit(:email, :currency_preference)
     end
 end

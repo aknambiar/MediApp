@@ -1,40 +1,43 @@
-<div class="col col-lg-6 row gx-2 mx-auto mt-5">
-  <div class="col my-auto fw-bold fs-4 text-center">
-    Add Details 🧑🏻
+<div id="client-form"> 
+  <div class="col col-lg-6 row gx-2 mx-auto mt-5">
+    <div class="col my-auto fw-bold fs-4 text-center">
+      Add Details 🧑🏻
+    </div>
   </div>
+
+  <%= form_with(model: client) do |form| %>
+    <%= hidden_field_tag :app_id, app_id %>
+    <div class="row">
+      <div class="col col-lg-6 row gx-2 mx-auto">
+        <%= form.label :email, style: "display: block", class: "form-label" %>
+        <%= form.text_field :email, class: "form-control py-4 border border-2 fs-6", placeholder: "Enter Email" %>
+      </div>
+    </div>
+
+    <div class="row g-0 mx-auto mt-5">
+      <div class="col col-lg-6 mx-auto">
+        Select Currency
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col col-lg-6 row mx-auto g-0">
+        <% Constants::ACCEPTED_CURRENCIES.each do |currency| %>
+          <div class="col-4 g-3 currency-buttons">
+            <%= form.radio_button :currency_preference , currency, { class: "btn-check", rate: "#{rates[currency]}" } %>
+            <%= form.label :currency_preference, currency, value: currency , class: "btn btn-outline-primary w-100" %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row my-4">
+      <div class="col col-lg-6 mx-auto mt-5 g-0">
+        <%= form.submit "Pay #{Constants::PRICE} INR", class:"btn btn-primary w-100 py-4 payment"%>
+      </div>
+    </div>
+  <% end %>
+
+  <%= javascript_import_module_tag "client_form" %>
+
 </div>
-
-<%= form_with(model: client) do |form| %>
-  <div class="row">
-    <div class="col col-lg-6 row gx-2 mx-auto">
-      <%= form.label :email, style: "display: block", class: "form-label" %>
-      <%= form.text_field :email, class: "form-control py-4 border border-2 fs-6", placeholder: "Enter Email" %>
-    </div>
-  </div>
-
-  <div class="row g-0 mx-auto mt-5">
-    <div class="col col-lg-6 mx-auto">
-      Select Currency
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col col-lg-6 row mx-auto g-0">
-      <% @accepted.each do |currency| %>
-        <div class="col-4 g-3 currency-buttons">
-          <%= form.radio_button :currency_preference , currency, { class: "btn-check", rate: "#{@rates[currency.to_sym]}" } %>
-          <%= form.label :currency_preference, currency, value: currency , class: "btn btn-outline-primary w-100" %>
-        </div>
-      <% end %>
-     </div>
-  </div>
-
-  <div class="row my-4">
-    <div class="col col-lg-6 mx-auto mt-5 g-0">
-      <%= form.submit "Pay #{@price} INR", class:"btn btn-primary w-100 py-4 payment"%>
-    </div>
-  </div>
-<% end %>
-
-<%= javascript_import_module_tag "client_form" %>
-

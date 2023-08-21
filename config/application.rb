@@ -37,6 +37,9 @@ module MediApp
 
     # Add lib folder
     config.autoload_paths += %W(#{Rails.root}/lib)
+    
+    require './lib/constants.rb'
+    require './lib/fixer_api.rb'
 
     # Don't generate system test files.
     config.generators.system_tests = nil

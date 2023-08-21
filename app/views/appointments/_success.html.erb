@@ -1,0 +1,63 @@
+<%= hidden_field_tag :date, date %>
+<%= hidden_field_tag :time, time %>
+
+<div class="col col-lg-8 mx-auto">
+    <div class="container bg-white border border-light rounded shadow p-4">
+        <div class="row my-3">
+            <%= image_tag("congratulations.png") %>
+        </div>
+        <div class="row my-2">
+            <div class="col-auto mx-auto">
+                Appointment Booked
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-auto mx-auto">
+                <div class="row g-0">
+                    <div class="col-auto">
+                        <%= show_svg('calendar-blue.svg') %>
+                    </div>
+                    <div class="col-auto fs-5">
+                        Today, 17th February, 4:00 PM
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col col-lg-6 mx-auto">
+                <div class="row g-0">
+                    <div class="col-auto my-2 mx-auto fs-7">
+                        Meeting starts in
+                    </div>
+                </div>
+                <div class="row g-0">
+                    <% Constants::COUNTDOWN_FIELDS.each do | field |%>
+                        <div class="col-2">
+                            <div class="row gx-2 px-2 text-primary fw-bolder countdown" id=<%=field%>>
+                                <div class="col-auto bg-light rounded-pill me-auto py-1">
+                                0
+                                </div>
+                                <div class="col-auto bg-light rounded-pill py-1">
+                                0
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-auto mx-auto grey-font fs-7 ">
+                                    <%= field %>
+                                </div>
+                            </div>
+                        </div>
+                        <% unless field == Constants::COUNTDOWN_FIELDS.last %>
+                            <div class="col-1 text-center text-primary fs-5">
+                            :
+                            </div>
+                        <% end %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<%= javascript_import_module_tag "success_countdown" %>

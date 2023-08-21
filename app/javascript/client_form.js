@@ -1,5 +1,4 @@
 class ClientForm {
-    static DATES_PER_SLIDE = 3;
     constructor() {
         this.currencyButtons = document.querySelectorAll('.currency-buttons');
         this.paymentButton = document.querySelector('.payment');

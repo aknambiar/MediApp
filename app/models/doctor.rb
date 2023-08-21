@@ -7,6 +7,7 @@ class Doctor < ApplicationRecord
   def available_slots(date)
     work_slots = working_hours.split(',')
     work_slots - booked_slots(date)
+    # Remove today's slots
   end
 
   def booked_slots(date)
@@ -14,7 +15,7 @@ class Doctor < ApplicationRecord
   end
 
   def weekly_available_slots
-    dates = (Date.today..Date.today + 7).map { |date| date.strftime('%d/%m/%Y') }
+    dates = (Date.today..Date.today + Constants::SCHEDULING_RANGE).map { |date| date.strftime('%d/%m/%Y') }
     dates.map { |date| available_slots(date) }
   end
 end
