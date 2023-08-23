@@ -6,6 +6,7 @@ class DoctorsController < ApplicationController
     @doctors = Doctor.all
     date_today = Date.today.strftime('%d/%m/%Y')
     @next_available = @doctors.map { |doctor| doctor.available_slots(date_today).first }
+      .map { |time| "#{time}:00".to_time.strftime('%k:%M %p') if time }
   end
 
   # GET /doctors/1 or /doctors/1.json

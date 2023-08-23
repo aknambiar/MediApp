@@ -8,12 +8,14 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments/1 or /appointments/1.json
   def show
+    @appointment = Appointment.find(params[:id])
   end
 
   # GET /appointments/new
   def new
     @doctor = Doctor.find(params[:doctor_id])
     @slots = @doctor.weekly_available_slots
+    # @slots = (1..10).to_a.map { ("1".."12").to_a }
     @dates = (DateRadioButton.today..DateRadioButton.today + Constants::SCHEDULING_RANGE).zip(@slots).to_h.reject { |_date, slot| slot.empty? }
     @date_radio_options = @dates.keys
 

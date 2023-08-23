@@ -2,21 +2,21 @@
   <div class="col-auto lh-sm">
     <%= show_svg('calendar-white.svg') %>
   </div>
-  <div class="col-auto my-auto fs-6">
+  <div class="col-auto fs-6">
     Select a date
   </div>
 </div>
 
 <%= form_with(model: appointment) do |form| %>
-  <div class="row">
+  <div class="row px-3 px-lg-0">
     <div id="date-picker" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="false" data-bs-wrap="false">
       <div class="carousel-inner container-fluid g-0 text-center">
         <%= form.collection_radio_buttons(:date, @date_radio_options, :radio_value, :radio_text, checked: @date_radio_options.first.radio_value) do |button| %>
           <div class="carousel-item">
             <div class="row gx-0">
-              <div class="col-4">
+              <div class="col-3 col-lg-4 mx-auto border-bottom border-3">
               <%= button.radio_button(class: "d-none")%>
-                <%= button.label(class: "w-100 pb-3 border-bottom border-3") { "<div class=\"text\">#{button.text[:day]}</div> <div class=\"fs-7 grey-font\"> #{button.text[:month]}</div>".html_safe } %>
+                <%= button.label(class: "w-100 pb-3 m-0 fs-7 row") { "<div class=\"col-auto mx-auto row gx-2 fw-bolder \"><div class=\"col-auto col-lg-auto mx-auto\">#{button.text[:specifier]}</div> <div class=\"col col-lg-auto\">#{button.text[:day]}</div></div> <div class=\"col-12 fs-7 grey-font\"> #{button.text[:month]}</div>".html_safe } %>
               </div>
             </div>
           </div>
@@ -38,12 +38,15 @@
 
   <% @dates.each do |date,slots| %>
     <div class="container g-0 d-none slot-picker" id=<%= date.radio_value %>>
-      <div class="col-6 col-lg-auto row gx-2 mb-4">
+      <div class="col row gx-2 mb-4">
         <div class="col-auto lh-sm">
           <%= show_svg('time-square.svg') %>
         </div>
-        <div class="col-auto my-auto fs-6">
+        <div class="col-auto my-auto fs-7 fw-bold d-none d-lg-block">
           <%= "Select a time for <span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %B")}</span>".html_safe %>
+        </div>
+        <div class="col-auto my-auto fs-7 fw-bold d-lg-none">
+          <%= "Select a time for <span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %b")}</span>".html_safe %>
         </div>
       </div>
 
@@ -62,7 +65,7 @@
 
   <%= form.hidden_field :doctor_id, value: @doctor.id %>
 
-  <div class="align-items-bottom my-3">
+  <div class="col-10 col-lg-7 position-absolute bottom-5 fs-8 text-center start-50 translate-middle-x bg-light rounded">
     <div class="row">
       <div class="col">
         Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!

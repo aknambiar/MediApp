@@ -14,6 +14,7 @@ class ClientPartialHelper
                       client_id: client.id,
                       paid: true,
                       exchange_rate: $fixer_client.rates[client.currency_preference] }
+                      
     appointment.update(update_params)
   end
 end

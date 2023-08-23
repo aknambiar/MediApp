@@ -3,7 +3,7 @@ class DatePicker {
     constructor() {
         this.slides = document.querySelectorAll('#date-picker .carousel-item');
         this.slotButtons = document.querySelectorAll('.slot-picker');
-        this.individualSlotButtons = document.querySelectorAll('.slot-picker label div')
+        this.individualSlotButtons = document.querySelectorAll('.slot-picker label div');
 
         this.duplicateCarouselSlides();
 
@@ -11,7 +11,7 @@ class DatePicker {
         this.addButtonListeners();
 
         this.slides[0].classList.add('active');
-        this.setUnderline(this.carouselButtons[0])
+        this.setUnderline(this.carouselButtons[0]);
         this.slotButtons[0].classList.remove('d-none');
     }
 
@@ -33,8 +33,8 @@ class DatePicker {
     addButtonListeners() {
         this.carouselButtons.forEach((button) => {
             button.addEventListener('click', (event) => {
-                this.setUnderline(button)
-                let id = button.parentNode.firstElementChild.value
+                this.setUnderline(button);
+                let id = button.parentNode.firstElementChild.value;
                 this.slotButtons.forEach((element) => element.classList.add('d-none'));
                 let selectedDateSlots = document.getElementById(id);
                 selectedDateSlots.classList.remove('d-none');
@@ -43,14 +43,23 @@ class DatePicker {
     }
 
     setUnderline(target) {
-        this.carouselButtons.forEach((button) => button.classList.remove ("border-primary", "border-5"))
-        target.classList.add ("border-primary","border-5") 
+        if (window.screen.width > 992 ){
+            this.carouselButtons.forEach((button) => button.parentNode.classList.remove ("border", "border-primary", "border-5", "rounded"));
+            this.carouselButtons.forEach((button) => button.parentNode.classList.add ("border-bottom","border-3"));
+            target.parentNode.classList.add ("border-bottom","border-primary","border-5");
+        }
+        else {
+            this.carouselButtons.forEach((button) => button.parentNode.classList.remove ("border-bottom", "border-3", "border-primary", "border-5"));
+            this.carouselButtons.forEach((button) => button.parentNode.classList.add ("border", "rounded"));
+            target.parentNode.classList.add ("border-primary");
+        }
     }
 }
+
 document.addEventListener("turbo:render", (event) => {
     if (document.location.toString().includes("appointments/new")) {
-        new DatePicker
+        new DatePicker;
     }
   });
   
-new DatePicker
+new DatePicker;

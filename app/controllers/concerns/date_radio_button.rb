@@ -1,10 +1,9 @@
 class DateRadioButton < Date
   def radio_text
     day_value = strftime("%a, #{day.ordinalize}")
-    day_value = "Today, " + day_value if today?
-    day_value = "Tomorrow, " + day_value if tomorrow?
+    day_specifier = today? ? "Today," : (tomorrow? ? "Tomorrow," : " ")
     month_value = strftime("%b")
-    { day: day_value, month: month_value }
+    { specifier: day_specifier, day: day_value, month: month_value }
   end
 
   def radio_value

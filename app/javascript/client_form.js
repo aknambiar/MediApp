@@ -4,6 +4,8 @@ class ClientForm {
         this.paymentButton = document.querySelector('.payment');
 
         this.addButtonListeners();
+
+        this.addSubmitButtonSpinner();
     }
 
     addButtonListeners() {
@@ -17,6 +19,14 @@ class ClientForm {
                 this.paymentButton.value = `Pay ${rate} ${currency}`
           })
         })
+    }
+
+    addSubmitButtonSpinner() {
+        let spinner = this.paymentButton.nextElementSibling
+        this.paymentButton.addEventListener('click', (event) => {
+            this.paymentButton.classList.add("d-none")
+            spinner.classList.remove("d-none")
+      })
     }
 
 }

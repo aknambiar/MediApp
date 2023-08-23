@@ -25,9 +25,10 @@ class ClientsController < ApplicationController
     @client = Client.new(client_params)
     @client_helper = ClientPartialHelper.new
     @appointment = Appointment.find(params[:app_id])
+    @payment_processor = PaymentProcessor.new.pay
 
     respond_to do |format|
-      if @client.save && @client_helper.update_appointment(@client, params)
+      if @client.save && @client_helper.update_appointment(@client, params) && @payment_processor
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: { date: @appointment.date, time: @appointment.time })
         end

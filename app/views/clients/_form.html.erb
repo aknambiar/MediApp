@@ -1,5 +1,7 @@
-<div id="client-form"> 
-  <div class="col col-lg-6 row gx-2 mx-auto mt-5">
+<div id="client-form" class="px-3"> 
+  <div class="d-none d-lg-block py-5 my-4"></div>
+
+  <div class="col col-lg-6 row gx-2 mx-auto mt-2">
     <div class="col my-auto fw-bold fs-4 text-center">
       Add Details 🧑🏻
     </div>
@@ -34,6 +36,9 @@
     <div class="row my-4">
       <div class="col col-lg-6 mx-auto mt-5 g-0">
         <%= form.submit "Pay #{Constants::PRICE} INR", class:"btn btn-primary w-100 py-4 payment"%>
+        <div class="btn btn-primary w-100 py-3 d-none">
+          <div class="spinner-border text-light"></div>
+        </div>
       </div>
     </div>
   <% end %>
