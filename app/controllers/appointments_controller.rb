@@ -68,19 +68,19 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  def my_appointments
+  def list
     @email = params[:email]
-    Client.where(email: 'am@mail.com')
+    @client = Client.find_by(email: @email)
 
     respond_to do |format|
-      if @appointment.save
+      if @client
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { app_id: @appointment.id, client: client_helper.client, rates: client_helper.rates })
+          render turbo_stream: turbo_stream.replace('appointment-list-form', partial: 'appointments/my_appointments', locals: { appointments: @client.appointments })
         end
         format.html { redirect_to new_client_path, notice: "Appointment was successfully created." }
         format.json { render :show, status: :created, location: @appointment }
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { render '/appointments/index', status: :unprocessable_entity }
         format.json { render json: @appointment.errors, status: :unprocessable_entity }
       end
     end
