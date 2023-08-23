@@ -29,12 +29,12 @@ class AppointmentsController < ApplicationController
   # POST /appointments or /appointments.json
   def create
     @appointment = Appointment.new(appointment_params)
-    client_helper = ClientPartialHelper.new
+    @rates = Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, $fixer_client.convert(Constants::PRICE, c)] }
 
     respond_to do |format|
       if @appointment.save
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { app_id: @appointment.id, client: client_helper.client, rates: client_helper.rates })
+          render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { app_id: @appointment.id, client: Client.new, rates: @rates })
         end
         format.html { redirect_to new_client_path, notice: "Appointment was successfully created." }
         format.json { render :show, status: :created, location: @appointment }
@@ -65,6 +65,24 @@ class AppointmentsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to appointments_url, notice: "Appointment was successfully destroyed." }
       format.json { head :no_content }
+    end
+  end
+
+  def my_appointments
+    @email = params[:email]
+    Client.where(email: 'am@mail.com')
+
+    respond_to do |format|
+      if @appointment.save
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { app_id: @appointment.id, client: client_helper.client, rates: client_helper.rates })
+        end
+        format.html { redirect_to new_client_path, notice: "Appointment was successfully created." }
+        format.json { render :show, status: :created, location: @appointment }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @appointment.errors, status: :unprocessable_entity }
+      end
     end
   end
 

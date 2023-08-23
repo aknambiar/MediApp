@@ -1,14 +1,21 @@
-<p style="color: green"><%= notice %></p>
+<div class="d-none d-lg-block py-5 my-4"></div>
 
-<h1>Appointments</h1>
-
-<div id="appointments">
-  <% @appointments.each do |appointment| %>
-    <%= render appointment %>
-    <p>
-      <%= link_to "Show this appointment", appointment %>
-    </p>
-  <% end %>
+<div class="row my-3">
+  <div class="col text-center fw-bolder fs-4">
+    Enter your email address
+  </div>
 </div>
 
-<%= link_to "New appointment", new_appointment_path %>
+<%= form_tag(customer_index_path) do %>
+  <div class="row my-5">
+    <div class="col col-lg-5 mx-auto">
+      <%= email_field_tag :email, nil, class: "form-control py-3 border border-2 fs-6" %>
+    </div>
+  </div>
+
+  <div class="row my-3">
+    <div class="col col-lg-5 mx-auto">
+      <%= submit_tag "Submit", class:"btn btn-primary w-100 py-4 payment" %>
+    </div>
+  </div>
+<% end %>

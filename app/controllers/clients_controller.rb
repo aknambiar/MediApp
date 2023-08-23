@@ -22,15 +22,13 @@ class ClientsController < ApplicationController
 
   # POST /clients or /clients.json
   def create
-    @client = Client.new(client_params)
-    @client_helper = ClientPartialHelper.new
-    @appointment = Appointment.find(params[:app_id])
+    @client_helper = ClientPartialHelper.new(client_params, params)
     @payment_processor = PaymentProcessor.new.pay
 
     respond_to do |format|
-      if @client.save && @client_helper.update_appointment(@client, params) && @payment_processor
+      if @client_helper.update && @payment_processor
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: { date: @appointment.date, time: @appointment.time })
+          render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: @client_helper.get_date_and_time)
         end
         format.html { redirect_to client_url(@client), notice: "Client was successfully created." }
         format.json { render :show, status: :created, location: @client }
