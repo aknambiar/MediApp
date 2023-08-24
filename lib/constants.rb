@@ -3,4 +3,5 @@ module Constants
   PRICE = 500.0
   SCHEDULING_RANGE = 9
   COUNTDOWN_FIELDS = ["Days", "Hours", "Mins", "Secs"]
+  DOWNLOAD_FORMATS = ["csv", "txt", "pdf"]
 end

@@ -86,6 +86,17 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  def download
+    # path = InvoiceDownloader.generate_file(params[:id], "csv")
+    send_data InvoiceDownloader.generate_file(params[:id], "csv"), filename: "invoice.csv"
+    # logger.unknown("#{Rails.root}/#{path}")
+    # logger.unknown(send_file("#{Rails.root}/#{path}",
+    #   disposition: 'attachment'))
+    # respond_to do |format|
+    #   format.csv { logger.unknown(InvoiceDownloader.download_file(params[:id],"csv")) }
+    # end
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_appointment
