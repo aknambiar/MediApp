@@ -6,7 +6,11 @@ class Appointment < ApplicationRecord
     "#{date} #{time}:00".to_datetime
   end
 
-  def past?
-    get_datetime < DateTime.now
+  def cancel?
+    get_datetime - Constants::CANCEL_TIME_LIMIT.minutes < DateTime.now.asctime.in_time_zone("GMT")
+  end
+
+  def time_string
+    "#{time}:00".to_time.strftime("%l:%M %p")
   end
 end

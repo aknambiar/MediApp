@@ -15,7 +15,6 @@ class AppointmentsController < ApplicationController
   def new
     @doctor = Doctor.find(params[:doctor_id])
     @slots = @doctor.weekly_available_slots
-    # @slots = (1..10).to_a.map { ("1".."12").to_a }
     @dates = (DateRadioButton.today..DateRadioButton.today + Constants::SCHEDULING_RANGE).zip(@slots).to_h.reject { |_date, slot| slot.empty? }
     @date_radio_options = @dates.keys
 
@@ -87,14 +86,7 @@ class AppointmentsController < ApplicationController
   end
 
   def download
-    # path = InvoiceDownloader.generate_file(params[:id], "csv")
-    send_data InvoiceDownloader.generate_file(params[:id], "csv"), filename: "invoice.csv"
-    # logger.unknown("#{Rails.root}/#{path}")
-    # logger.unknown(send_file("#{Rails.root}/#{path}",
-    #   disposition: 'attachment'))
-    # respond_to do |format|
-    #   format.csv { logger.unknown(InvoiceDownloader.download_file(params[:id],"csv")) }
-    # end
+    send_file InvoiceDownloader.generate_file(params[:format], params[:id]), filename: "invoice.#{params[:format]}", disposition: 'attachment'
   end
 
   private

@@ -10,11 +10,11 @@ module InvoiceDownloader
       paid_amount: appointment.paid_amount }
   end
 
-  def self.generate_file(id, format)
+  def self.generate_file(format, id)
     content = generate_invoice(id)
     path = "storage/invoices/#{id}.#{format}"
     self.send(format, path, content)
-    IO.binread(path)
+    path
   end
 
   def self.csv(path, content)
@@ -24,9 +24,15 @@ module InvoiceDownloader
     #           filename: "#{appointment_id}.csv")
   end
 
-  def self.pdf(params)
+  def self.pdf(path, content)
+    Prawn::Document.generate(path) do
+      text content.keys.join(' ')
+      text content.values.join(' ')
+    end
   end
 
-  def self.txt(params)
+  def self.txt(path,content)
+    IO.write(path, content.keys.join(' ')+"\n")
+    IO.write(path, content.values.join(' '), mode: 'a')
   end
 end
