@@ -27,6 +27,7 @@ class ClientsController < ApplicationController
 
     respond_to do |format|
       if @client_helper.update && @payment_processor
+        @client_helper.schedule_email(params[:app_id])
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: @client_helper.get_date_and_time)
         end

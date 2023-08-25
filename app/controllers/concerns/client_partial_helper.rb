@@ -19,6 +19,13 @@ class ClientPartialHelper
     end
   end
 
+  def schedule_email(appointment_id)
+    appointment = Appointment.find(appointment_id)
+    send_time = appointment.get_datetime.asctime.in_time_zone("Kolkata") + 2.hours
+    # send_time = DateTime.now + 10.seconds
+    MailSchedulerJob.set(wait_until: send_time).perform_later(appointment_id)
+  end
+
   def get_date_and_time
     { date: @appointment.date, time: @appointment.time }
   end

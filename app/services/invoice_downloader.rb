@@ -1,13 +1,15 @@
 module InvoiceDownloader
   def self.generate_invoice(id)
     appointment = Appointment.find(id)
+    currency = appointment.client.currency_preference
+    paid_amount = $fixer_client.convert(appointment.paid_amount, currency)
     { id: appointment.id,
       email: appointment.client.email,
       doctor: appointment.doctor.name,
       location: appointment.doctor.location,
       date: appointment.date,
       time: appointment.time,
-      paid_amount: appointment.paid_amount }
+      paid_amount: "#{paid_amount} #{currency}" }
   end
 
   def self.generate_file(format, id)
