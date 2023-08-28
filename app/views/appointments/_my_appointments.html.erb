@@ -3,10 +3,10 @@
         <%= show_svg('arrow-left.svg') %>
     </div>
     <div class="col text-center d-none d-lg-block fs-3 fw-bolder">
-        My Appointments
+        <%= t('my_appointments') %>
     </div>
     <div class="col-auto text-center d-lg-none fs-5">
-        My Appointments
+        <%= t('my_appointments') %>
     </div>
 </div>
 
@@ -25,7 +25,7 @@
 
             <div class="row g-0 my-4">
                 <div class="col">
-                🗓 Your Consultation Details
+                    <%= t('.consultation_details') %>
                 </div>
             </div>
 
@@ -50,7 +50,7 @@
 
             <div class="row g-0 mt-5 mb-4">
                 <div class="col">
-                Download your invoice
+                    <%= t('.download_invoice') %>
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
             <div class="row g-0 mt-5 mb-4">
                 <div class="col row bg-info p-3 rounded g-0">
                     <div class="col-auto me-auto fw-light">
-                        Amount Paid
+                        <%= t('.amount_paid') %>
                     </div>
                     <div class="col-auto text-primary fw-bolder">
                     <%= "Rs #{app.paid_amount}/-" %>
@@ -75,7 +75,7 @@
 
             <div class="row g-0">
                 <div class="col">
-                    <%= button_to "Cancel", app, method: :delete, class: "btn btn-primary w-100", disabled: app.cancel? %>
+                    <%= button_to t('.cancel'), app, method: :delete, class: "btn btn-primary w-100", disabled: app.cancel? %>
                 </div>
             </div>
         </div>

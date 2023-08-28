@@ -3,9 +3,8 @@ class ClientForm {
         this.currencyButtons = document.querySelectorAll('.currency-buttons');
         this.paymentButton = document.querySelector('.payment');
 
-        this.addButtonListeners();
-
         this.addSubmitButtonSpinner();
+        this.addButtonListeners();
     }
 
     addButtonListeners() {

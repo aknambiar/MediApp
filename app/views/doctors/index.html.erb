@@ -5,7 +5,7 @@
         <%= show_svg('stethoscope.svg') %>
       </div>
       <div class="col-auto my-auto fs-5 fw-semibold mx-3">
-        My Doctors
+        <%= t('.title') %>
       </div>
     </div>
 
@@ -25,12 +25,12 @@
 
             <div class="row g-0">
               <div class="col-auto row py-3 g-1 fs-8">
-                <div class="col-auto fw-semibold lime-green-font">Next available</div>
+                <div class="col-auto fw-semibold lime-green-font"> <%= t('.next_available') %></div>
                 <div class="col-auto grey-font"> - </div>
                 <div class="col-auto fw-light grey-font"><%= "#{@next_available[index]}" %></div>
               </div>
               <div class="col-auto ms-auto">
-                <%= link_to 'Book Visit',new_appointment_path(doctor_id: doctor.id) ,class: 'btn btn-primary btn-block py-3 px-5 fs-7 fw-bolder' %>
+                <%= link_to t('.book_visit'),new_appointment_path(doctor_id: doctor.id) ,class: 'btn btn-primary btn-block py-3 px-5 fs-7 fw-bolder' %>
               </div>
             </div>
           </div>

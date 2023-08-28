@@ -30,4 +30,48 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  my_appointments: "My Appointments"
+  email_entry: "Enter your email address"
+  error_message: "Error! Please enter your details correctly"
+
+  layouts:
+    application:
+      app_name: "Medi App"
+
+  doctors:
+    index:
+      title: "My Doctors"
+      next_available: "Next Available"
+      book_visit: "Book Visit"
+
+  clients:
+    form:
+      title: "Add Details 🧑🏻"
+      currency_selector: "Select Currency"
+      default_payment: "Pay %{amount} INR"   
+
+  appointments:
+    index:
+      error_email: "Invalid email address"
+
+    date_picker:
+      date_title: "Select a date"
+      prev: "Previous"
+      next: "Next"
+      time_title: "Select a time for %{date}"
+      reschedule_notice: "Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!"
+      book_appointment: "Book Appointment"
+    
+    my_appointments:
+      consultation_details: "🗓 Your Consultation Details"
+      download_invoice: "Download your invoice"
+      amount_paid: "Amount Paid"
+      cancel: "Cancel"
+    
+    success:
+      congratulations: "Congratulations"
+      appointment_booked: 'Appointment Booked'
+      start: "Meeting starts in"
+
+
+

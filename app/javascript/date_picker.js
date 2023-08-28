@@ -61,5 +61,5 @@ document.addEventListener("turbo:render", (event) => {
         new DatePicker;
     }
   });
-  
+
 new DatePicker;

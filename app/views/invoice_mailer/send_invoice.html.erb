@@ -1,10 +1,39 @@
 <h1>MediApp Invoice</h1>
 
-<p>
-  <%= "Appointment ID:  #{@appointment.id}" %>
-  <%= "Doctor:  #{@appointment.doctor.name}" %>
-  <%= "Location: #{@appointment.doctor.location}" %>
-  <%= "Date: #{@appointment.date}" %>
-  <%= "Time: #{@appointment.time}" %>
-  <%= "Paid Amount: #{@paid_amount}" %>
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <%= "Appointment ID:  #{@appointment.id}" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= "Doctor:  #{@appointment.doctor.name}" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= "Location: #{@appointment.doctor.location}" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= "Date: #{@appointment.date}" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= "Time: #{@appointment.time}" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <%= "Paid Amount: #{@paid_amount}" %>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <a href="http://localhost:3000/appointments" class="btn btn-primary">View Appointment</a>
+    </div>
+  </div>
+</div>

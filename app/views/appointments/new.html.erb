@@ -1,4 +1,11 @@
 <%# render "form", appointment: @appointment %>
 <div id="appointment-form">
+    <% if response.response_code == 422 %>
+        <div class="row">
+            <div class="col col-lg-5 mx-auto px-4 text-danger">
+            <%= t('error_message') %>
+            </div>
+        </div>
+    <% end %>
     <%= render "date_picker", appointment: @appointment%>
 </div>

@@ -3,22 +3,30 @@
 
   <div class="col col-lg-6 row gx-2 mx-auto mt-2">
     <div class="col my-auto fw-bold fs-4 text-center">
-      Add Details 🧑🏻
+      <%= t('.title') %>
     </div>
   </div>
+
+  <% if response.response_code == 422 %>
+      <div class="row">
+        <div class="col col-lg-5 mx-auto px-4 text-danger">
+          <%= t('error_message') %>
+        </div>
+      </div>
+  <% end %>
 
   <%= form_with(model: client) do |form| %>
     <%= hidden_field_tag :app_id, app_id %>
     <div class="row">
       <div class="col col-lg-6 row gx-2 mx-auto">
         <%= form.label :email, style: "display: block", class: "form-label" %>
-        <%= form.text_field :email, class: "form-control py-4 border border-2 fs-6", placeholder: "Enter Email" %>
+        <%= form.text_field :email, class: "form-control py-4 border border-2 fs-6", placeholder: t('email_entry') %>
       </div>
     </div>
 
     <div class="row g-0 mx-auto mt-5">
       <div class="col col-lg-6 mx-auto">
-        Select Currency
+        <%= t('.currency_selector') %>
       </div>
     </div>
 
@@ -35,7 +43,7 @@
 
     <div class="row my-4">
       <div class="col col-lg-6 mx-auto mt-5 g-0">
-        <%= form.submit "Pay #{Constants::PRICE} INR", class:"btn btn-primary w-100 py-4 payment" %>
+        <%= form.submit t('.default_payment', amount:Constants::PRICE ), class:"btn btn-primary w-100 py-4 payment" %>
         <div class="btn btn-primary w-100 py-3 d-none">
           <div class="spinner-border text-light"></div>
         </div>

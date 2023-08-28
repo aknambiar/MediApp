@@ -14,8 +14,7 @@ class ClientPartialHelper
 
   def update
     Client.transaction do
-      @client.update(@client_params)
-      @appointment.update(@update_params)
+      @client.update(@client_params) && @appointment.update(@update_params)
     end
   end
 

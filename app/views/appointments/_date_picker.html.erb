@@ -3,7 +3,7 @@
     <%= show_svg('calendar-white.svg') %>
   </div>
   <div class="col-auto fs-6">
-    Select a date
+    <%= t('.date_title') %>
   </div>
 </div>
 
@@ -24,11 +24,11 @@
       </div>
       <button class="carousel-control-prev" type="button" data-bs-target="#date-picker" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Previous</span>
+        <span class="visually-hidden"> <%= t('.prev') %> </span>
       </button>
       <button class="carousel-control-next" type="button" data-bs-target="#date-picker" data-bs-slide="next">
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
-        <span class="visually-hidden">Next</span>
+        <span class="visually-hidden"><%= t('.next') %> </span>
       </button>
     </div>
   </div>
@@ -43,10 +43,10 @@
           <%= show_svg('time-square.svg') %>
         </div>
         <div class="col-auto my-auto fs-7 fw-bold d-none d-lg-block">
-          <%= "Select a time for <span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %B")}</span>".html_safe %>
+          <%= t('.time_title', date:"<span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %B")}</span>").html_safe %>
         </div>
         <div class="col-auto my-auto fs-7 fw-bold d-lg-none">
-          <%= "Select a time for <span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %b")}</span>".html_safe %>
+          <%= t('.time_title', date:"<span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %b")}</span>").html_safe %>
         </div>
       </div>
 
@@ -68,13 +68,13 @@
   <div class="col-10 col-lg-7 position-absolute bottom-5 fs-8 text-center start-50 translate-middle-x bg-light rounded">
     <div class="row">
       <div class="col">
-        Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!
+        <%= t('.reschedule_notice') %>
       </div>
     </div>
 
     <div class="row my-4">
       <div class="col">
-        <%= form.submit "Book Appointment", class:"btn btn-primary w-100 py-4"%>
+        <%= form.submit t('.book_appointment') , class:"btn btn-primary w-100 py-4"%>
       </div>
     </div>
   </div>

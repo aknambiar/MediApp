@@ -8,7 +8,6 @@ class AppointmentsController < ApplicationController
 
   # GET /appointments/1 or /appointments/1.json
   def show
-    @appointment = Appointment.find(params[:id])
   end
 
   # GET /appointments/new
@@ -19,10 +18,6 @@ class AppointmentsController < ApplicationController
     @date_radio_options = @dates.keys
 
     @appointment = Appointment.new
-  end
-
-  # GET /appointments/1/edit
-  def edit
   end
 
   # POST /appointments or /appointments.json
@@ -36,10 +31,8 @@ class AppointmentsController < ApplicationController
           render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { app_id: @appointment.id, client: Client.new, rates: @rates })
         end
         format.html { redirect_to new_client_path, notice: "Appointment was successfully created." }
-        format.json { render :show, status: :created, location: @appointment }
       else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
+        format.html { redirect_to new_appointment_path, locals: { doctor_id: appointment_params[:doctor_id] }, status: :unprocessable_entity }
       end
     end
   end

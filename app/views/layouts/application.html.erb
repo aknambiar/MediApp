@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>MediApp</title>
+    <title> <%= t('.app_name')  %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -23,7 +23,7 @@
       
       <div class="row py-3">
         <div class="col-5 col-lg-auto offset-1 fs-5 fw-bold">
-          <%= link_to "Medi App", doctors_path, class:"link-dark link-underline-none" %>
+          <%= link_to t('.app_name'), doctors_path, class:"link-dark link-underline-none" %>
         </div>
         <div class="col-lg-auto d-none d-lg-block">
           |
@@ -33,7 +33,7 @@
             <%= show_svg('calendar.svg') %>
           </div>
           <div class="col-auto my-auto fs-7">
-            <%= link_to "My Appointments", appointments_path, class:"link-dark link-underline-none" %>
+            <%= link_to t('my_appointments'), appointments_path, class:"link-dark link-underline-none" %>
           </div>
         </div>
       </div>

@@ -12,12 +12,12 @@
         </div>
         <div class="row mb-3">
             <div class="col-12 mx-auto text-success fw-bolder fs-5 text-center">
-                Congratulations
+                <%= t('.congratulations') %>
             </div>
         </div>
         <div class="row my-3">
             <div class="col-auto mx-auto fs-5 fw-light">
-                Appointment Booked
+                <%= t('.appointment_booked') %>
             </div>
         </div>
 
@@ -42,7 +42,7 @@
             <div class="col col-lg-6 mx-auto">
                 <div class="row g-0">
                     <div class="col-auto my-2 mx-auto fs-7">
-                        Meeting starts in
+                        <%= t('.start') %>
                     </div>
                 </div>
                 <div class="row g-0">
@@ -74,7 +74,7 @@
     </div>
 
     <%= link_to appointments_path, class: "btn btn-outline-primary w-100 my-5" do %>
-        My Appointments <%= show_svg('arrow-right.svg')%>
+        <%= t('my_appointments') %> <%= show_svg('arrow-right.svg')%>
     <% end %>
 </div>
 <%= javascript_import_module_tag "success_countdown" %>
