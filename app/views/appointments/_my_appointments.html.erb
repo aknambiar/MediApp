@@ -1,83 +1,85 @@
-<div class="row my-4">
-    <div class="col-auto d-lg-none">
-        <%= show_svg('arrow-left.svg') %>
-    </div>
-    <div class="col text-center d-none d-lg-block fs-3 fw-bolder">
-        <%= t('my_appointments') %>
-    </div>
-    <div class="col-auto text-center d-lg-none fs-5">
-        <%= t('my_appointments') %>
-    </div>
-</div>
-
-<div class="row">
-    <% appointments.each do | app | %>
-        <div class="col-11 col-lg-5 bg-white shadow rounded py-4 mx-auto my-3ß">
-            <div class="row g-0">
-                <div class="col-auto me-3">
-                    <%= image_tag(app.doctor.avatar, size: "77x77", style: "border-radius: 4px; background-color: lightgray;") %>
-                </div>
-                <div class="col-auto py-3 gy-2">
-                    <div class="row g-0 fw-bolder"><%= app.doctor.name %></div>
-                    <div class="row g-0 fs-7 grey-font"><%= app.doctor.location %></div>
-                </div>
-            </div>
-
-            <div class="row g-0 my-4">
-                <div class="col">
-                    <%= t('.consultation_details') %>
-                </div>
-            </div>
-
-            <div class="row g-0">
-                <div class="col-auto me-2">
-                    <%= show_resized_svg('calendar-white.svg',height=16,width=16) %>
-                </div>
-                <div class="col-auto fw-bold py-1">
-                    <% text = app.date.to_date.date_in_words %>
-                    <%= "#{text[:specifier]} #{text[:date]} #{text[:month_long]}" %>
-                </div>
-                <div class="col-auto mx-auto text-center text-black-50 py-1">
-                    |
-                </div>
-                <div class="col-auto me-2">
-                    <%= show_resized_svg('time-square.svg',height=16, width=16) %>
-                </div>
-                <div class="col-auto fw-bold py-1">
-                    <%= app.time_string %>
-                </div>
-            </div>
-
-            <div class="row g-0 mt-5 mb-4">
-                <div class="col">
-                    <%= t('.download_invoice') %>
-                </div>
-            </div>
-
-            <div class="row g-0 mb-5 gx-3">
-                <% Constants::DOWNLOAD_FORMATS.each do |format| %>
-                    <div class="col-auto">
-                        <%= link_to "#{format.upcase}", download_appointment_path(request.params.merge(format: format, id: app.id)), class: "btn btn-dark py-0  fw-light fs-7" %>
-                    </div>
-                <% end %>
-            </div>
-
-            <div class="row g-0 mt-5 mb-4">
-                <div class="col row bg-info p-3 rounded g-0">
-                    <div class="col-auto me-auto fw-light">
-                        <%= t('.amount_paid') %>
-                    </div>
-                    <div class="col-auto text-primary fw-bolder">
-                    <%= "Rs #{app.paid_amount}/-" %>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row g-0">
-                <div class="col">
-                    <%= button_to t('.cancel'), app, method: :delete, class: "btn btn-primary w-100", disabled: app.cancel? %>
-                </div>
-            </div>
+<div id="appointments-list">
+    <div class="row my-4">
+        <div class="col-auto d-lg-none">
+            <%= show_svg('arrow-left.svg') %>
         </div>
-    <% end %>
+        <div class="col text-center d-none d-lg-block fs-3 fw-bolder">
+            <%= t('my_appointments') %>
+        </div>
+        <div class="col-auto text-center d-lg-none fs-5">
+            <%= t('my_appointments') %>
+        </div>
+    </div>
+
+    <div class="row">
+        <% appointments.each do | app | %>
+            <div class="col-11 col-lg-5 bg-white shadow rounded py-4 mx-auto my-3">
+                <div class="row g-0">
+                    <div class="col-auto me-3">
+                        <%= image_tag(app.doctor.avatar, size: "77x77", style: "border-radius: 4px; background-color: lightgray;") %>
+                    </div>
+                    <div class="col-auto py-3 gy-2">
+                        <div class="row g-0 fw-bolder"><%= app.doctor.name %></div>
+                        <div class="row g-0 fs-7 grey-font"><%= app.doctor.location %></div>
+                    </div>
+                </div>
+
+                <div class="row g-0 my-4">
+                    <div class="col">
+                        <%= t('.consultation_details') %>
+                    </div>
+                </div>
+
+                <div class="row g-0">
+                    <div class="col-auto me-2">
+                        <%= show_resized_svg('calendar-white.svg',height=16,width=16) %>
+                    </div>
+                    <div class="col-auto fw-bold py-1">
+                        <% text = app.date.to_date.date_in_words %>
+                        <%= "#{text[:specifier]} #{text[:date]} #{text[:month_long]}" %>
+                    </div>
+                    <div class="col-auto mx-auto text-center text-black-50 py-1">
+                        |
+                    </div>
+                    <div class="col-auto me-2">
+                        <%= show_resized_svg('time-square.svg',height=16, width=16) %>
+                    </div>
+                    <div class="col-auto fw-bold py-1">
+                        <%= app.time_string %>
+                    </div>
+                </div>
+
+                <div class="row g-0 mt-5 mb-4">
+                    <div class="col">
+                        <%= t('.download_invoice') %>
+                    </div>
+                </div>
+
+                <div class="row g-0 mb-5 gx-3">
+                    <% Constants::DOWNLOAD_FORMATS.each do |format| %>
+                        <div class="col-auto">
+                            <%= link_to "#{format.upcase}", download_appointment_path(request.params.merge(format: format, id: app.id)), class: "btn btn-dark py-0  fw-light fs-7" %>
+                        </div>
+                    <% end %>
+                </div>
+
+                <div class="row g-0 mt-5 mb-4">
+                    <div class="col row bg-info p-3 rounded g-0">
+                        <div class="col-auto me-auto fw-light">
+                            <%= t('.amount_paid') %>
+                        </div>
+                        <div class="col-auto text-primary fw-bolder">
+                        <%= "Rs #{app.paid_amount}/-" %>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-0">
+                    <div class="col">
+                        <%= button_to t('.cancel'), app, method: :delete, class: "btn btn-primary w-100", disabled: app.cancel? %>
+                    </div>
+                </div>
+            </div>
+        <% end %>
+    </div>
 </div>

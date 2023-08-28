@@ -37,26 +37,15 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /appointments/1 or /appointments/1.json
-  def update
-    respond_to do |format|
-      if @appointment.update(appointment_params)
-        format.html { redirect_to appointment_url(@appointment), notice: "Appointment was successfully updated." }
-        format.json { render :show, status: :ok, location: @appointment }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # DELETE /appointments/1 or /appointments/1.json
   def destroy
+    @client = @appointment.client
     @appointment.destroy
 
     respond_to do |format|
-      format.html { redirect_to appointments_url, notice: "Appointment was successfully destroyed." }
-      format.json { head :no_content }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.replace('appointments-list', partial: 'appointments/my_appointments', locals: { email: @client.email, appointments: @client.appointments })
+      end
+      format.html { redirect_to 'appointments/my_appointments', locals: { email: @client.email, appointments: @client.appointments }}
     end
   end
 
@@ -70,10 +59,8 @@ class AppointmentsController < ApplicationController
           render turbo_stream: turbo_stream.replace('appointment-list-form', partial: 'appointments/my_appointments', locals: { appointments: @client.appointments })
         end
         format.html { redirect_to new_client_path, notice: "Appointment was successfully created." }
-        format.json { render :show, status: :created, location: @appointment }
       else
         format.html { render '/appointments/index', status: :unprocessable_entity }
-        format.json { render json: @appointment.errors, status: :unprocessable_entity }
       end
     end
   end
