@@ -73,5 +73,50 @@ en:
       appointment_booked: 'Appointment Booked'
       start: "Meeting starts in"
 
+  
+es:
+  my_appointments: "Mis citas"
+  email_entry: "Introduce tu dirección de correo electrónico"
+  error_message: "¡Error! Por favor, introduzca sus datos correctamente"
+
+  layouts:
+    application:
+      app_name: "Aplicación Medi"
+
+  doctors:
+    index:
+      title: "Mis médicos"
+      next_available: "Siguiente disponible"
+      book_visit: "Reservar Visita"
+
+  clients:
+    form:
+      title: "Agregar detalles 🧑🏻"
+      currency_selector: "Seleccionar moneda"
+      default_payment: "Pagar %{amount} INR"   
+
+  appointments:
+    index:
+      error_email: "Dirección de correo electrónico no válida"
+
+    date_picker:
+      date_title: "Seleccione una fecha"
+      prev: "Anterior"
+      next: "Próximo"
+      time_title: "Seleccione una hora para %{date}"
+      reschedule_notice: "Debido a la alta demanda, es difícil reprogramar las citas. ¡Por favor, reserve su espacio con cuidado!"
+      book_appointment: "Reservar cita"
+    
+    my_appointments:
+      consultation_details: "🗓 Detalles de su consulta"
+      download_invoice: "Descarga tu factura"
+      amount_paid: "Cantidad pagada"
+      cancel: "Cancelar"
+    
+    success:
+      congratulations: "Felicidades"
+      appointment_booked: 'Cita reservada'
+      start: "La reunión comienza en"
+
 
 
