@@ -15,4 +15,10 @@ class Date
   def tomorrow?
     self == Date.today + 1
   end
+
+  def self.safe_parse(value, default = nil)
+    Date.parse(value.to_s)
+  rescue ArgumentError
+    default
+  end
 end

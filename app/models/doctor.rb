@@ -6,6 +6,10 @@ class Doctor < ApplicationRecord
 
   validates :name, :location, :working_hours, presence: true
 
+  def working_hours_format
+    
+  end
+
   def available_slots(date)
     work_slots = working_hours.split(',')
     work_slots.select! { |slot| slot > Time.now.strftime('%k') } if date.to_date.today?

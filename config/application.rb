@@ -40,7 +40,7 @@ module MediApp
 
     # Add lib folder
     config.autoload_paths += %W(#{Rails.root}/lib)
-    
+
     require './lib/constants.rb'
     require './lib/fixer_api.rb'
     # require './lib/date.rb'
