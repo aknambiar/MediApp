@@ -32,7 +32,7 @@ class AppointmentsController < ApplicationController
         end
         format.html { redirect_to new_client_path, notice: "Appointment was successfully created." }
       else
-        format.html { redirect_to new_appointment_path, locals: { doctor_id: appointment_params[:doctor_id] }, status: :unprocessable_entity }
+        format.html { redirect_to new_appointment_path, notice: @appointment.errors }
       end
     end
   end

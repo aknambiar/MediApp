@@ -1,3 +1,13 @@
+<% unless flash.empty? %>
+  <% flash.notice.each do |message|%>
+    <div class="row">
+        <div class="col col-lg-5 mx-auto px-4 text-danger text-center">
+        <%= message.last.last %>
+        </div>
+    </div>
+  <% end %>
+<% end %>
+
 <div class="col-6 col-lg-auto row gx-2 mb-3 mt-5">
   <div class="col-auto lh-sm">
     <%= show_svg('calendar-white.svg') %>
