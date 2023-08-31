@@ -69,8 +69,8 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # Enable only info logging
-  config.log_level = :unknown
-  # config.log_level = :info
+  # config.log_level = :unknown
+  config.log_level = :info
 
   Rails.application.configure do
     config.action_mailer.perform_deliveries = true
@@ -84,9 +84,9 @@ Rails.application.configure do
     domain: "smtp.google.com",
     authentication: "login",
     user_name: "mediappmail@gmail.com",
-    password: "pwtuxypickgylags",
+    password: "aghchotuwzqsemzo",
     enable_starttls_auto: true,
-    # openssl_verify_mode: "none"
+    openssl_verify_mode: "none"
     }
   end
 end
