@@ -7,14 +7,15 @@ class ClientPartialHelper
     @appointment = Appointment.find(params[:app_id])
 
     @update_params = { paid_amount: Constants::PRICE,
-                       client_id: @client.id,
                        paid: true,
                        exchange_rate: $fixer_client.rates[@client.currency_preference] }
   end
 
   def update
     Client.transaction do
-      @client.update(@client_params) && @appointment.update(@update_params)
+      result = @client.update(@client_params)
+      @update_params[:client_id] = @client.id
+      @appointment.update(@update_params) && result
     end
   end
 
