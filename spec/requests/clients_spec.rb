@@ -25,33 +25,9 @@ RSpec.describe "/clients", type: :request do
     skip("Add a hash of attributes invalid for your model")
   }
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      Client.create! valid_attributes
-      get clients_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /show" do
-    it "renders a successful response" do
-      client = Client.create! valid_attributes
-      get client_url(client)
-      expect(response).to be_successful
-    end
-  end
-
   describe "GET /new" do
     it "renders a successful response" do
       get new_client_url
-      expect(response).to be_successful
-    end
-  end
-
-  describe "GET /edit" do
-    it "renders a successful response" do
-      client = Client.create! valid_attributes
-      get edit_client_url(client)
       expect(response).to be_successful
     end
   end

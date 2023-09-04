@@ -1,0 +1,11 @@
+appointment_1:
+  id: 1
+  date: "01/01/2099"
+  time: "12"
+  doctor: doctor_1
+
+appointment_2:
+  id: 2
+  date: "01/01/2001"
+  time: "12"
+  doctor: doctor_2

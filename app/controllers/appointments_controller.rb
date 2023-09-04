@@ -13,7 +13,7 @@ class AppointmentsController < ApplicationController
   # GET /appointments/new
   def new
     @doctor = Doctor.find(params[:doctor_id])
-    @slots = @doctor.weekly_available_slots
+    @slots = @doctor.available_slots_for_range
     @dates = (DateRadioButton.today..DateRadioButton.today + Constants::SCHEDULING_RANGE).zip(@slots).to_h.reject { |_date, slot| slot.empty? }
     @date_radio_options = @dates.keys
 

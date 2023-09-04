@@ -1,5 +1,5 @@
 class ClientPartialHelper
-  attr_reader :date, :time
+  attr_reader :client
 
   def initialize(client_params, params)
     @client_params = client_params

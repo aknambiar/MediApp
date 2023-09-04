@@ -1,0 +1,14 @@
+doctor_1:
+  id: 1
+  name: "TestName1"
+  location: "TestLocation1"
+
+doctor_2:
+  id: 2
+  name: "TestName2"
+  location: "TestLocation2"
+
+doctor_3:
+  id: 3
+  name: "TestName3"
+  location: "TestLocation3"

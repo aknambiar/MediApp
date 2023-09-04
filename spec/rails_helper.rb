@@ -60,4 +60,10 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # Seed Database
+  # config.before(:all) do
+    # require "#{Rails.root}/db/seeds.rb"
+    # system("rails db:seed RAILS_ENV=test")
+  # end
 end
