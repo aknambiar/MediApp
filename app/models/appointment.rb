@@ -10,7 +10,7 @@ class Appointment < ApplicationRecord
   end
 
   def cancel?
-    get_datetime - Constants::CANCEL_TIME_LIMIT.minutes < DateTime.now.asctime.in_time_zone("GMT")
+    get_datetime - Constants::CANCEL_TIME_LIMIT.minutes > DateTime.now.asctime.in_time_zone("GMT")
   end
 
   def time_string

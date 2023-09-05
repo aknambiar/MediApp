@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Client, type: :model do
-  let(:email) { "testmail123@gmail.com" }
+  let(:email) { "mail@test.com" }
 
   it "is valid with valid attributes" do
     client = Client.new(email: email)

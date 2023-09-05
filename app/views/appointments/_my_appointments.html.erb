@@ -76,7 +76,7 @@
 
                 <div class="row g-0">
                     <div class="col">
-                        <%= button_to t('.cancel'), app, method: :delete, class: "btn btn-primary w-100", disabled: app.cancel? %>
+                        <%= button_to t('.cancel'), app, method: :delete, class: "btn btn-primary w-100", disabled: app.cancel? ? false : true %>
                     </div>
                 </div>
             </div>
