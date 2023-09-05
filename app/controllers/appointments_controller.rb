@@ -45,7 +45,7 @@ class AppointmentsController < ApplicationController
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace('appointments-list', partial: 'appointments/my_appointments', locals: { email: @client.email, appointments: @client.appointments })
       end
-      format.html { redirect_to 'appointments/my_appointments', locals: { email: @client.email, appointments: @client.appointments }}
+      format.html { redirect_to appointments_url, locals: { email: @client.email, appointments: @client.appointments }}
     end
   end
 
