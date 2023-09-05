@@ -5,10 +5,10 @@
     <div class="d-none d-lg-block py-5 my-4"></div>
     <div class="container bg-header rounded p-4">
         <div class="row mt-3 d-lg-none">
-            <%= show_svg("congratulations-mobile.svg") %>
+            <%= image_tag("congratulations-mobile.svg", height: "40") %>
         </div>
         <div class="row mt-3 d-none d-lg-block">
-            <%= show_svg("congratulations-desktop.svg") %>
+            <%= image_tag("congratulations-desktop.svg", height: "50") %>
         </div>
         <div class="row mb-3">
             <div class="col-12 mx-auto text-success fw-bolder fs-5 text-center">
@@ -26,7 +26,7 @@
                 <div class="row g-0 text-primary">
                     <% text = date.to_date.date_in_words %>
                     <div class="col-auto">
-                        <%= show_svg('calendar-blue.svg') %>
+                        <%= image_tag('calendar-blue.svg') %>
                     </div>
                     <div class="col-auto fs-9 d-none d-lg-block fw-bolder">
                         <%= "#{text[:specifier]} #{text[:date]}, #{text[:month_long]}, #{"#{time}:00".to_time.strftime("%l:%M %p")}" %>
@@ -74,7 +74,7 @@
     </div>
 
     <%= link_to appointments_path, class: "btn btn-outline-primary w-100 my-5" do %>
-        <%= t('my_appointments') %> <%= show_svg('arrow-right.svg')%>
+        <%= t('my_appointments') %> <%= image_tag('arrow-right.svg')%>
     <% end %>
 </div>
 <%= javascript_import_module_tag "success_countdown" %>

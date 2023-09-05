@@ -10,7 +10,7 @@
 
 <div class="col-6 col-lg-auto row gx-2 mb-3 mt-5">
   <div class="col-auto lh-sm">
-    <%= show_svg('calendar-white.svg') %>
+    <%= image_tag('calendar-white.svg') %>
   </div>
   <div class="col-auto fs-6">
     <%= t('.date_title') %>
@@ -50,7 +50,7 @@
     <div class="container g-0 d-none slot-picker" id=<%= date.radio_value %>>
       <div class="col row gx-2 mb-4">
         <div class="col-auto lh-sm">
-          <%= show_svg('time-square.svg') %>
+          <%= image_tag('time-square.svg') %>
         </div>
         <div class="col-auto my-auto fs-7 fw-bold d-none d-lg-block">
           <%= t('.time_title', date:"<span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %B")}</span>").html_safe %>

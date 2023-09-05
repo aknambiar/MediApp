@@ -1,7 +1,7 @@
 <div id="appointments-list">
     <div class="row my-4">
         <div class="col-auto d-lg-none">
-            <%= show_svg('arrow-left.svg') %>
+            <%= image_tag('arrow-left.svg') %>
         </div>
         <div class="col text-center d-none d-lg-block fs-3 fw-bolder">
             <%= t('my_appointments') %>
@@ -32,7 +32,7 @@
 
                 <div class="row g-0">
                     <div class="col-auto me-2">
-                        <%= show_resized_svg('calendar-white.svg',height=16,width=16) %>
+                        <%= image_tag('calendar-white.svg',size: "16") %>
                     </div>
                     <div class="col-auto fw-bold py-1">
                         <% text = app.date.to_date.date_in_words %>
@@ -42,7 +42,7 @@
                         |
                     </div>
                     <div class="col-auto me-2">
-                        <%= show_resized_svg('time-square.svg',height=16, width=16) %>
+                        <%= image_tag('time-square.svg', size: "16") %>
                     </div>
                     <div class="col-auto fw-bold py-1">
                         <%= app.time_string %>
