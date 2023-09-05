@@ -23,6 +23,6 @@ RSpec.describe ClientPartialHelper do
 
   it "returns the date and time" do
     data = @client_helper.get_date_and_time
-    expect(data).to eq({ date:"01/01/2099", time:"15" })
+    expect(data).to eq({ date: "01/01/2099", time: "15" })
   end
 end
