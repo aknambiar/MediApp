@@ -66,4 +66,10 @@ RSpec.configure do |config|
     # require "#{Rails.root}/db/seeds.rb"
     # system("rails db:seed RAILS_ENV=test")
   # end
+
+  # Enable ActiveJob matchers
+  ActiveJob::Base.queue_adapter = :test
+
+  require "factory_bot_rails"
+  config.include FactoryBot::Syntax::Methods
 end
