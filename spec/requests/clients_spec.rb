@@ -13,21 +13,12 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/clients", type: :request do
-  
-  # This should return the minimal set of attributes required to create a valid
-  # Client. As you add validations to Client, be sure to
-  # adjust the attributes here as well.
-  let(:valid_attributes) {
-    skip("Add a hash of attributes valid for your model")
-  }
-
-  let(:invalid_attributes) {
-    skip("Add a hash of attributes invalid for your model")
-  }
+  let(:appointment) { create(:appointment) }
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_client_url
+      rates = Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, $fixer_client.convert(Constants::PRICE, c)] }
+      get new_client_path(app_id: appointment.id, client: Client.new, rates: rates)
       expect(response).to be_successful
     end
   end

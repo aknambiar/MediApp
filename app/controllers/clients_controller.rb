@@ -3,6 +3,7 @@ class ClientsController < ApplicationController
 
   # GET /clients/new
   def new
+    render partial: "form", locals: { app_id: params[:app_id], client: Client.new, rates: params[:rates] }
   end
 
     # GET /clients/1

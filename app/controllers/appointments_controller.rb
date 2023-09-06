@@ -30,7 +30,7 @@ class AppointmentsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { app_id: @appointment.id, client: Client.new, rates: @rates })
         end
-        format.html { redirect_to new_client_path, notice: "Appointment was successfully created." }
+        format.html { render partial: 'clients/form', locals: { app_id: @appointment.id, client: Client.new, rates: @rates } }
       else
         format.html { redirect_to new_appointment_path, notice: @appointment.errors }
       end
@@ -45,7 +45,7 @@ class AppointmentsController < ApplicationController
       format.turbo_stream do
         render turbo_stream: turbo_stream.replace('appointments-list', partial: 'appointments/my_appointments', locals: { email: @client.email, appointments: @client.appointments })
       end
-      format.html { redirect_to appointments_url, locals: { email: @client.email, appointments: @client.appointments }}
+      format.html { redirect_to appointments_url, locals: { email: @client.email, appointments: @client.appointments }, status: :unprocessable_entity}
     end
   end
 

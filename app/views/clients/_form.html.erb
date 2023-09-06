@@ -7,14 +7,6 @@
     </div>
   </div>
 
-  <% if response.response_code == 422 %>
-      <div class="row">
-        <div class="col col-lg-5 mx-auto px-4 text-danger">
-          <%= t('error_message') %>
-        </div>
-      </div>
-  <% end %>
-
   <%= form_with(model: client) do |form| %>
     <%= hidden_field_tag :app_id, app_id %>
     <div class="row">
