@@ -58,15 +58,15 @@ class AppointmentsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace('appointment-list-form', partial: 'appointments/my_appointments', locals: { appointments: @client.appointments })
         end
-        format.html { redirect_to new_client_path, notice: "Appointment was successfully created." }
+        format.html { redirect_to @client }
       else
-        format.html { render '/appointments/index', status: :unprocessable_entity }
+        format.html { render action: "index", status: :unprocessable_entity }
       end
     end
   end
 
   def download
-    send_file InvoiceDownloader.generate_file(params[:format], params[:id]), filename: "invoice.#{params[:format]}", disposition: 'attachment'
+    send_file InvoiceDownloader.generate_file(params[:format], params[:id]), filename: "invoice.#{params[:format]}", disposition: 'attachment' if Constants::DOWNLOAD_FORMATS.include?(params[:format])
   end
 
   private

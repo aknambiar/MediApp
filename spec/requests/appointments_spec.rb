@@ -13,21 +13,9 @@ require 'rails_helper'
 # sticking to rails and rspec-rails APIs to keep things simple and stable.
 
 RSpec.describe "/appointments", type: :request do
-  # before(:all) { @doctor = Doctor.create!(name: 'Neha Kakkar', location: 'Mumbai') }
-  let(:doctor) { create(:doctor) }
-  let(:appointment) { create(:appointment) }
-  let(:valid_attributes) {{ date: "01/01/2099", time: "12", doctor_id: doctor.id }}
-  let(:invalid_attributes) {{ date: "021/01/209", time: "36", doctor_id: doctor.id }}
-
-  # let(:valid_attributes) {{
-  #   date: (DateTime.now + 2.hours).strftime("%d-%m-%Y"),
-  #   time: (DateTime.now + 2.hours).strftime("%H"),
-  #   doctor_id: @doctor.id
-  # }}
-
-  # let(:invalid_attributes) {
-  #   skip("Add a hash of attributes invalid for your model")
-  # }
+  let!(:appointment) { create(:appointment) }
+  let(:valid_attributes) {{ date: "01/01/2099", time: "12", doctor_id: appointment.doctor.id }}
+  let(:invalid_attributes) {{ date: "021/01/209", time: "36", doctor_id: appointment.doctor.id }}
 
   describe "GET /index" do
     it "renders a successful response" do
@@ -45,7 +33,7 @@ RSpec.describe "/appointments", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      get new_appointment_url(doctor_id: doctor.id)
+      get new_appointment_url(doctor_id: appointment.doctor.id)
       expect(response).to be_successful
     end
   end
@@ -82,8 +70,6 @@ RSpec.describe "/appointments", type: :request do
 
   describe "DELETE /destroy" do
     it "destroys the requested appointment" do
-      appointment = create :appointment
-
       expect {
         delete appointment_url(appointment)
       }.to change(Appointment, :count).by(-1)
@@ -92,6 +78,34 @@ RSpec.describe "/appointments", type: :request do
     it "redirects to the appointments list" do
       delete appointment_url(appointment)
       expect(response).to redirect_to(appointments_url)
+    end
+  end
+
+  describe "POST /list" do
+    context "with valid parameters" do
+      it "redirects to the my_appointments page" do
+        post list_appointment_path, params: { email: appointment.client.email }
+        expect(response).to redirect_to(client_path(id: appointment.client.id))
+      end
+    end
+
+    context "with invalid parameters" do
+      it "redirects back to the email form with errors" do
+        post list_appointment_path, params: { email: nil }
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+
+  describe "GET /download" do
+    context "if the file type is supported" do
+      it 'sends the file as an attachment' do
+        get download_appointment_path(id: appointment.id, format: "csv")
+
+        expect(response.headers["Content-Disposition"]).to include("attachment")
+        expect(response.headers["Content-Type"]).to eq("text/csv")
+        expect(response).to have_http_status(:success)
+      end
     end
   end
 end

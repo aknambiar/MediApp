@@ -22,8 +22,6 @@ module InvoiceDownloader
   def self.csv(path, content)
     IO.write(path, content.keys.join(', ')+"\n")
     IO.write(path, content.values.join(', '), mode: 'a')
-    # send_file(path,
-    #           filename: "#{appointment_id}.csv")
   end
 
   def self.pdf(path, content)

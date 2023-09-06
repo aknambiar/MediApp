@@ -5,6 +5,11 @@ class ClientsController < ApplicationController
   def new
   end
 
+    # GET /clients/1
+  def show
+    @client = Client.find(params[:id])
+  end
+
   # POST /clients or /clients.json
   def create
     @client_helper = ClientPartialHelper.new(client_params, params)
