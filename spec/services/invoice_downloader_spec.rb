@@ -2,15 +2,16 @@ require 'rails_helper'
 
 RSpec.describe InvoiceDownloader do
   let!(:appointment) { create(:appointment) }
+  let(:invoice_downloader) { InvoiceDownloader.new }
 
   it 'calls the respective file downloader' do
-    allow(InvoiceDownloader).to receive(:generate_invoice).and_return("content")
-    allow(InvoiceDownloader).to receive(:csv)
+    allow(invoice_downloader).to receive(:generate_invoice).and_return("content")
+    allow(invoice_downloader).to receive(:csv)
     format = "csv"
 
-    InvoiceDownloader.generate_file(format, appointment.id)
+    invoice_downloader.generate_file(format, appointment.id)
 
-    expect(InvoiceDownloader).to have_received(:csv)
+    expect(invoice_downloader).to have_received(:csv)
   end
 
   # it "generates an invoice" do
