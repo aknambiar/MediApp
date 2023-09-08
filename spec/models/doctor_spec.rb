@@ -1,43 +1,40 @@
 require 'rails_helper'
 
 RSpec.describe Doctor, type: :model do
-  let(:valid_attr) {{name:"Neha", location:"Bangalore", working_hours:"01,02,03"}}
+  let(:doctor) { create(:doctor) }
 
   it "is valid with valid attributes" do
-    doctor = Doctor.new(valid_attr)
     expect(doctor).to be_valid
   end
 
   describe "is invalid when" do
-    it "name is not valid" do
-      invalid_name = { name: "", location: valid_attr[:location], working_hours: valid_attr[:working_hours] }
-      doctor = Doctor.new(invalid_name)
-      expect(doctor).not_to be_valid
+    example "name is not valid" do
+      invalid_name = ""
+
+      expect { doctor.update!(name: invalid_name) }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
-    it "location is not valid" do
-      invalid_location = { name: valid_attr[:name], location: nil, working_hours: valid_attr[:working_hours] }
-      doctor = Doctor.new(invalid_location)
-      expect(doctor).not_to be_valid
+    example "location is not valid" do
+      invalid_location = nil
+
+      expect { doctor.update!(location: invalid_location) }.to raise_error(ActiveRecord::RecordInvalid)
     end
 
-    it "working hours are not valid" do
-      invalid_hours = { name: valid_attr[:name], location: valid_attr[:location], working_hours:"1,025,36" }
-      doctor = Doctor.new(invalid_hours)
-      expect(doctor).not_to be_valid
+    example "working hours are not valid" do
+      invalid_hours = "1,025,36"
+
+      expect { doctor.update!(working_hours: invalid_hours) }.to raise_error(ActiveRecord::RecordInvalid)
     end
   end
 
-  it "provides the slots available for a doctor" do
-    doctor = Doctor.new(valid_attr)
+  it "should provide the slots available for a doctor" do
     date = "01/01/2099"
     slots = doctor.available_slots(date)
 
-    expect(slots).to eq(["01", "02", "03"])
+    expect(slots).to eq(["15", "16", "17"])
   end
 
-  it "provides the slots available over a period of time" do
-    doctor = Doctor.new(valid_attr)
+  it "should provide the slots available over a period of time" do
     slots = doctor.available_slots_for_range
 
     expect(slots.length).to eq(Constants::SCHEDULING_RANGE)

@@ -1,27 +1,27 @@
 require 'rails_helper'
 
-RSpec.describe "clients/new", type: :view do
-  before(:each) do
-    assign(:client, Client.new(
-      name: "MyString",
-      email: "MyString",
-      mobile_number: 1,
-      address: "MyText"
-    ))
+RSpec.describe "/clients", type: :request do
+  let!(:appointment) { create(:appointment) }
+  let(:rates) { Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, $fixer_client.convert(Constants::PRICE, c)] } }
+  before(:each) { get new_client_path(app_id: appointment.id, rates: rates) }
+
+  it "verifies the presence of an email entry field" do
+    email_field = /id="client_email"/
+    
+    expect(response.body).to match(email_field)
   end
 
-  it "renders new client form" do
-    render
+  it "verifies the presence of an currency entry field" do
+    tag = "for=\"client_currency_preference_"
 
-    assert_select "form[action=?][method=?]", clients_path, "post" do
+    buttons = Constants::ACCEPTED_CURRENCIES.map { |c| tag + c.downcase }
 
-      assert_select "input[name=?]", "client[name]"
+    buttons.each { |btn| expect(response.body).to match(btn) }
+  end
 
-      assert_select "input[name=?]", "client[email]"
+  it "verifies the presence of a submit button" do
+    button = /type="submit"/
 
-      assert_select "input[name=?]", "client[mobile_number]"
-
-      assert_select "textarea[name=?]", "client[address]"
-    end
+    expect(response.body).to match(button)
   end
 end

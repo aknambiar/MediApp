@@ -1,30 +1,38 @@
 require 'rails_helper'
 
-RSpec.describe "appointments/new", type: :view do
-  before(:each) do
-    assign(:appointment, Appointment.new(
-      date: "MyString",
-      time: "MyString",
-      paid_amount: 1,
-      doctor: nil,
-      client: nil
-    ))
+RSpec.describe "/appointments", type: :request do
+  let!(:doctor) { create(:doctor) }
+  before(:each) { get new_appointment_path(doctor_id: doctor.id) }
+
+  it "verifies the presence of an appointment-form tag" do
+    tag = /id="appointment-form"/
+
+    expect(response.body).to match(tag)
   end
 
-  it "renders new appointment form" do
-    render
+  context "when rendering the date picker partial" do
+    it "verifies the presence of a date picker carousel" do
+      tag = /id="date-picker"/
 
-    assert_select "form[action=?][method=?]", appointments_path, "post" do
+      expect(response.body).to match(tag)
+    end
 
-      assert_select "input[name=?]", "appointment[date]"
+    it "verifies the presence of buttons in the carousel" do
+      tag = /class="carousel-item"/
 
-      assert_select "input[name=?]", "appointment[time]"
+      expect(response.body).to match(tag)
+    end
 
-      assert_select "input[name=?]", "appointment[paid_amount]"
+    it "verifies the presence of time radio buttons" do
+      tag = /type="radio"/
 
-      assert_select "input[name=?]", "appointment[doctor_id]"
+      expect(response.body).to match(tag)
+    end
+    
+    it "verifies the presence of a submit button" do
+      tag = /type="submit"/
 
-      assert_select "input[name=?]", "appointment[client_id]"
+      expect(response.body).to match(tag)
     end
   end
 end

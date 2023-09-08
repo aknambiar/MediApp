@@ -15,7 +15,7 @@
           <div class="container-auto p-3 bg-white border border-black rounded">
             <div class="row g-0">
               <div class="col-auto me-4">
-                <%= image_tag(doctor.avatar, size: "77x77", style: "border-radius: 4px; background-color: lightgray;") %>
+                <%= image_tag(doctor.avatar, size: "77x77", style: "border-radius: 4px; background-color: lightgray;") if doctor.avatar.attached? %>
               </div>
               <div class="col-auto py-3 gy-2">
                 <div class="row g-0 fw-bolder"><%= doctor.name %></div>

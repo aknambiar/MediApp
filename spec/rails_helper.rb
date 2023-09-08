@@ -70,6 +70,8 @@ RSpec.configure do |config|
   # Enable ActiveJob matchers
   ActiveJob::Base.queue_adapter = :test
 
+  # require 'capybara/rails'
+
   require "factory_bot_rails"
   config.include FactoryBot::Syntax::Methods
 end

@@ -3,7 +3,7 @@ class ClientsController < ApplicationController
 
   # GET /clients/new
   def new
-    render partial: "form", locals: { app_id: params[:app_id], client: Client.new, rates: params[:rates] }
+    render :new, locals: { app_id: params[:app_id], rates: params[:rates] }
   end
 
     # GET /clients/1
@@ -26,9 +26,9 @@ class ClientsController < ApplicationController
       else
         @rates = Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, $fixer_client.convert(Constants::PRICE, c)] }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('client-form', partial: 'clients/form', locals: { app_id: params[:app_id], client: Client.new, rates: @rates }), status: :unprocessable_entity
+          render turbo_stream: turbo_stream.replace('client-form', partial: 'clients/form', locals: { app_id: params[:app_id], rates: @rates }), notice: :unprocessable_entity
         end
-        format.html { render :new, locals: { app_id: params[:app_id], client: Client.new, rates: @rates }, status: :unprocessable_entity }
+        format.html { render :new, locals: { app_id: params[:app_id], rates: @rates }, status: :unprocessable_entity }
       end
     end
   end

@@ -1,22 +1,27 @@
 require 'rails_helper'
 
-RSpec.describe "appointments/show", type: :view do
-  before(:each) do
-    assign(:appointment, Appointment.create!(
-      date: "Date",
-      time: "Time",
-      paid_amount: 2,
-      doctor: nil,
-      client: nil
-    ))
-  end
+RSpec.describe "/appointments", type: :request do
+  let!(:appointment) { create(:appointment) }
+  before(:each) { get appointment_path(appointment.id) }
 
-  it "renders attributes in <p>" do
-    render
-    expect(rendered).to match(/Date/)
-    expect(rendered).to match(/Time/)
-    expect(rendered).to match(/2/)
-    expect(rendered).to match(//)
-    expect(rendered).to match(//)
+  # it "verifies the presence of an appointment-form tag" do
+  #   tag = /id="appointment-form"/
+  #   expect(response.body).to match(tag)
+  # end
+
+  context "when rendering the success partial" do
+    it "verifies the presence of countdown fields" do
+      tag = 'id='
+
+      fields = Constants::COUNTDOWN_FIELDS.map { |c| tag + c }
+
+      fields.each { |field| expect(response.body).to match(field) }
+    end
+
+    it "verifies the presence of a My Appointments button" do
+      link = /href="\/appointments"/
+
+      expect(response.body).to match(link)
+    end
   end
 end

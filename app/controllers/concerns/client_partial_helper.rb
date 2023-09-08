@@ -12,11 +12,14 @@ class ClientPartialHelper
   end
 
   def update
-    Client.transaction do
-      success = @client.update(@client_params)
-      @update_params[:client_id] = @client.id
-      success = @appointment.update(@update_params) && success
-      success ? true : (raise ActiveRecord::Rollback)
+    begin
+      Client.transaction do
+        @client.update!(@client_params)
+        @update_params[:client_id] = @client.id
+        @appointment.update!(@update_params)
+      end
+    rescue ActiveRecord::RecordInvalid
+      return false
     end
   end
 

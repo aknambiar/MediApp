@@ -1,20 +1,27 @@
 require 'rails_helper'
 
-RSpec.describe "clients/show", type: :view do
-  before(:each) do
-    assign(:client, Client.create!(
-      name: "Name",
-      email: "Email",
-      mobile_number: 2,
-      address: "MyText"
-    ))
-  end
+RSpec.describe "/clients", type: :request do
+  let!(:appointment) { create(:appointment) }
 
-  it "renders attributes in <p>" do
-    render
-    expect(rendered).to match(/Name/)
-    expect(rendered).to match(/Email/)
-    expect(rendered).to match(/2/)
-    expect(rendered).to match(/MyText/)
+  context "when rendering the my appointments partial" do
+    before(:each) { get "/clients/#{appointment.client.id}" }
+
+    it "verifies the presence of appointment details" do
+      expect(response.body).to match(appointment.doctor.name)
+      expect(response.body).to match(appointment.doctor.location)
+      expect(response.body).to match("Rs #{appointment.paid_amount.to_s}/-")
+    end
+
+    it "verifies the presence of a download button" do
+      link = Regexp.escape("/appointments/download?")
+
+      expect(response.body).to match(link)
+    end
+
+    it "verifies the presence of a cancel button" do
+      tag = /value="delete"/
+
+      expect(response.body).to match(tag)
+    end
   end
 end
