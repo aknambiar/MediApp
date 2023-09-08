@@ -6,7 +6,7 @@ RSpec.describe "/clients", type: :request do
 
   describe "GET /new" do
     it "renders a successful response" do
-      rates = Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, $fixer_client.convert(Constants::PRICE, c)] }
+      rates = Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, FixerAPI.new.convert(Constants::PRICE, c)] }
       get new_client_path(app_id: appointment.id, client: Client.new, rates: rates)
       expect(response).to be_successful
     end

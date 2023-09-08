@@ -1,5 +1,14 @@
-module InvoiceDownloader
-  def self.generate_invoice(id)
+class InvoiceDownloader
+  def generate_file(format, id)
+    content = generate_invoice(id)
+    path = "storage/invoices/#{id}.#{format}"
+    send(format, path, content)
+    path
+  end
+
+  private
+
+  def generate_invoice(id)
     appointment = Appointment.find(id)
     currency = appointment.client.currency_preference
     paid_amount = $fixer_client.convert(appointment.paid_amount, currency)
@@ -12,26 +21,19 @@ module InvoiceDownloader
       paid_amount: "#{paid_amount} #{currency}" }
   end
 
-  def self.generate_file(format, id)
-    content = generate_invoice(id)
-    path = "storage/invoices/#{id}.#{format}"
-    self.send(format, path, content)
-    path
-  end
-
-  def self.csv(path, content)
+  def csv(path, content)
     IO.write(path, content.keys.join(', ')+"\n")
     IO.write(path, content.values.join(', '), mode: 'a')
   end
 
-  def self.pdf(path, content)
+  def pdf(path, content)
     Prawn::Document.generate(path) do
       text content.keys.join(' ')
       text content.values.join(' ')
     end
   end
 
-  def self.txt(path,content)
+  def txt(path,content)
     IO.write(path, content.keys.join(' ')+"\n")
     IO.write(path, content.values.join(' '), mode: 'a')
   end

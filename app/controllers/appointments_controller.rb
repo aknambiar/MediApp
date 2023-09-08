@@ -66,7 +66,7 @@ class AppointmentsController < ApplicationController
   end
 
   def download
-    send_file InvoiceDownloader.generate_file(params[:format], params[:id]), filename: "invoice.#{params[:format]}", disposition: 'attachment' if Constants::DOWNLOAD_FORMATS.include?(params[:format])
+    send_file InvoiceDownloader.new.generate_file(params[:format], params[:id]), filename: "invoice.#{params[:format]}", disposition: 'attachment' if Constants::DOWNLOAD_FORMATS.include?(params[:format])
   end
 
   private
