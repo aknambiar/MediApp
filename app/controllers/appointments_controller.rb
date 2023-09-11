@@ -4,6 +4,7 @@ class AppointmentsController < ApplicationController
   # GET /appointments or /appointments.json
   def index
     @appointments = Appointment.all
+    @email = cookies[:email] || nil
   end
 
   # GET /appointments/1 or /appointments/1.json
@@ -52,6 +53,7 @@ class AppointmentsController < ApplicationController
   def list
     @email = params[:email]
     @client = Client.find_by(email: @email)
+    cookies.permanent[:email] = @email
 
     respond_to do |format|
       if @client

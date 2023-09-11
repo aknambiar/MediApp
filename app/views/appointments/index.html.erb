@@ -11,7 +11,7 @@
   <%= form_tag(list_appointment_path) do %>
     <div class="row">
       <div class="col col-lg-5 mx-auto">
-        <%= email_field_tag :email, nil, class: "form-control py-3 border border-2 fs-6" %>
+        <%= email_field_tag :email, @email , class: "form-control py-3 border border-2 fs-6" %>
       </div>
     </div>
     <% if response.response_code == 422 %>

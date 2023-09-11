@@ -14,6 +14,7 @@ class ClientsController < ApplicationController
   # POST /clients or /clients.json
   def create
     @client_helper = ClientPartialHelper.new(client_params, params)
+    cookies.permanent[:email] = client_params[:email]
     @payment_processor = PaymentProcessor.new.pay
 
     respond_to do |format|
