@@ -1,7 +1,7 @@
 class InvoiceDownloader
   def generate_file(format, id)
     content = generate_invoice(id)
-    path = "storage/invoices/#{id}.#{format}"
+    path = "#{Constants::INVOICE_SAVE_PATH}/#{id}.#{format}"
     send(format, path, content)
     path
   end

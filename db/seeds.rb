@@ -14,27 +14,27 @@ ActiveRecord::Base.connection.disable_referential_integrity do
 end
 
 Doctor.create!(name: 'Neha Kakkar', location: 'Mumbai').avatar.attach(
-    io: File.open('storage/seed_avatars/img1.png'),
+    io: File.open('db/seed_avatars/img1.png'),
     filename: 'img1.png'
   )
 Doctor.create!(name: 'Rhea Mhatre', location: 'Delhi', working_hours: "12,14,15,16,17,20").avatar.attach(
-    io: File.open('storage/seed_avatars/img2.png'),
+    io: File.open('db/seed_avatars/img2.png'),
     filename: 'img2.png'
   )
 Doctor.create!(name: 'Neha Kakkar', location: 'Bangalore').avatar.attach(
-    io: File.open('storage/seed_avatars/img1.png'),
+    io: File.open('db/seed_avatars/img1.png'),
     filename: 'img1.png'
   )
 Doctor.create!(name: 'Rhea Mhatre', location: 'Hyderabad').avatar.attach(
-    io: File.open('storage/seed_avatars/img2.png'),
+    io: File.open('db/seed_avatars/img2.png'),
     filename: 'img2.png'
   )
 Doctor.create!(name: 'Neha Kakkar', location: 'Chennai').avatar.attach(
-    io: File.open('storage/seed_avatars/img1.png'),
+    io: File.open('db/seed_avatars/img1.png'),
     filename: 'img1.png'
   )
 Doctor.create!(name: 'Rhea Mhatre', location: 'Bangalore').avatar.attach(
-    io: File.open('storage/seed_avatars/img2.png'),
+    io: File.open('db/seed_avatars/img2.png'),
     filename: 'img2.png'
   )
 

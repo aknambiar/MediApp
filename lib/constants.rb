@@ -5,4 +5,5 @@ module Constants
   COUNTDOWN_FIELDS = ["Days", "Hours", "Mins", "Secs"]
   DOWNLOAD_FORMATS = ["csv", "txt", "pdf"]
   CANCEL_TIME_LIMIT = 30
+  INVOICE_SAVE_PATH = "storage/invoices"
 end
