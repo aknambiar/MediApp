@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <% if response.response_code == 422 %>
+  <% if flash.notice %>
       <div class="row">
         <div class="col col-lg-5 mx-auto px-4 text-danger">
           <%= t('error_message') %>

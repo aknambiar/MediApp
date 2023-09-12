@@ -27,7 +27,8 @@ class ClientsController < ApplicationController
       else
         @rates = Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, $fixer_client.convert(Constants::PRICE, c)] }
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('client-form', partial: 'clients/form', locals: { app_id: params[:app_id], rates: @rates }), notice: :unprocessable_entity
+          flash.now[:notice] = true
+          render turbo_stream: turbo_stream.replace('client-form', partial: 'clients/form', locals: { app_id: params[:app_id], rates: @rates })
         end
         format.html { render :new, locals: { app_id: params[:app_id], rates: @rates }, status: :unprocessable_entity }
       end
