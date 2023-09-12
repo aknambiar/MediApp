@@ -17,6 +17,10 @@ class Appointment < ApplicationRecord
     "#{time}:00".to_time.strftime("%l:%M %p")
   end
 
+  def amount_in_original_currency
+    paid_amount * exchange_rate
+  end
+
   private
 
   def date_format

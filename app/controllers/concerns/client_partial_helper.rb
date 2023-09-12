@@ -5,18 +5,13 @@ class ClientPartialHelper
     @client_params = client_params
     @client = Client.find_or_initialize_by(email: client_params[:email])
     @appointment = Appointment.find(params[:app_id])
-
-    @update_params = { paid_amount: Constants::PRICE,
-                       paid: true,
-                       exchange_rate: $fixer_client.rates[@client.currency_preference] }
   end
 
   def update
     begin
       Client.transaction do
         @client.update!(@client_params)
-        @update_params[:client_id] = @client.id
-        @appointment.update!(@update_params)
+        @appointment.update!(update_params)
       end
     rescue ActiveRecord::RecordInvalid
       return false
@@ -32,5 +27,17 @@ class ClientPartialHelper
 
   def get_date_and_time
     { date: @appointment.date, time: @appointment.time }
+  end
+
+  private 
+
+  def update_params
+    currency = @client.currency_preference
+
+    { paid_amount: Constants::PRICE,
+      client_id: @client.id,
+      paid: true,
+      exchange_rate: $fixer_client.rates[currency],
+      currency: currency }
   end
 end

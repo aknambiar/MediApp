@@ -1,5 +1,6 @@
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[ show edit update destroy ]
+  before_action :cookie_login, only: :index
 
   # GET /appointments or /appointments.json
   def index
@@ -80,5 +81,9 @@ class AppointmentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def appointment_params
       params.require(:appointment).permit(:date, :time, :paid_amount, :doctor_id, :client_id)
+    end
+
+    def cookie_login
+      # redirect_to list_appointment_path(email: cookies[:email]), method: :post if cookies[:email]
     end
 end

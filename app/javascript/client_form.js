@@ -22,7 +22,8 @@ class ClientForm {
 
     addSubmitButtonSpinner() {
         let spinner = this.paymentButton.nextElementSibling
-        this.paymentButton.addEventListener('click', (event) => {
+        let form = document.querySelector('form');
+        form.addEventListener('submit', (event) => {
             this.paymentButton.classList.add("d-none")
             spinner.classList.remove("d-none")
       })
