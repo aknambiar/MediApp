@@ -34,7 +34,7 @@
       <div class="col col-lg-6 row mx-auto g-0">
         <% Constants::ACCEPTED_CURRENCIES.each do |currency| %>
           <div class="col-4 g-3 currency-buttons">
-            <%= form.radio_button :currency_preference , currency, { class: "btn-check", rate: "#{rates[currency]}" } %>
+            <%= form.radio_button :currency_preference , currency, { class: "btn-check", rate: "#{rates[currency]}", checked: currency == "INR" } %>
             <%= form.label :currency_preference, currency, value: currency , class: "btn btn-outline-primary w-100" %>
           </div>
         <% end %>
