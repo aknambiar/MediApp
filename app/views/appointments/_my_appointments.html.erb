@@ -3,7 +3,7 @@
         <div class="col-auto d-lg-none">
             <%= image_tag('arrow-left.svg') %>
         </div>
-        <div class="col text-center d-none d-lg-block fs-3 fw-bolder">
+        <div class="col text-center d-none d-lg-block fs-4 fw-bolder">
             <%= t('my_appointments') %>
         </div>
         <div class="col-auto text-center d-lg-none fs-5">
@@ -11,21 +11,21 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row col-12 mx-auto justify-content-center gap-5">
         <% appointments.each do | app | %>
-            <div class="col-11 col-lg-5 bg-white shadow rounded py-4 mx-auto my-3">
-                <div class="row g-0">
+            <div class="col-12 col-lg-5 bg-white shadow-sm rounded px-3 py-5 my-3">
+                <div class="row g-0 pt-3">
                     <div class="col-auto me-3">
                         <%= image_tag(app.doctor.avatar, size: "77x77", style: "border-radius: 4px; background-color: lightgray;") if app.doctor.avatar.attached? %>
                     </div>
-                    <div class="col-auto py-3 gy-2">
-                        <div class="row g-0 fw-bolder"><%= app.doctor.name %></div>
-                        <div class="row g-0 fs-7 grey-font"><%= app.doctor.location %></div>
+                    <div class="col-auto">
+                        <div class="row g-0 fw-bolder mb-2"><%= app.doctor.name %></div>
+                        <div class="row g-0"><%= app.doctor.location %></div>
                     </div>
                 </div>
 
                 <div class="row g-0 my-4">
-                    <div class="col">
+                    <div class="col fs-7 grey-font">
                         <%= t('.consultation_details') %>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     </div>
                 </div>
 
-                <div class="row g-0 mt-5 mb-4">
+                <div class="row g-0 mt-5 mb-4 pt-3">
                     <div class="col">
                         <%= t('.download_invoice') %>
                     </div>
@@ -58,13 +58,13 @@
                 <div class="row g-0 mb-5 gx-3">
                     <% Constants::DOWNLOAD_FORMATS.each do |format| %>
                         <div class="col-auto">
-                            <%= link_to "#{format.upcase}", download_appointment_path(request.params.merge(format: format, id: app.id)), class: "btn btn-dark py-0  fw-light fs-7" %>
+                            <%= link_to "#{format.upcase}", download_appointment_path(request.params.merge(format: format, id: app.id)), class: "btn btn-dark py-1 px-4 fw-light fs-7" %>
                         </div>
                     <% end %>
                 </div>
 
-                <div class="row g-0 mt-5 mb-4">
-                    <div class="col row bg-info p-3 rounded g-0">
+                <div class="row g-0 mt-5 mb-4 pt-3">
+                    <div class="col row bg-amt-paid p-3 rounded g-0">
                         <div class="col-auto me-auto fw-light">
                             <%= t('.amount_paid') %>
                         </div>
