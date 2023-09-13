@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   scope '(:locale)' do
     get 'appointments/download', to: 'appointments#download', as: 'download_appointment'
     post 'appointments/list', to: 'appointments#list', as: 'list_appointment'
+    get 'appointments/list', to: 'appointments#list', as: 'get_list_appointment'
 
     resources :clients
     resources :doctors

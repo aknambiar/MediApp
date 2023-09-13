@@ -84,6 +84,6 @@ class AppointmentsController < ApplicationController
     end
 
     def cookie_login
-      # redirect_to list_appointment_path(email: cookies[:email]), method: :post if cookies[:email]
+      redirect_to get_list_appointment_path(email: cookies[:email]) if cookies[:email]
     end
 end
