@@ -1,4 +1,5 @@
 $spacer: 10px;
+$enable-negative-margins: true;
 
 $font-weight-semibold:        500;
 $font-weight-bold:            600;
@@ -45,6 +46,10 @@ $position-values: (
 
 .fs-9 { 
     font-size: $font-size-base * 1.375;
+}
+
+.fs-10 { 
+    font-size: $font-size-base * 1.125;
 }
 
 .grey-font {

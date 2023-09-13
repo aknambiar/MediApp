@@ -1,33 +1,33 @@
 <div class="row">
-  <div class="col col-lg-10 mx-auto">
-    <div class="row g-0 my-3">
+  <div class="col col-lg-11 mx-auto px-5">
+    <div class="row g-0 my-4 mx-n2">
       <div class="col-auto lh-sm">
         <%= image_tag('stethoscope.svg') %>
       </div>
-      <div class="col-auto my-auto fs-5 fw-semibold mx-3">
+      <div class="col-auto my-auto fs-10 fw-semibold mx-3">
         <%= t('.title') %>
       </div>
     </div>
 
-    <div class="row gy-4 gx-5" id="doctors">
+    <div class="row gy-4 gx-5 mx-n5 px-3 mt-2" id="doctors">
       <% @doctors.each_with_index do |doctor, index| %>
-        <div class="col-12 col-lg-6">
+        <div class="col-12 col-lg-6 py-2">
           <div class="container-auto p-3 bg-white border border-black rounded">
             <div class="row g-0">
               <div class="col-auto me-4">
                 <%= image_tag(doctor.avatar, size: "77x77", style: "border-radius: 4px; background-color: lightgray;") if doctor.avatar.attached? %>
               </div>
-              <div class="col-auto py-3 gy-2">
+              <div class="col-auto py-2 gy-2">
                 <div class="row g-0 fw-bolder"><%= doctor.name %></div>
-                <div class="row g-0 fs-7 grey-font"><%= doctor.location %></div>
+                <div class="row g-0 mt-2 fs-7 grey-font"><%= doctor.location %></div>
               </div>
             </div>
 
-            <div class="row g-0">
+            <div class="row g-0 mt-2">
               <div class="col-auto row py-3 g-1 fs-8">
-                <div class="col-auto fw-semibold lime-green-font"> <%= t('.next_available') %></div>
+                <div class="col-auto fw-bold lime-green-font"> <%= t('.next_available') %></div>
                 <div class="col-auto grey-font"> - </div>
-                <div class="col-auto fw-light grey-font"><%= "#{@next_available[index]}" %></div>
+                <div class="col-auto grey-font"><%= "#{@next_available[index]}" %></div>
               </div>
               <div class="col-auto ms-auto">
                 <%= link_to t('.book_visit'),new_appointment_path(doctor_id: doctor.id) ,class: 'btn btn-primary btn-block py-3 px-5 fs-7 fw-bolder' %>
