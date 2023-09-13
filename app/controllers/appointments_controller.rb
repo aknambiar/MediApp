@@ -15,7 +15,7 @@ class AppointmentsController < ApplicationController
   # GET /appointments/new
   def new
     @doctor = Doctor.find(params[:doctor_id])
-    @slots = @doctor.available_slots_for_range.map { |slot| slot.map { |time| "#{time}:00".to_time.strftime('%l:%M %p') if time } }
+    @slots = @doctor.available_slots_for_range
     @dates = (DateRadioButton.today...DateRadioButton.today + Constants::SCHEDULING_RANGE).zip(@slots).to_h.reject { |_date, slot| slot.empty? if slot }
     @date_radio_options = @dates.keys
 

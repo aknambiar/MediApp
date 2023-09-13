@@ -1,7 +1,7 @@
 <div id="client-form" class="px-3"> 
   <div class="d-none d-lg-block py-5 my-4"></div>
 
-  <div class="col col-lg-6 row gx-2 mx-auto mt-2">
+  <div class="col col-lg-6 row gx-2 mx-auto my-5">
     <div class="col my-auto fw-bold fs-4 text-center">
       <%= t('.title') %>
     </div>
@@ -18,20 +18,20 @@
   <%= form_with(model: Client) do |form| %>
     <%= hidden_field_tag :app_id, app_id %>
     <div class="row">
-      <div class="col col-lg-6 row gx-2 mx-auto">
-        <%= form.label :email, style: "display: block", class: "form-label" %>
-        <%= form.email_field :email, value: cookies[:email] || nil, class: "form-control py-4 border border-2 fs-6", placeholder: t('email_entry') %>
+      <div class="col col-lg-5 row gx-2 mx-auto mt-2">
+        <%= form.label :email, style: "display: block", class: "form-label fw-bold" %>
+        <%= form.email_field :email, value: cookies[:email] || nil, class: "form-control py-4 border border-2 rounded-3", placeholder: t('email_entry') %>
       </div>
     </div>
 
-    <div class="row g-0 mx-auto mt-5">
-      <div class="col col-lg-6 mx-auto">
+    <div class="row g-0 mx-auto mt-5 mb-3">
+      <div class="col col-lg-5 mx-auto fw-bold">
         <%= t('.currency_selector') %>
       </div>
     </div>
 
     <div class="row">
-      <div class="col col-lg-6 row mx-auto g-0">
+      <div class="col col-lg-5 row mx-auto g-0">
         <% Constants::ACCEPTED_CURRENCIES.each do |currency| %>
           <div class="col-4 g-3 currency-buttons">
             <%= form.radio_button :currency_preference , currency, { class: "btn-check", rate: "#{rates[currency]}", checked: currency == "INR" } %>
@@ -42,9 +42,9 @@
     </div>
 
     <div class="row my-4">
-      <div class="col col-lg-6 mx-auto mt-5 g-0">
-        <%= form.submit t('.default_payment', amount:Constants::PRICE ), class:"btn btn-primary w-100 py-4 payment" %>
-        <div class="btn btn-primary w-100 py-3 d-none">
+      <div class="col col-lg-5 mx-auto mt-4 g-0">
+        <%= form.submit t('.default_payment', amount:Constants::PRICE ), class:"btn btn-primary w-100 py-4 fs-7 payment fw-bolder" %>
+        <div class="btn btn-primary w-100 py-2 d-none">
           <div class="spinner-border text-light"></div>
         </div>
       </div>
