@@ -4,7 +4,7 @@ class ClientPartialHelper
   def initialize(client_params, params)
     @client_params = client_params
     @client = Client.find_or_initialize_by(email: client_params[:email])
-    @appointment = Appointment.find(params[:app_id])
+    @appointment = Appointment.find(params[:appointment_id])
   end
 
   def update
@@ -18,11 +18,10 @@ class ClientPartialHelper
     end
   end
 
-  def schedule_email(appointment_id)
-    appointment = Appointment.find(appointment_id)
+  def schedule_email
     # send_time = appointment.get_datetime.asctime.in_time_zone("Kolkata") + 2.hours
     send_time = DateTime.now + 10.seconds
-    MailSchedulerJob.set(wait_until: send_time).perform_later(appointment_id)
+    MailSchedulerJob.set(wait_until: send_time).perform_later(@appointment.id)
   end
 
   def get_date_and_time
@@ -32,6 +31,7 @@ class ClientPartialHelper
   private 
 
   def update_params
+    # Do we still need to store the currency preference in the Client model?
     currency = @client.currency_preference
 
     { paid_amount: Constants::PRICE,

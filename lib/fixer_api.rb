@@ -24,7 +24,7 @@ class FixerAPI
   end
 
   def fetch_rates
-    api_key = "bb8b71f880ef7ddb32808b759c7d37ab"
+    api_key = Rails.application.credentials.fixer.api_key
     uri = URI("http://data.fixer.io/api/latest")
     uri.query = URI.encode_www_form({ access_key: api_key })
 

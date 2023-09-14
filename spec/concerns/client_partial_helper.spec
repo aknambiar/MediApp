@@ -4,7 +4,7 @@ RSpec.describe ClientPartialHelper do
   before(:all) do
     @appointment = create(:appointment)
     client_params = { email: "mail@test.com", currency_preference: "USD" }
-    params = { app_id: @appointment.id }
+    params = { appointment_id: @appointment.id }
     @client_helper = ClientPartialHelper.new(client_params, params)
   end
 

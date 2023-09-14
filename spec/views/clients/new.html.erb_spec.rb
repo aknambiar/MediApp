@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "/clients", type: :request do
   let!(:appointment) { create(:appointment) }
   let(:rates) { Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, FixerAPI.new.convert(Constants::PRICE, c)] } }
-  before(:each) { get new_client_path(app_id: appointment.id, rates: rates) }
+  before(:each) { get new_client_path(appointment_id: appointment.id, rates: rates) }
 
   it "verifies the presence of an email entry field" do
     email_field = /id="client_email"/

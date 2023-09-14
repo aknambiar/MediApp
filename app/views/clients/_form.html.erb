@@ -16,7 +16,7 @@
   <% end %>
 
   <%= form_with(model: Client) do |form| %>
-    <%= hidden_field_tag :app_id, app_id %>
+    <%= hidden_field_tag :appointment_id, appointment_id %>
     <div class="row">
       <div class="col col-lg-5 row gx-2 mx-auto mt-2">
         <%= form.label :email, style: "display: block", class: "form-label fw-bold" %>

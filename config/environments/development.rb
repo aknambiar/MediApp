@@ -83,8 +83,8 @@ Rails.application.configure do
     port: 587,
     domain: "smtp.google.com",
     authentication: "login",
-    user_name: "mediappmail@gmail.com",
-    password: "aghchotuwzqsemzo",
+    user_name: Rails.application.credentials.mail.username,
+    password: Rails.application.credentials.mail.password,
     enable_starttls_auto: true,
     openssl_verify_mode: "none"
     }

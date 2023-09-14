@@ -19,12 +19,19 @@ class Doctor < ApplicationRecord
 
   def available_slots_for_range
     dates = (Date.today...Date.today + Constants::SCHEDULING_RANGE).map { |date| date.strftime('%d/%m/%Y') }
-    dates.map { |date| available_slots(date) }
+    dates.map! { |date| available_slots(date) }
+    (DateRadioButton.today...DateRadioButton.today + Constants::SCHEDULING_RANGE).zip(dates).to_h.reject { |_date, slot| slot.empty? if slot }
+  end
+
+  def next_available
+    date_today = Date.today.strftime('%d/%m/%Y')
+    available_slots(date_today).first
   end
 
   private
 
   def booked_slots(date)
+    # Why not access the appointments via the association?
     Appointment.where(doctor: id, date: date).map(&:time)
   end
 end

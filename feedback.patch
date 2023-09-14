@@ -1,0 +1,150 @@
+diff --git a/app/controllers/appointments_controller.rb b/app/controllers/appointments_controller.rb
+index 9d41112..6e0a612 100644
+--- a/app/controllers/appointments_controller.rb
++++ b/app/controllers/appointments_controller.rb
+@@ -15,7 +15,9 @@ class AppointmentsController < ApplicationController
+   # GET /appointments/new
+   def new
+     @doctor = Doctor.find(params[:doctor_id])
++    # Where do we use @slots? in the views, we can demote this to just a variable
+     @slots = @doctor.available_slots_for_range
++    # Do we need to do this here? why not move the logic below to the model method `available_slots_for_range`
+     @dates = (DateRadioButton.today...DateRadioButton.today + Constants::SCHEDULING_RANGE).zip(@slots).to_h.reject { |_date, slot| slot.empty? if slot }
+     @date_radio_options = @dates.keys
+ 
+@@ -32,6 +34,7 @@ class AppointmentsController < ApplicationController
+         format.turbo_stream do
+           render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { app_id: @appointment.id, client: Client.new, rates: @rates })
+         end
++        # Why status :unprocessable_entity?
+         format.html { render template: 'clients/new', locals: { app_id: @appointment.id, client: Client.new, rates: @rates }, status: :unprocessable_entity}
+       else
+         format.html { redirect_to new_appointment_path, notice: @appointment.errors }
+@@ -51,6 +54,7 @@ class AppointmentsController < ApplicationController
+     end
+   end
+ 
++  # Can move this to index action?
+   def list
+     @email = params[:email]
+     @client = Client.find_by(email: @email)
+@@ -69,6 +73,7 @@ class AppointmentsController < ApplicationController
+   end
+ 
+   def download
++    # Can we use the appointment id for the filename?
+     send_file InvoiceDownloader.new.generate_file(params[:format], params[:id]), filename: "invoice.#{params[:format]}", disposition: 'attachment' if Constants::DOWNLOAD_FORMATS.include?(params[:format])
+   end
+ 
+diff --git a/app/controllers/clients_controller.rb b/app/controllers/clients_controller.rb
+index e7599a4..288f22d 100644
+--- a/app/controllers/clients_controller.rb
++++ b/app/controllers/clients_controller.rb
+@@ -3,6 +3,8 @@ class ClientsController < ApplicationController
+ 
+   # GET /clients/new
+   def new
++    # Can you rename app_id to appointment_id everywhere?
++    # Can we fetch the rates here instead of fetching them in the appointments controller and then passing them here?
+     render :new, locals: { app_id: params[:app_id], rates: params[:rates] }
+   end
+ 
+@@ -14,11 +16,13 @@ class ClientsController < ApplicationController
+   # POST /clients or /clients.json
+   def create
+     @client_helper = ClientPartialHelper.new(client_params, params)
++    # Let us set the cookies only if the payment is done and client is updated
+     cookies.permanent[:email] = client_params[:email]
+     @payment_processor = PaymentProcessor.new.pay
+ 
+     respond_to do |format|
+       if @client_helper.update && @payment_processor
++        # No need to send the appointment id here when we initialized the helper with the appointment ID?
+         @client_helper.schedule_email(params[:app_id])
+         format.turbo_stream do
+           render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: @client_helper.get_date_and_time)
+diff --git a/app/controllers/concerns/client_partial_helper.rb b/app/controllers/concerns/client_partial_helper.rb
+index b35eed2..9304f89 100644
+--- a/app/controllers/concerns/client_partial_helper.rb
++++ b/app/controllers/concerns/client_partial_helper.rb
+@@ -32,6 +32,7 @@ class ClientPartialHelper
+   private 
+ 
+   def update_params
++    # Do we still need to store the currency preference in the Client model?
+     currency = @client.currency_preference
+ 
+     { paid_amount: Constants::PRICE,
+diff --git a/app/controllers/doctors_controller.rb b/app/controllers/doctors_controller.rb
+index 499c9ab..6f68b95 100644
+--- a/app/controllers/doctors_controller.rb
++++ b/app/controllers/doctors_controller.rb
+@@ -1,7 +1,10 @@
+ class DoctorsController < ApplicationController
+   def index
+     @doctors = Doctor.all
++    # Why do we need to get the date in this format? why not just forward the date object?
+     date_today = Date.today.strftime('%d/%m/%Y')
++    # Refactor this so that we create a instance method on model method that returns the next available slot for a doctor
++    # and move the parsing of the time to the view helpers
+     @next_available = @doctors.map { |doctor| doctor.available_slots(date_today).first }
+       .map { |time| time ? "#{time}:00".to_time.strftime('%l:%M %p') : "N/A" }
+   end
+diff --git a/app/models/appointment.rb b/app/models/appointment.rb
+index dc3653f..e2c62c2 100644
+--- a/app/models/appointment.rb
++++ b/app/models/appointment.rb
+@@ -30,7 +30,7 @@ class Appointment < ApplicationRecord
+   def time_format
+     errors.add(:time, "Invalid Time") unless time.to_i.between?(1, 24)
+   end
+-
++# Extra whitespace
+ 
+   def appointment_not_in_the_past
+     if Date.safe_parse(date) && time.to_i.between?(1, 24)
+diff --git a/app/models/doctor.rb b/app/models/doctor.rb
+index eba079e..60f3d58 100644
+--- a/app/models/doctor.rb
++++ b/app/models/doctor.rb
+@@ -25,6 +25,7 @@ class Doctor < ApplicationRecord
+   private
+ 
+   def booked_slots(date)
++    # Why not access the appointments via the association?
+     Appointment.where(doctor: id, date: date).map(&:time)
+   end
+ end
+diff --git a/app/services/invoice_downloader.rb b/app/services/invoice_downloader.rb
+index 6a8fdf2..dbe10bf 100644
+--- a/app/services/invoice_downloader.rb
++++ b/app/services/invoice_downloader.rb
+@@ -1,4 +1,6 @@
+ class InvoiceDownloader
++  # here using just the variable id is confusing, can we use more explicit names like appointment_id?
++  # You can make that change all places in this file
+   def generate_file(format, id)
+     content = generate_invoice(id)
+     path = "#{Constants::INVOICE_SAVE_PATH}/#{id}.#{format}"
+@@ -10,7 +12,9 @@ class InvoiceDownloader
+ 
+   def generate_invoice(id)
+     appointment = Appointment.find(id)
++    # We should update this to use the appointment's currency
+     currency = appointment.client.currency_preference
++    # We should not use the fixer client here, we should use the exchange rate stored in the appointment
+     paid_amount = $fixer_client.convert(appointment.paid_amount, currency)
+     { id: appointment.id,
+       email: appointment.client.email,
+diff --git a/config/environments/development.rb b/config/environments/development.rb
+index 6991338..448acaf 100644
+--- a/config/environments/development.rb
++++ b/config/environments/development.rb
+@@ -83,6 +83,7 @@ Rails.application.configure do
+     port: 587,
+     domain: "smtp.google.com",
+     authentication: "login",
++    # Move the following two to environment variables or use the Rails credentials 
+     user_name: "mediappmail@gmail.com",
+     password: "aghchotuwzqsemzo",
+     enable_starttls_auto: true,

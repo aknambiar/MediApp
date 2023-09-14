@@ -15,8 +15,7 @@ class AppointmentsController < ApplicationController
   # GET /appointments/new
   def new
     @doctor = Doctor.find(params[:doctor_id])
-    @slots = @doctor.available_slots_for_range
-    @dates = (DateRadioButton.today...DateRadioButton.today + Constants::SCHEDULING_RANGE).zip(@slots).to_h.reject { |_date, slot| slot.empty? if slot }
+    @dates = @doctor.available_slots_for_range
     @date_radio_options = @dates.keys
 
     @appointment = Appointment.new
@@ -30,9 +29,9 @@ class AppointmentsController < ApplicationController
     respond_to do |format|
       if @appointment.save
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { app_id: @appointment.id, client: Client.new, rates: @rates })
+          render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { appointment_id: @appointment.id, client: Client.new, rates: @rates })
         end
-        format.html { render template: 'clients/new', locals: { app_id: @appointment.id, client: Client.new, rates: @rates }, status: :unprocessable_entity}
+        format.html { redirect_to new_client_path(appointment_id: @appointment.id, client: Client.new, rates: @rates) }
       else
         format.html { redirect_to new_appointment_path, notice: @appointment.errors }
       end
@@ -51,6 +50,7 @@ class AppointmentsController < ApplicationController
     end
   end
 
+  # Can move this to index action?
   def list
     @email = params[:email]
     @client = Client.find_by(email: @email)
@@ -69,7 +69,7 @@ class AppointmentsController < ApplicationController
   end
 
   def download
-    send_file InvoiceDownloader.new.generate_file(params[:format], params[:id]), filename: "invoice.#{params[:format]}", disposition: 'attachment' if Constants::DOWNLOAD_FORMATS.include?(params[:format])
+    send_file InvoiceDownloader.new.generate_file(params[:format], params[:id]), filename: "#{params[:id]}.#{params[:format]}", disposition: 'attachment' if Constants::DOWNLOAD_FORMATS.include?(params[:format])
   end
 
   private
