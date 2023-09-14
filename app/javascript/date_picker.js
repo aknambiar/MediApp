@@ -45,14 +45,14 @@ class DatePicker {
 
     setUnderline(target) {
         if (window.screen.width > 992 ){
-            this.carouselButtons.forEach((button) => button.parentNode.classList.remove ("border", "border-primary", "border-5", "rounded", "fw-bolder", "fs-7"));
+            this.carouselButtons.forEach((button) => button.parentNode.classList.remove ("border", "border-primary", "border-5", "rounded", "fw-bolder", "fs-7", "bg-carousel"));
             this.carouselButtons.forEach((button) => button.parentNode.classList.add ("border-bottom", "border-3", "fs-10"));
             target.parentNode.classList.add ("border-bottom", "border-primary", "border-5", "fw-bolder");
         }
         else {
-            this.carouselButtons.forEach((button) => button.parentNode.classList.remove ("border-bottom", "border-3", "border-primary", "border-5", "fw-bolder", "fs-10"));
+            this.carouselButtons.forEach((button) => button.parentNode.classList.remove ("border-bottom", "border-3", "border-primary", "border-5", "fw-bolder", "fs-10", "bg-carousel"));
             this.carouselButtons.forEach((button) => button.parentNode.classList.add ("border", "rounded", "fs-7"));
-            target.parentNode.classList.add ("border-primary");
+            target.parentNode.classList.add ("border-primary", "bg-carousel");
         }
     }
 
