@@ -58,6 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_12_052204) do
     t.string "email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "currency_preference", default: "INR"
   end
 
   create_table "doctors", force: :cascade do |t|

@@ -2,7 +2,7 @@ class Client < ApplicationRecord
   has_many :appointments, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
-  validate :email_format, 
+  validate :email_format, :supported_currency
 
   private
 
