@@ -9,7 +9,7 @@ RSpec.describe "/clients", type: :request do
     it "verifies the presence of appointment details" do
       expect(response.body).to match(appointment.doctor.name)
       expect(response.body).to match(appointment.doctor.location)
-      expect(response.body).to match("Rs #{appointment.paid_amount.to_s}/-")
+      expect(response.body).to match("5.00 USD")
     end
 
     it "verifies the presence of a download button" do

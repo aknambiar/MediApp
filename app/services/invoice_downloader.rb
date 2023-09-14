@@ -13,7 +13,6 @@ class InvoiceDownloader
   def generate_invoice(id)
     appointment = Appointment.find(id)
     currency = appointment.currency
-    # We should not use the fixer client here, we should use the exchange rate stored in the appointment
     paid_amount = $fixer_client.convert(appointment.paid_amount, currency)
     { id: appointment.id,
       email: appointment.client.email,

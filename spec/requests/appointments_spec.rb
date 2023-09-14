@@ -38,9 +38,10 @@ RSpec.describe "/appointments", type: :request do
       end
 
       it "renders clients/new" do
+        target = Regexp.new(Regexp.escape(new_client_path))
         post appointments_url, params: { appointment: valid_attributes }
-
-        expect(response).to render_template('clients/new')
+        
+        expect(response).to redirect_to target
       end
     end
 

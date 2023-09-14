@@ -11,6 +11,8 @@ FactoryBot.define do
     doctor factory: :doctor
     client factory: :client
     paid_amount { 500 }
+    currency { "USD" }
+    exchange_rate { 0.01 }
   end
 
   factory :client do

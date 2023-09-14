@@ -31,7 +31,6 @@ class Doctor < ApplicationRecord
   private
 
   def booked_slots(date)
-    # Why not access the appointments via the association?
-    Appointment.where(doctor: id, date: date).map(&:time)
+    appointments.where(date: date).map(&:time)
   end
 end

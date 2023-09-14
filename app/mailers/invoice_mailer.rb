@@ -7,7 +7,7 @@ class InvoiceMailer < ApplicationMailer
   #
   def send_invoice(appointment)
     @appointment = appointment
-    currency = appointment.client.currency_preference
+    currency = appointment.currency
     @paid_amount = "#{$fixer_client.convert(appointment.paid_amount, currency)} #{currency}"
 
     mail to: @appointment.client.email
