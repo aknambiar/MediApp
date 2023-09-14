@@ -1,17 +1,20 @@
 <div class="row">
   <div class="col col-lg-11 mx-auto px-5">
-    <div class="row g-0 my-4 mx-n2">
-      <div class="col-auto lh-sm">
+    <div class="row g-0 mt-5 my-lg-4 mx-n4 mx-lg-n2">
+      <div class="col-auto lh-sm d-none d-lg-block">
         <%= image_tag('stethoscope.svg') %>
       </div>
-      <div class="col-auto my-auto fs-10 fw-semibold mx-3">
+      <div class="col-auto lh-sm d-lg-none">
+        <%= image_tag('stethoscope.svg', size: "21x21") %>
+      </div>
+      <div class="col-auto my-auto fs-lg-10 fw-semibold mx-3">
         <%= t('.title') %>
       </div>
     </div>
 
     <div class="row gy-4 gx-5 mx-n5 px-3 mt-2" id="doctors">
       <% @doctors.each_with_index do |doctor, index| %>
-        <div class="col-12 col-lg-6 py-2">
+        <div class="col-12 col-lg-6 py-0 py-lg-2 px-1 px-lg-4">
           <div class="container-auto p-3 bg-white border border-black rounded">
             <div class="row g-0">
               <div class="col-auto me-4">
