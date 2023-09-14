@@ -3,7 +3,7 @@ class Appointment < ApplicationRecord
   belongs_to :client, optional: true
 
   validates :date, :time, :doctor_id, presence: true
-  validate :date_format, :time_format, :appointment_not_in_the_past, :supported_currency
+  validate :date_format, :time_format, :appointment_not_in_the_past
 
   def get_datetime
     "#{date} #{time}:00".to_datetime
@@ -35,9 +35,5 @@ class Appointment < ApplicationRecord
     if Date.safe_parse(date) && time.to_i.between?(1, 24)
       errors.add(:base, "Appointment in the past") if DateTime.parse("#{date} #{time}:00").asctime.in_time_zone("Kolkata").past?
     end
-  end
-
-  def supported_currency
-    errors.add(:currency, "Currency not supported") unless Constants::ACCEPTED_CURRENCIES.include?(currency)
   end
 end
