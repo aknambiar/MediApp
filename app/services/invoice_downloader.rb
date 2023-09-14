@@ -1,17 +1,15 @@
 class InvoiceDownloader
-  # here using just the variable id is confusing, can we use more explicit names like appointment_id?
-  # You can make that change all places in this file
-  def generate_file(format, id)
-    content = generate_invoice(id)
-    path = "#{Constants::INVOICE_SAVE_PATH}/#{id}.#{format}"
+  def generate_file(format, appointment_id)
+    content = generate_invoice(appointment_id)
+    path = "#{Constants::INVOICE_SAVE_PATH}/#{appointment_id}.#{format}"
     send(format, path, content)
     path
   end
 
   private
 
-  def generate_invoice(id)
-    appointment = Appointment.find(id)
+  def generate_invoice(appointment_id)
+    appointment = Appointment.find(appointment_id)
     currency = appointment.currency
     paid_amount = $fixer_client.convert(appointment.paid_amount, currency)
     { id: appointment.id,
