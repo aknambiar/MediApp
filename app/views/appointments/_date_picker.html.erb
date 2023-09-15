@@ -73,7 +73,7 @@
               <div class="col-4">
                 <label class="w-100 bg-white">
                   <%= form.radio_button :time, slot, { class: "btn-check slot-radio-button" } %>
-                  <div class="btn btn-outline-primary px-3 py-4 p-lg-4 fs-7 fs-lg-10 w-100" data-date-picker-target="slotButton"><%= "#{slot}:00".to_time.strftime('%l:%M %p') %></div>
+                  <div class="btn btn-outline-primary px-3 py-4 p-lg-4 fs-7 fs-lg-10 w-100"><%= "#{slot}:00".to_time.strftime('%l:%M %p') %></div>
                 </label>
               </div>
             <% end %>                 
