@@ -15,12 +15,17 @@
       </div>
   <% end %>
 
-  <%= form_with(model: Client) do |form| %>
+  <%= form_with(model: Client, html: { novalidate: true, "data-client-form-target": "form" ,"data-action": "submit->client-form#validateForm:prevent" }) do |form| %>
     <%= hidden_field_tag :appointment_id, appointment_id %>
     <div class="row">
       <div class="col col-lg-5 row gx-2 mx-auto mt-2">
         <%= form.label :email, style: "display: block", class: "form-label fw-bold" %>
-        <%= form.email_field :email, value: cookies[:email] || nil, class: "form-control py-4 border border-2 rounded-3", placeholder: t('email_entry') %>
+        <%= form.email_field :email, value: cookies[:email] || nil, class: "form-control py-4 border border-2 rounded-3", placeholder: t('email_entry'), "data-client-form-target": "emailField" %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col col-lg-5 mx-auto p-2 text-danger d-none" data-client-form-target="emailError">
+        <%= t('error_message_email') %>
       </div>
     </div>
 
@@ -33,7 +38,7 @@
     <div class="row">
       <div class="col col-lg-5 row mx-auto g-0">
         <% Constants::ACCEPTED_CURRENCIES.each do |currency| %>
-          <div class="col-4 g-3" data-client-form-target="currencyButton">
+          <div class="col-4 g-3" data-client-form-target="currencyButton" data-action="click->client-form#updatePaymentButton">
             <%= form.radio_button :currency_preference , currency, { class: "btn-check", rate: "#{rates[currency]}", checked: currency == "INR" } %>
             <%= form.label :currency_preference, currency, value: currency , class: "btn btn-outline-primary w-100" %>
           </div>

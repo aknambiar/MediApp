@@ -33,6 +33,7 @@ en:
   my_appointments: "My Appointments"
   email_entry: "Enter your email address"
   error_message: "Error! Please enter your details correctly"
+  error_message_email: "Invalid email!"
 
   layouts:
     application:
@@ -78,6 +79,7 @@ es:
   my_appointments: "Mis citas"
   email_entry: "Introduce tu dirección de correo electrónico"
   error_message: "¡Error! Por favor, introduzca sus datos correctamente"
+  error_message_email: "¡Correo electrónico no válido!"
 
   layouts:
     application:
