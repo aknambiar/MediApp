@@ -1,85 +1,86 @@
-<%= hidden_field_tag :date, date %>
-<%= hidden_field_tag :time, time %>
+<div data-controller="success-countdown">
+    <%= hidden_field_tag :date, date, data: { "success-countdown-target": "date" } %>
+    <%= hidden_field_tag :time, time, data: { "success-countdown-target": "time" } %>
 
-<div class="col col-lg-9 px-2 px-lg-4 mx-auto">
-    <div class="d-none d-lg-block py-5 my-4"></div>
-    <div class="container bg-header rounded p-4 mb-3">
-        <div class="row mt-3 d-lg-none">
-            <%= image_tag("congratulations-mobile.svg", height: "40") %>
-        </div>
-        <div class="row mt-3 d-none d-lg-block">
-            <%= image_tag("congratulations-desktop.svg", height: "50") %>
-        </div>
-        <div class="row mb-3">
-            <div class="col-12 mx-auto text-success fw-bolder fs-5 text-center">
-                <%= t('.congratulations') %>
+    <div class="col col-lg-9 px-2 px-lg-4 mx-auto">
+        <div class="d-none d-lg-block py-5 my-4"></div>
+        <div class="container bg-header rounded p-4 mb-3">
+            <div class="row mt-3 d-lg-none">
+                <%= image_tag("congratulations-mobile.svg", height: "40") %>
             </div>
-        </div>
-        <div class="row mt-3 mb-2 my-lg-3">
-            <div class="col-auto mx-auto fs-lg-5">
-                <%= t('.appointment_booked') %>
+            <div class="row mt-3 d-none d-lg-block">
+                <%= image_tag("congratulations-desktop.svg", height: "50") %>
             </div>
-        </div>
-
-        <div class="row mb-1 mb-lg-0">
-            <div class="col-auto mx-auto">
-                <div class="row g-0 fs-10 fs-lg-6 purple-font">
-                    <% text = date.to_date.date_in_words %>
-                    <div class="col-auto me-2 d-none d-lg-block">
-                        <%= image_tag('calendar-blue.svg', size:"32x32") %>
-                    </div>
-                    <div class="col-auto me-2 d-lg-none">
-                        <%= image_tag('calendar-blue.svg', size:"22x22") %>
-                    </div>
-                    <div class="col-auto fs-9 d-none d-lg-block fw-bolder">
-                        <%= "#{text[:specifier]} #{text[:date]}, #{text[:month_long]}, #{"#{time}:00".to_time.strftime("%l:%M %p")}" %>
-                    </div>
-                    <div class="col-auto fs-10 d-lg-none fw-bolder">
-                        <%= "#{text[:specifier]} #{text[:date]}, #{text[:month_short]}, #{"#{time}:00".to_time.strftime("%l:%M %p")}" %>
-                    </div>
+            <div class="row mb-3">
+                <div class="col-12 mx-auto text-success fw-bolder fs-5 text-center">
+                    <%= t('.congratulations') %>
                 </div>
             </div>
-        </div>
-
-        <div class="row mx-n4">
-            <div class="col col-lg-6 mx-auto">
-                <div class="row g-0">
-                    <div class="col-auto mb-2 mt-5 my-lg-3 mx-auto fs-7">
-                        <%= t('.start') %>
-                    </div>
+            <div class="row mt-3 mb-2 my-lg-3">
+                <div class="col-auto mx-auto fs-lg-5">
+                    <%= t('.appointment_booked') %>
                 </div>
-                <div class="row g-0 offset-2 offset-lg-1">
-                    <% Constants::COUNTDOWN_FIELDS.each do | field |%>
-                        <div class="col-2">
-                            <div class="row gx-2 px-2 text-primary fw-bolder countdown" id=<%=field%>>
-                                <div class="col-auto bg-countdown rounded-pill me-auto py-1">
-                                0
-                                </div>
-                                <div class="col-auto bg-countdown rounded-pill py-1">
-                                0
-                                </div>
-                            </div>
-                            <div class="row mt-2">
-                                <div class="col-auto mx-auto grey-font fs-7 ">
-                                    <%= field %>
-                                </div>
-                            </div>
+            </div>
+
+            <div class="row mb-1 mb-lg-0">
+                <div class="col-auto mx-auto">
+                    <div class="row g-0 fs-10 fs-lg-6 purple-font">
+                        <% text = date.to_date.date_in_words %>
+                        <div class="col-auto me-2 d-none d-lg-block">
+                            <%= image_tag('calendar-blue.svg', size:"32x32") %>
                         </div>
-                        <% unless field == Constants::COUNTDOWN_FIELDS.last %>
-                            <div class="col-1 mx-n2 mx-lg-0 text-center text-primary fs-5">
-                            :
+                        <div class="col-auto me-2 d-lg-none">
+                            <%= image_tag('calendar-blue.svg', size:"22x22") %>
+                        </div>
+                        <div class="col-auto fs-9 d-none d-lg-block fw-bolder">
+                            <%= "#{text[:specifier]} #{text[:date]}, #{text[:month_long]}, #{"#{time}:00".to_time.strftime("%l:%M %p")}" %>
+                        </div>
+                        <div class="col-auto fs-10 d-lg-none fw-bolder">
+                            <%= "#{text[:specifier]} #{text[:date]}, #{text[:month_short]}, #{"#{time}:00".to_time.strftime("%l:%M %p")}" %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mx-n4">
+                <div class="col col-lg-6 mx-auto">
+                    <div class="row g-0">
+                        <div class="col-auto mb-2 mt-5 my-lg-3 mx-auto fs-7">
+                            <%= t('.start') %>
+                        </div>
+                    </div>
+                    <div class="row g-0 offset-2 offset-lg-1">
+                        <% Constants::COUNTDOWN_FIELDS.each do | field |%>
+                            <div class="col-2">
+                                <div class="row gx-2 px-2 text-primary fw-bolder" data-success-countdown-target="clock" id=<%=field%>>
+                                    <div class="col-auto bg-countdown rounded-pill me-auto py-1">
+                                    0
+                                    </div>
+                                    <div class="col-auto bg-countdown rounded-pill py-1">
+                                    0
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-auto mx-auto grey-font fs-7 ">
+                                        <%= field %>
+                                    </div>
+                                </div>
                             </div>
+                            <% unless field == Constants::COUNTDOWN_FIELDS.last %>
+                                <div class="col-1 mx-n2 mx-lg-0 text-center text-primary fs-5">
+                                :
+                                </div>
+                            <% end %>
                         <% end %>
-                    <% end %>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="btn-myappointments my-5">
-        <%= link_to login_path, class: "btn btn-outline-primary w-100" do %>
-            <%= t('my_appointments') %> <%= image_tag('arrow-right.svg')%>
-        <% end %>
+        <div class="btn-myappointments my-5">
+            <%= link_to login_path, class: "btn btn-outline-primary w-100" do %>
+                <%= t('my_appointments') %> <%= image_tag('arrow-right.svg')%>
+            <% end %>
+        </div>
     </div>
 </div>
-<%= javascript_import_module_tag "success_countdown" %>

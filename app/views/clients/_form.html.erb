@@ -1,4 +1,4 @@
-<div id="client-form" class="px-3"> 
+<div id="client-form" class="px-3" data-controller="client-form"> 
   <div class="d-none d-lg-block py-5 my-4"></div>
 
   <div class="col col-lg-6 row gx-2 mx-auto mt-5 mb-3 my-lg-5">
@@ -33,7 +33,7 @@
     <div class="row">
       <div class="col col-lg-5 row mx-auto g-0">
         <% Constants::ACCEPTED_CURRENCIES.each do |currency| %>
-          <div class="col-4 g-3 currency-buttons">
+          <div class="col-4 g-3" data-client-form-target="currencyButton">
             <%= form.radio_button :currency_preference , currency, { class: "btn-check", rate: "#{rates[currency]}", checked: currency == "INR" } %>
             <%= form.label :currency_preference, currency, value: currency , class: "btn btn-outline-primary w-100" %>
           </div>
@@ -43,14 +43,11 @@
 
     <div class="row mt-5 my-lg-4 px-2 px-lg-0 pt-3 pt-lg-0">
       <div class="col col-lg-5 mx-auto mt-4 g-0">
-        <%= form.submit t('.default_payment', amount:Constants::PRICE ), class:"btn btn-primary w-100 py-3 py-lg-4 fs-7 payment fw-bolder" %>
+        <%= form.submit t('.default_payment', amount:Constants::PRICE ), class:"btn btn-primary w-100 py-3 py-lg-4 fs-7 fw-bolder", "data-client-form-target": "paymentButton" %>
         <div class="btn btn-primary w-100 py-2 d-none">
           <div class="spinner-border text-light"></div>
         </div>
       </div>
     </div>
   <% end %>
-
-  <%= javascript_import_module_tag "client_form" %>
-
 </div>

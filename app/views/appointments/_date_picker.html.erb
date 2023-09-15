@@ -1,101 +1,101 @@
-<div class="row px-3">
-  <% unless flash.empty? %>
-    <% flash.notice.each do |message|%>
-      <div class="row">
-          <div class="col col-lg-5 mx-auto px-4 text-danger text-center">
-          <%= message.last.last %>
-          </div>
-      </div>
+<div data-controller="date-picker"> 
+  <div class="row px-3">
+    <% unless flash.empty? %>
+      <% flash.notice.each do |message|%>
+        <div class="row">
+            <div class="col col-lg-5 mx-auto px-4 text-danger text-center">
+            <%= message.last.last %>
+            </div>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
 
-  <div class="col-6 col-lg-auto row gx-2 mb-4 mt-3 mt-lg-5 mx-2 pt-3">
-    <div class="col-auto me-2 d-lg-none">
-      <%= image_tag('calendar-white.svg', size:"24x24") %>
+    <div class="col-6 col-lg-auto row gx-2 mb-4 mt-3 mt-lg-5 mx-2 pt-3">
+      <div class="col-auto me-2 d-lg-none">
+        <%= image_tag('calendar-white.svg', size:"24x24") %>
+      </div>
+      <div class="col-auto me-2 d-none d-lg-block">
+        <%= image_tag('calendar-white.svg', size:"26x26") %>
+      </div>
+      <div class="col-auto my-auto fs-7 fs-lg-6 fw-bold">
+        <%= t('.date_title') %>
+      </div>
     </div>
-    <div class="col-auto me-2 d-none d-lg-block">
-      <%= image_tag('calendar-white.svg', size:"26x26") %>
-    </div>
-    <div class="col-auto my-auto fs-7 fs-lg-6 fw-bold">
-      <%= t('.date_title') %>
-    </div>
-  </div>
 
-  <%= form_with(model: appointment) do |form| %>
-    <div class="row px-4 px-lg-0">
-      <div id="date-picker" class="carousel slide carousel-fade px-2 px-lg-3" data-bs-ride="carousel" data-bs-interval="false" data-bs-wrap="false">
-        <div class="carousel-inner container-fluid g-0 text-center">
-          <%= form.collection_radio_buttons(:date, @date_radio_options, :radio_value, :radio_text, checked: @date_radio_options.first.radio_value) do |button| %>
-            <div class="carousel-item">
-              <div class="row gx-0">
-                <div class="col-3 col-lg-4 mx-auto border-bottom border-3">
-                <%= button.radio_button(class: "d-none")%>
-                  <%= button.label(class: "w-100 py-2 pt-lg-0 pb-lg-4 m-0 row") { "<div class=\"col-auto mx-auto row gx-1\"><div class=\"col-auto col-lg-auto mx-auto\">#{button.text[:specifier]}</div> <div class=\"col col-lg-auto\">#{button.text[:day_short]}, #{button.text[:date]}</div></div> <div class=\"col-12 grey-font\"> #{button.text[:month_short]}</div>".html_safe } %>
+    <%= form_with(model: appointment) do |form| %>
+      <div class="row px-4 px-lg-0">
+        <div id="date-picker" class="carousel slide carousel-fade px-2 px-lg-3" data-bs-ride="carousel" data-bs-interval="false" data-bs-wrap="false">
+          <div class="carousel-inner container-fluid g-0 text-center">
+            <%= form.collection_radio_buttons(:date, @date_radio_options, :radio_value, :radio_text, checked: @date_radio_options.first.radio_value) do |button| %>
+              <div class="carousel-item" data-date-picker-target="carouselItem" >
+                <div class="row gx-0">
+                  <div class="col-3 col-lg-4 mx-auto border-bottom border-3">
+                  <%= button.radio_button(class: "d-none")%>
+                    <%= button.label(class: "w-100 py-2 pt-lg-0 pb-lg-4 m-0 row", "data-date-picker-target": "carouselButton") { "<div class=\"col-auto mx-auto row gx-1\"><div class=\"col-auto col-lg-auto mx-auto\">#{button.text[:specifier]}</div> <div class=\"col col-lg-auto\">#{button.text[:day_short]}, #{button.text[:date]}</div></div> <div class=\"col-12 grey-font\"> #{button.text[:month_short]}</div>".html_safe } %>
+                  </div>
                 </div>
               </div>
-            </div>
-          <% end %>
+            <% end %>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#date-picker" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden"> <%= t('.prev') %> </span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#date-picker" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden"><%= t('.next') %> </span>
+          </button>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#date-picker" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden"> <%= t('.prev') %> </span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#date-picker" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden"><%= t('.next') %> </span>
-        </button>
       </div>
-    </div>
 
-    <div class="pb-5 pt-3">
-    </div>
+      <div class="pb-5 pt-3">
+      </div>
 
-    <% @dates.each do |date,slots| %>
-      <div class="container g-0 d-none slot-picker" id=<%= date.radio_value %>>
-        <div class="col row gx-2 mb-4">
-          <div class="col-auto me-2 d-none d-lg-block">
-            <%= image_tag('time-square.svg', size:"26x26") %>
+      <% @dates.each do |date,slots| %>
+        <div class="container g-0 d-none slot-picker" data-date-picker-target="slotPicker" id=<%= date.radio_value %>>
+          <div class="col row gx-2 mb-4">
+            <div class="col-auto me-2 d-none d-lg-block">
+              <%= image_tag('time-square.svg', size:"26x26") %>
+            </div>
+            <div class="col-auto me-2 d-lg-none">
+              <%= image_tag('time-square.svg', size:"24x24") %>
+            </div>
+            <div class="col-auto my-auto fw-bold d-none d-lg-block">
+              <%= t('.time_title', date:"<span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %B")}</span>").html_safe %>
+            </div>
+            <div class="col-auto my-auto fs-7 fw-bold d-lg-none">
+              <%= t('.time_title', date:"<span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %b")}</span>").html_safe %>
+            </div>
           </div>
-          <div class="col-auto me-2 d-lg-none">
-            <%= image_tag('time-square.svg', size:"24x24") %>
+
+          <div class="row g-4 ps-lg-0 me-n4 ms-4 mx-lg-n2">
+            <% slots.each do |slot| %>
+              <div class="col-4">
+                <label class="w-100 bg-white">
+                  <%= form.radio_button :time, slot, { class: "btn-check slot-radio-button" } %>
+                  <div class="btn btn-outline-primary px-3 py-4 p-lg-4 fs-7 fs-lg-10 w-100" data-date-picker-target="slotButton"><%= "#{slot}:00".to_time.strftime('%l:%M %p') %></div>
+                </label>
+              </div>
+            <% end %>                 
           </div>
-          <div class="col-auto my-auto fw-bold d-none d-lg-block">
-            <%= t('.time_title', date:"<span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %B")}</span>").html_safe %>
-          </div>
-          <div class="col-auto my-auto fs-7 fw-bold d-lg-none">
-            <%= t('.time_title', date:"<span class=\"text-primary\">#{date.strftime("%A, #{date.day.ordinalize} %b")}</span>").html_safe %>
+        </div>
+      <% end %>
+
+      <%= form.hidden_field :doctor_id, value: @doctor.id %>
+
+      <div class="col-10 col-lg-7 position-absolute bottom-5 fs-8 fs-lg-7  text-center start-50 translate-middle-x bg-light rounded">
+        <div class="row">
+          <div class="col">
+            <%= t('.reschedule_notice') %>
           </div>
         </div>
 
-        <div class="row g-4 ps-lg-0 me-n4 ms-4 mx-lg-n2">
-          <% slots.each do |slot| %>
-            <div class="col-4">
-              <label class="w-100 bg-white">
-                <%= form.radio_button :time, slot, { class: "btn-check slot-radio-button" } %>
-                <div class="btn btn-outline-primary px-3 py-4 p-lg-4 fs-7 fs-lg-10 w-100"><%= "#{slot}:00".to_time.strftime('%l:%M %p') %></div>
-              </label>
-            </div>
-          <% end %>                 
+        <div class="row my-4">
+          <div class="col">
+            <%= form.submit t('.book_appointment'), class:"btn btn-primary w-100 py-4", disabled: true %>
+          </div>
         </div>
       </div>
     <% end %>
-
-    <%= form.hidden_field :doctor_id, value: @doctor.id %>
-
-    <div class="col-10 col-lg-7 position-absolute bottom-5 fs-8 fs-lg-7  text-center start-50 translate-middle-x bg-light rounded">
-      <div class="row">
-        <div class="col">
-          <%= t('.reschedule_notice') %>
-        </div>
-      </div>
-
-      <div class="row my-4">
-        <div class="col">
-          <%= form.submit t('.book_appointment'), class:"btn btn-primary w-100 py-4", disabled: true %>
-        </div>
-      </div>
-    </div>
-  <% end %>
+  </div>
 </div>
-
-  <%= javascript_import_module_tag "date_picker" %>
