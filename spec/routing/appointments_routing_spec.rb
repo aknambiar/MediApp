@@ -22,10 +22,6 @@ RSpec.describe AppointmentsController, type: :routing do
       expect(delete: "/appointments/1").to route_to("appointments#destroy", id: "1")
     end
 
-    it "routes to #list" do
-      expect(post: "/appointments/list").to route_to("appointments#list")
-    end
-
     it "routes to #download" do
       expect(get: "/appointments/download").to route_to("appointments#download")
     end

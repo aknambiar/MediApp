@@ -27,7 +27,7 @@ RSpec.describe "/doctors", type: :request do
       end
 
       it "redirects to appointments/index" do
-        link = /"\/appointments"/
+        link = /"\/clients\/login"/
         
         expect(response.body).to match(link)
       end

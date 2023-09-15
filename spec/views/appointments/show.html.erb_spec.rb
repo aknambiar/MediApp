@@ -19,7 +19,7 @@ RSpec.describe "/appointments", type: :request do
     end
 
     it "verifies the presence of a My Appointments button" do
-      link = /href="\/appointments"/
+      link = /href="\/clients\/login"/
 
       expect(response.body).to match(link)
     end

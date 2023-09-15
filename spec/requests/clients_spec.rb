@@ -49,4 +49,50 @@ RSpec.describe "/clients", type: :request do
       end
     end
   end
+
+  describe "GET /login" do
+    it "renders a successful response" do
+      get login_path
+
+      expect(response).to be_successful
+    end
+  end
+
+  describe "GET /create_user_session" do
+    context "with a valid client email" do
+      it "redirects to clients/show" do
+        get get_session_path(email: appointment.client.email)
+
+        expect(response).to redirect_to(appointment.client)
+      end
+    end
+
+    context "with an invalid client email" do
+      it "renders clients/login" do
+        get get_session_path(email: nil)
+
+        expect(response).to render_template('login')
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
+
+  describe "POST /create_user_session" do
+    context "with a valid client email" do
+      it "redirects to clients/show" do
+        post session_path, params: { email: appointment.client.email }
+
+        expect(response).to redirect_to(appointment.client)
+      end
+    end
+
+    context "with an invalid client email" do
+      it "renders clients/login" do
+        post session_path, params: { email: nil }
+
+        expect(response).to render_template('login')
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
 end

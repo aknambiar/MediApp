@@ -5,14 +5,6 @@ RSpec.describe "/appointments", type: :request do
   let(:valid_attributes) {{ date: "01/01/2099", time: "12", doctor_id: appointment.doctor.id }}
   let(:invalid_attributes) {{ date: "021/01/209", time: "36", doctor_id: appointment.doctor.id }}
 
-  describe "GET /index" do
-    it "renders a successful response" do
-      get appointments_url
-
-      expect(response).to be_successful
-    end
-  end
-
   describe "GET /show" do
     it "renders a successful response" do
       get appointment_url(appointment)
@@ -72,25 +64,6 @@ RSpec.describe "/appointments", type: :request do
       delete appointment_url(appointment)
 
       expect(response).to redirect_to(appointments_url)
-    end
-  end
-
-  describe "POST /list" do
-    context "with valid parameters" do
-      it "redirects to client/show" do
-        post list_appointment_path, params: { email: appointment.client.email }
-
-        expect(response).to redirect_to(client_path(id: appointment.client.id))
-      end
-    end
-
-    context "with invalid parameters" do
-      it "redirects to appointments/index with errors" do
-        post list_appointment_path, params: { email: nil }
-
-        expect(response).to render_template(:index)
-        expect(response).to have_http_status(:unprocessable_entity)
-      end
     end
   end
 
