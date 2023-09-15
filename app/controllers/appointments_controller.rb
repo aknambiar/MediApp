@@ -1,12 +1,5 @@
 class AppointmentsController < ApplicationController
   before_action :set_appointment, only: %i[ show edit update destroy ]
-  before_action :cookie_login, only: :index
-
-  # GET /appointments or /appointments.json
-  def index
-    @appointments = Appointment.all
-    @email = cookies[:email] || nil
-  end
 
   # GET /appointments/1 or /appointments/1.json
   def show
@@ -50,24 +43,6 @@ class AppointmentsController < ApplicationController
     end
   end
 
-  # Can move this to index action?
-  def list
-    @email = params[:email]
-    @client = Client.find_by(email: @email)
-    cookies.permanent[:email] = @email
-
-    respond_to do |format|
-      if @client
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('appointment-list-form', partial: 'appointments/my_appointments', locals: { appointments: @client.appointments })
-        end
-        format.html { redirect_to @client }
-      else
-        format.html { render action: "index", status: :unprocessable_entity }
-      end
-    end
-  end
-
   def download
     send_file InvoiceDownloader.new.generate_file(params[:format], params[:id]), filename: "#{params[:id]}.#{params[:format]}", disposition: 'attachment' if Constants::DOWNLOAD_FORMATS.include?(params[:format])
   end
@@ -81,9 +56,5 @@ class AppointmentsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def appointment_params
       params.require(:appointment).permit(:date, :time, :paid_amount, :doctor_id, :client_id)
-    end
-
-    def cookie_login
-      redirect_to get_list_appointment_path(email: cookies[:email]) if cookies[:email]
     end
 end

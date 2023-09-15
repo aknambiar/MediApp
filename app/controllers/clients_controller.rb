@@ -1,10 +1,9 @@
 class ClientsController < ApplicationController
+  before_action :user_exists?, only: :login
   include Constants
 
   # GET /clients/new
   def new
-    # Can we fetch the rates here instead of fetching them in the appointments controller and then passing them here?
-    # API requests
     render :new, locals: { appointment_id: params[:appointment_id], rates: params[:rates] }
   end
 
@@ -37,9 +36,34 @@ class ClientsController < ApplicationController
     end
   end
 
+  def login
+    @email = cookies[:email] || nil
+  end
+
+  def create_user_session
+    @email = params[:email]
+    @client = Client.find_by(email: @email)
+    cookies.permanent[:email] = @email
+
+    respond_to do |format|
+      if @client
+        format.turbo_stream do
+          render turbo_stream: turbo_stream.replace('client-login-form', partial: 'my_appointments', locals: { appointments: @client.appointments })
+        end
+        format.html { redirect_to @client }
+      else
+        format.html { render action: "login", status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
   # Only allow a list of trusted parameters through.
   def client_params
-    params.require(:client).permit(:email,:currency_preference)
+    params.require(:client).permit(:email, :currency_preference)
+  end
+
+  def user_exists?
+    redirect_to get_session_path(email: cookies[:email]) if cookies[:email]
   end
 end
