@@ -39,7 +39,7 @@ class DatePicker {
                 this.slotButtons.forEach((element) => element.classList.add('d-none'));
                 let selectedDateSlots = document.getElementById(id);
                 selectedDateSlots.classList.remove('d-none');
-          })
+            })
         })
     }
 
@@ -61,7 +61,7 @@ class DatePicker {
             if(event.target.classList.contains("slot-radio-button")){
                 document.querySelector('[type="submit"]').disabled = false
             }
-          });
+        });
     }
 }
 
@@ -69,6 +69,6 @@ document.addEventListener("turbo:render", (event) => {
     if (document.location.toString().includes("appointments/new")) {
         new DatePicker;
     }
-  });
+});
 
 new DatePicker;
