@@ -31,7 +31,7 @@
                 <div class="row gx-0">
                   <div class="col-3 col-lg-4 mx-auto border-bottom border-3">
                   <%= button.radio_button(class: "d-none")%>
-                    <%= button.label(class: "w-100 py-2 pt-lg-0 pb-lg-4 m-0 row", "data-date-picker-target": "carouselButton") { "<div class=\"col-auto mx-auto row gx-1\"><div class=\"col-auto col-lg-auto mx-auto\">#{button.text[:specifier]}</div> <div class=\"col col-lg-auto\">#{button.text[:day_short]}, #{button.text[:date]}</div></div> <div class=\"col-12 grey-font\"> #{button.text[:month_short]}</div>".html_safe } %>
+                    <%= button.label(class: "w-100 py-2 pt-lg-0 pb-lg-4 m-0 row", "data-date-picker-target": "carouselButton", "data-action": "click->date-picker#toggleSlotPicker" ) { "<div class=\"col-auto mx-auto row gx-1\"><div class=\"col-auto col-lg-auto mx-auto\">#{button.text[:specifier]}</div> <div class=\"col col-lg-auto\">#{button.text[:day_short]}, #{button.text[:date]}</div></div> <div class=\"col-12 grey-font\"> #{button.text[:month_short]}</div>".html_safe } %>
                   </div>
                 </div>
               </div>
@@ -72,7 +72,7 @@
             <% slots.each do |slot| %>
               <div class="col-4">
                 <label class="w-100 bg-white">
-                  <%= form.radio_button :time, slot, { class: "btn-check slot-radio-button" } %>
+                  <%= form.radio_button :time, slot, { class: "btn-check", "data-action": "click->date-picker#enableButton" } %>
                   <div class="btn btn-outline-primary px-3 py-4 p-lg-4 fs-7 fs-lg-10 w-100"><%= "#{slot}:00".to_time.strftime('%l:%M %p') %></div>
                 </label>
               </div>
