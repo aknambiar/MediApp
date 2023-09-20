@@ -127,7 +127,8 @@ $font-sizes: (
 }
 
 .btn[disabled="disabled"] {
-    background-color: #BDBDBD
+    background-color: #BDBDBD;
+    border: none;
   }
   
   
