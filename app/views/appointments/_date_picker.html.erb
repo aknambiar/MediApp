@@ -31,7 +31,7 @@
                 <div class="row gx-0">
                   <div class="col-3 col-lg-4 mx-auto border-bottom border-3">
                   <%= button.radio_button(class: "d-none")%>
-                    <%= button.label(class: "w-100 py-2 pt-lg-0 pb-lg-4 m-0 row", "data-date-picker-target": "carouselButton", "data-action": "click->date-picker#toggleSlotPicker" ) { "<div class=\"col-auto mx-auto row gx-1\"><div class=\"col-auto col-lg-auto mx-auto\">#{button.text[:specifier]}</div> <div class=\"col col-lg-auto\">#{button.text[:day_short]}, #{button.text[:date]}</div></div> <div class=\"col-12 grey-font\"> #{button.text[:month_short]}</div>".html_safe } %>
+                    <%= button.label(class: "w-100 py-2 pt-lg-0 pb-lg-4 m-0 row", "data-date-picker-target": "carouselButton", "data-action": "click->date-picker#toggleSlotPicker" ) { "<div class=\"col-auto mx-auto row gx-1\"><div class=\"col-auto col-lg-auto mx-auto px-0\">#{button.text[:specifier]}</div> <div class=\"col col-lg-auto px-0\">#{button.text[:day_short]}, #{button.text[:date]}</div></div> <div class=\"col-12 grey-font px-0\"> #{button.text[:month_short]}</div>".html_safe } %>
                   </div>
                 </div>
               </div>

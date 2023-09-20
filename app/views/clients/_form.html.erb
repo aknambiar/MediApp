@@ -20,7 +20,7 @@
     <div class="row">
       <div class="col col-lg-5 row gx-2 mx-auto mt-2">
         <%= form.label :email, style: "display: block", class: "form-label fw-bold" %>
-        <%= form.email_field :email, value: cookies[:email] || nil, class: "form-control py-4 border border-2 rounded-3", placeholder: t('email_entry'), "data-client-form-target": "emailField" %>
+        <%= form.email_field :email, value: cookies[:email] || nil, class: "form-control py-4 border border-2 rounded-3", placeholder: t('email_entry'), "data-client-form-target": "emailField", "data-action": "keypress->client-form#validateEmailWhileTyping" %>
       </div>
     </div>
     <div class="row">

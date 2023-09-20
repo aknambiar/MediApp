@@ -45,7 +45,7 @@ export default class extends Controller {
     else {
       this.carouselButtonTargets.forEach((button) => button.parentNode.classList.remove ("border-bottom", "border-3", "border-primary", "border-5", "fw-bolder", "fs-10", "bg-carousel"));
       this.carouselButtonTargets.forEach((button) => button.parentNode.classList.add ("border", "rounded", "fs-7"));
-      target.parentNode.classList.add ("border-primary", "bg-carousel");
+      target.parentNode.classList.add ("border-primary", "bg-carousel", "fw-bolder");
     }
   }
 

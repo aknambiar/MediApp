@@ -11,6 +11,15 @@ export default class extends Controller {
     this.paymentButtonTarget.value = `Pay ${rate} ${currency}`;
   }
 
+  validateEmailWhileTyping() {
+    if (this.validateEmail(this.emailFieldTarget.value)) {
+      this.emailFieldTarget.classList.remove("is-invalid")
+    }
+    else {
+      this.emailFieldTarget.classList.add("is-invalid")
+    }
+  }
+
   validateForm() {
     if (this.validateEmail(this.emailFieldTarget.value)) {
       let spinner = this.paymentButtonTarget.nextElementSibling;
