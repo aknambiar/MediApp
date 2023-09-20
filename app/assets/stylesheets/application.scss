@@ -1,6 +1,9 @@
 $spacer: 10px;
 $enable-negative-margins: true;
 
+$primary: #443EFF;
+
+
 $font-weight-semibold:        500;
 $font-weight-bold:            600;
 $font-weight-bolder:          700;
@@ -122,3 +125,9 @@ $font-sizes: (
 #date-picker btn {
     border-width: 0px;
 }
+
+.btn[disabled="disabled"] {
+    background-color: #BDBDBD
+  }
+  
+  
