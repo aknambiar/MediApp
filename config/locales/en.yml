@@ -49,7 +49,13 @@ en:
     form:
       title: "Add Details 🧑🏻"
       currency_selector: "Select Currency"
-      default_payment: "Pay %{amount} INR"   
+      default_payment: "Pay %{amount} INR"  
+
+    my_appointments:
+      consultation_details: "🗓 Your Consultation Details"
+      download_invoice: "Download your invoice"
+      amount_paid: "Amount Paid"
+      cancel: "Cancel" 
 
   appointments:
     index:
@@ -62,12 +68,6 @@ en:
       time_title: "Select a time for %{date}"
       reschedule_notice: "Due to high demand, it is difficult to reschedule appointments. Please book your slot carefully!"
       book_appointment: "Book Appointment"
-    
-    my_appointments:
-      consultation_details: "🗓 Your Consultation Details"
-      download_invoice: "Download your invoice"
-      amount_paid: "Amount Paid"
-      cancel: "Cancel"
     
     success:
       congratulations: "Congratulations"
@@ -96,6 +96,12 @@ es:
       title: "Agregar detalles 🧑🏻"
       currency_selector: "Seleccionar moneda"
       default_payment: "Pagar %{amount} INR"   
+    
+    my_appointments:
+      consultation_details: "🗓 Detalles de su consulta"
+      download_invoice: "Descarga tu factura"
+      amount_paid: "Cantidad pagada"
+      cancel: "Cancelar"
 
   appointments:
     index:
@@ -108,12 +114,6 @@ es:
       time_title: "Seleccione una hora para %{date}"
       reschedule_notice: "Debido a la alta demanda, es difícil reprogramar las citas. ¡Por favor, reserve su espacio con cuidado!"
       book_appointment: "Reservar cita"
-    
-    my_appointments:
-      consultation_details: "🗓 Detalles de su consulta"
-      download_invoice: "Descarga tu factura"
-      amount_paid: "Cantidad pagada"
-      cancel: "Cancelar"
     
     success:
       congratulations: "Felicidades"
