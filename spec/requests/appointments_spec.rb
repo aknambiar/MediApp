@@ -60,10 +60,10 @@ RSpec.describe "/appointments", type: :request do
       }.to change(Appointment, :count).by(-1)
     end
 
-    it "redirects to appointments/list" do
+    it "redirects to clients/login" do
       delete appointment_url(appointment)
 
-      expect(response).to redirect_to(appointments_url)
+      expect(response).to redirect_to(login_path)
     end
   end
 
