@@ -5,9 +5,9 @@ export default class extends Controller {
   static targets = [ "currencyButton", "emailField", "emailError", "form", "paymentButton"];
 
   updatePaymentButton() {
-    let rate = event.currentTarget.firstElementChild.getAttribute('rate');
+    let rate = event.currentTarget.nextElementSibling.getAttribute('rate');
     rate = (Math.round(rate * 100) / 100).toFixed(2);
-    let currency = event.currentTarget.firstElementChild.getAttribute('value');
+    let currency = event.currentTarget.nextElementSibling.getAttribute('value');
     this.paymentButtonTarget.value = `Pay ${rate} ${currency}`;
   }
 

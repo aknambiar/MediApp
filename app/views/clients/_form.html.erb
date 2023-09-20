@@ -38,9 +38,9 @@
     <div class="row">
       <div class="col col-lg-5 row mx-auto g-0">
         <% Constants::ACCEPTED_CURRENCIES.each do |currency| %>
-          <div class="col-4 g-3" data-client-form-target="currencyButton" data-action="click->client-form#updatePaymentButton">
+          <div class="col-4 g-3" data-client-form-target="currencyButton">
+            <%= form.label :currency_preference, currency, value: currency , class: "btn btn-outline-primary w-100", "data-action": "click->client-form#updatePaymentButton" %>
             <%= form.radio_button :currency_preference , currency, { class: "btn-check", rate: "#{rates[currency]}", checked: currency == "INR" } %>
-            <%= form.label :currency_preference, currency, value: currency , class: "btn btn-outline-primary w-100" %>
           </div>
         <% end %>
       </div>
