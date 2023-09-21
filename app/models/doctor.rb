@@ -8,7 +8,7 @@ class Doctor < ApplicationRecord
   validate :working_hours_format
 
   def working_hours_format
-    errors.add(:working_hours, "Invalid format for Working Hours") unless working_hours =~ /^(0[1-9]|1[0-9]|2[0-4])(,(0[1-9]|1[0-9]|2[0-4]))*$/
+    errors.add(:working_hours, "Invalid format for Working Hours") unless Constants::WORKING_HOURS_REGEXP.match(working_hours)
   end
 
   def available_slots(date)

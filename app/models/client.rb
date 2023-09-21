@@ -7,7 +7,7 @@ class Client < ApplicationRecord
   private
 
   def email_format
-    errors.add(:email, "Invalid Email") unless email =~ /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i
+    errors.add(:email, "Invalid Email") unless Constants::EMAIL_REGEXP.match(email)
   end
 
   def supported_currency
