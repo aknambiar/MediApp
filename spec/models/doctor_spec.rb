@@ -28,7 +28,7 @@ RSpec.describe Doctor, type: :model do
   end
 
   it "should provide the slots available for a doctor" do
-    date = "01/01/2099"
+    date = "01/01/2099".to_date
     slots = doctor.available_slots(date)
 
     expect(slots).to eq(["15", "16", "17"])
