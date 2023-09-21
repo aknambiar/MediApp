@@ -7,7 +7,10 @@ export default class extends Controller {
   connect() {
     this.date = this.convertToMMDDYY(this.dateTarget.value);
     this.target = new Date(`${this.date} ${this.timeTarget.value}:00:00`).getTime();
-
+    this.millisecondsInMinute = 1000 * 60;
+    this.millisecondsInHour = this.millisecondsInMinute * 60;
+    this.millisecondsInDay = this.millisecondsInHour * 24;
+  
     setInterval(this.startCountdown.bind(this),1000);
   }
 
@@ -34,10 +37,10 @@ export default class extends Controller {
     let now = new Date().getTime();
     let distance = this.target - now;
 
-    let days = Math.floor(distance / (1000 * 60 * 60 * 24));
-    let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-    let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    let days = Math.floor(distance / this.millisecondsInDay);
+    let hours = Math.floor((distance % this.millisecondsInDay) / this.millisecondsInHour);
+    let minutes = Math.floor((distance % this.millisecondsInHour) / this.millisecondsInMinute);
+    let seconds = Math.floor((distance % this.millisecondsInMinute) / 1000);
 
     this.countdown = {
       Days: this.formatIntoTwoDigits(days),

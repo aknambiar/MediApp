@@ -3,6 +3,10 @@ import { Controller } from "@hotwired/stimulus";
 // Connects to data-controller="client-form"
 export default class extends Controller {
   static targets = [ "currencyButton", "emailField", "emailError", "form", "paymentButton"];
+  
+  connect() {
+    this.emailRegexp = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+  }
 
   updatePaymentButton() {
     let rate = event.currentTarget.previousElementSibling.getAttribute('rate');
@@ -33,6 +37,6 @@ export default class extends Controller {
   }
 
   validateEmail(email) {
-    return email.toLowerCase().match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    return email.toLowerCase().match(this.emailRegexp);
   }
 }
