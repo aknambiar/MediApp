@@ -43,10 +43,10 @@ class ClientsController < ApplicationController
   def create_user_session
     @email = params[:email]
     @client = Client.find_by(email: @email)
-    cookies.permanent[:email] = @email
 
     respond_to do |format|
       if @client
+        cookies.permanent[:email] = @email
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace('client-login-form', partial: 'my_appointments', locals: { appointments: @client.appointments })
         end
