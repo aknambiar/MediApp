@@ -11,7 +11,7 @@ class InvoiceDownloader
   def generate_invoice(appointment_id)
     appointment = Appointment.find(appointment_id)
     currency = appointment.currency
-    paid_amount = appointment.paid_amount * appointment.exchange_rate
+    paid_amount = appointment.amount_in_original_currency
     { id: appointment.id,
       email: appointment.client.email,
       doctor: appointment.doctor.name,
