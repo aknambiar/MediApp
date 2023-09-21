@@ -1,4 +1,5 @@
 class ClientsController < ApplicationController
+  before_action :authenticate_user, only: :show
   before_action :user_exists?, only: :login
   include Constants
 
@@ -9,7 +10,6 @@ class ClientsController < ApplicationController
 
   # GET /clients/1
   def show
-    @client = Client.find(params[:id])
   end
 
   # POST /clients or /clients.json
@@ -61,6 +61,12 @@ class ClientsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def client_params
     params.require(:client).permit(:email, :currency_preference)
+  end
+
+  def authenticate_user
+    @client = Client.find(params[:id])
+
+    redirect_to login_path unless @client && @client.email == cookies[:email]
   end
 
   def user_exists?

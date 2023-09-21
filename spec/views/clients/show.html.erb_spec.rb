@@ -4,7 +4,10 @@ RSpec.describe "/clients", type: :request do
   let!(:appointment) { create(:appointment) }
 
   context "when rendering the my appointments partial" do
-    before(:each) { get "/clients/#{appointment.client.id}" }
+    before(:each) do
+      cookies[:email] = appointment.client.email
+      get "/clients/#{appointment.client.id}"
+    end
 
     it "verifies the presence of appointment details" do
       expect(response.body).to match(appointment.doctor.name)

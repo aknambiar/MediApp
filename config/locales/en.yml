@@ -46,6 +46,9 @@ en:
       book_visit: "Book Visit"
 
   clients:
+    login:
+      error_email: "Invalid email address"
+
     form:
       title: "Add Details 🧑🏻"
       currency_selector: "Select Currency"
@@ -58,9 +61,6 @@ en:
       cancel: "Cancel" 
 
   appointments:
-    index:
-      error_email: "Invalid email address"
-
     date_picker:
       date_title: "Select a date"
       prev: "Previous"
@@ -92,6 +92,9 @@ es:
       book_visit: "Reservar Visita"
 
   clients:
+    login:
+      error_email: "Dirección de correo electrónico no válida"
+      
     form:
       title: "Agregar detalles 🧑🏻"
       currency_selector: "Seleccionar moneda"
@@ -104,9 +107,6 @@ es:
       cancel: "Cancelar"
 
   appointments:
-    index:
-      error_email: "Dirección de correo electrónico no válida"
-
     date_picker:
       date_title: "Seleccione una fecha"
       prev: "Anterior"
