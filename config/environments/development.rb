@@ -69,8 +69,8 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
 
   # Enable only info logging
-  config.log_level = :unknown
-  # config.log_level = :info
+  # config.log_level = :unknown
+  config.log_level = :info
 
   Rails.application.configure do
     config.action_mailer.perform_deliveries = true
