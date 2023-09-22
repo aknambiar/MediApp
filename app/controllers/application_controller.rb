@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  before_action :set_locale
+  before_action :set_locale, :load_user_session
 
   protected
 
@@ -12,5 +12,9 @@ class ApplicationController < ActionController::Base
         logger.error flash.now[:notice]
       end
     end
+  end
+
+  def load_user_session
+    @client = Client.find_by(email: cookies[:email])
   end
 end

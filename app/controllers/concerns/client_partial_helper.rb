@@ -1,5 +1,5 @@
 class ClientPartialHelper
-  attr_reader :client
+  attr_reader :client, :appointment
 
   def initialize(client_params, params)
     @client_params = client_params
@@ -22,10 +22,6 @@ class ClientPartialHelper
     # send_time = appointment.get_datetime.asctime.in_time_zone("Kolkata") + 2.hours
     send_time = DateTime.now + 10.seconds
     MailSchedulerJob.set(wait_until: send_time).perform_later(@appointment.id)
-  end
-
-  def get_date_and_time
-    { date: @appointment.date, time: @appointment.time }
   end
 
   private 

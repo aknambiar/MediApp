@@ -1,6 +1,5 @@
 class ClientsController < ApplicationController
   before_action :authenticate_user, only: :show
-  before_action :user_exists?, only: :login
   include Constants
 
   # GET /clients/new
@@ -10,6 +9,7 @@ class ClientsController < ApplicationController
 
   # GET /clients/1
   def show
+    @client = Client.find(params[:id])
   end
 
   # POST /clients or /clients.json
@@ -22,9 +22,9 @@ class ClientsController < ApplicationController
         cookies.permanent[:email] = client_params[:email]
         @client_helper.schedule_email
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: @client_helper.get_date_and_time)
+          render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: { appointment: @client_helper.appointment })
         end
-        format.html { redirect_to Appointment.find(params[:appointment_id]) }
+        # format.html { redirect_to Appointment.find(params[:appointment_id]) }
       else
         @rates = Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, $fixer_client.convert(Constants::PRICE, c)] }
         format.turbo_stream do
@@ -36,25 +36,13 @@ class ClientsController < ApplicationController
     end
   end
 
-  def login
-    @email = cookies[:email] || nil
-  end
-
   def create_user_session
-    @email = params[:email]
-    @client = Client.find_by(email: @email)
+    client = Client.find_by(email: params[:email])
 
-    respond_to do |format|
-      if @client
-        cookies.permanent[:email] = @email
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('client-login-form', partial: 'my_appointments', locals: { appointments: @client.appointments })
-        end
-        format.html { redirect_to @client }
-      else
-        format.html { render action: "login", status: :unprocessable_entity }
-      end
-    end
+    render(action: :login, status: :unprocessable_entity) && return unless client
+
+    cookies.permanent[:email] = params[:email]
+    redirect_to client
   end
 
   private
@@ -65,11 +53,6 @@ class ClientsController < ApplicationController
 
   def authenticate_user
     @client = Client.find(params[:id])
-
-    redirect_to login_path unless @client && @client.email == cookies[:email]
-  end
-
-  def user_exists?
-    redirect_to get_session_path(email: cookies[:email]) if cookies[:email]
+    redirect_to login_path unless @client.email == cookies[:email]
   end
 end
