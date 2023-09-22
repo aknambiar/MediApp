@@ -32,7 +32,8 @@ gem "redis", "~> 4.0"
 
 # Use Prawn PDF Editor
 gem 'matrix'
-gem "prawn"
+gem 'prawn'
+gem 'prawn-table'
 
 # Use Kredis to get higher-level data types in Redis [https://github.com/rails/kredis]
 # gem "kredis"
