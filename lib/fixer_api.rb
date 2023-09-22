@@ -1,10 +1,11 @@
 class FixerAPI
   require 'net/http'
   require 'json'
-  attr_reader :rates
+  attr_reader :rates, :standard_prices
 
   def initialize
     @rates = fetch_and_convert_to_inr
+    @standard_prices = Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, convert(Constants::PRICE, c)] }
   end
 
   def convert(amount, target_currency)

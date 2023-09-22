@@ -7,6 +7,14 @@ class ClientPartialHelper
     @appointment = Appointment.find(params[:appointment_id])
   end
 
+  def process_appointment
+    status = pay_for_appointment && update
+    schedule_email if status
+    status
+  end
+
+  private
+
   def update
     begin
       Client.transaction do
@@ -14,8 +22,12 @@ class ClientPartialHelper
         @appointment.update!(update_params)
       end
     rescue ActiveRecord::RecordInvalid
-      return false
+      false
     end
+  end
+
+  def pay_for_appointment
+    PaymentProcessor.new.pay
   end
 
   def schedule_email
@@ -24,10 +36,7 @@ class ClientPartialHelper
     MailSchedulerJob.set(wait_until: send_time).perform_later(@appointment.id)
   end
 
-  private 
-
   def update_params
-    # Do we still need to store the currency preference in the Client model?
     currency = @client.currency_preference
 
     { paid_amount: Constants::PRICE,

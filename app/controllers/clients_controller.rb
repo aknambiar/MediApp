@@ -14,31 +14,25 @@ class ClientsController < ApplicationController
 
   # POST /clients or /clients.json
   def create
-    @client_helper = ClientPartialHelper.new(client_params, params)
-    @payment_processor = PaymentProcessor.new.pay
+    client_helper = ClientPartialHelper.new(client_params, params)
 
     respond_to do |format|
-      if @client_helper.update && @payment_processor
+      if client_helper.process_appointment
         cookies.permanent[:email] = client_params[:email]
-        @client_helper.schedule_email
-        format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: { appointment: @client_helper.appointment })
-        end
+        format.turbo_stream { render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: { appointment: client_helper.appointment }) }
         format.html { redirect_to Appointment.find(params[:appointment_id]) }
       else
-        @rates = Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, $fixer_client.convert(Constants::PRICE, c)] }
         format.turbo_stream do
           flash.now[:notice] = true
-          render turbo_stream: turbo_stream.replace('client-form', partial: 'clients/form', locals: { appointment_id: params[:appointment_id], rates: @rates })
+          render turbo_stream: turbo_stream.replace('client-form', partial: 'clients/form', locals: { appointment_id: params[:appointment_id], rates: $fixer_client.standard_prices })
         end
-        format.html { render :new, locals: { appointment_id: params[:appointment_id], rates: @rates }, status: :unprocessable_entity }
+        format.html { render :new, locals: { appointment_id: params[:appointment_id], rates: $fixer_client.standard_prices }, status: :unprocessable_entity }
       end
     end
   end
 
   def create_user_session
     client = Client.find_by(email: params[:email])
-
     render(action: :login, status: :unprocessable_entity) && return unless client
 
     cookies.permanent[:email] = params[:email]
