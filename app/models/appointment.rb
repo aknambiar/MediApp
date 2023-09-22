@@ -24,16 +24,16 @@ class Appointment < ApplicationRecord
   private
 
   def date_format
-    errors.add(:date, "Invalid Date") unless Date.safe_parse(date)
+    errors.add(:date, I18n.t('models.errors.invalid_date')) unless Date.safe_parse(date)
   end
 
   def time_format
-    errors.add(:time, "Invalid Time") unless time.to_i.between?(1, 24)
+    errors.add(:time, I18n.t('models.errors.invalid_time')) unless time.to_i.between?(1, 24)
   end
 
   def appointment_not_in_the_past
     if Date.safe_parse(date) && time.to_i.between?(1, 24)
-      errors.add(:base, "Appointment in the past") if DateTime.parse("#{date} #{time}:00").asctime.in_time_zone("Kolkata").past?
+      errors.add(:base,I18n.t('models.errors.appointment_past')) if DateTime.parse("#{date} #{time}:00").asctime.in_time_zone("Kolkata").past?
     end
   end
 end

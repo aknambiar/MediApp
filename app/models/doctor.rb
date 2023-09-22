@@ -7,10 +7,6 @@ class Doctor < ApplicationRecord
   validates :name, :location, :working_hours, presence: true
   validate :working_hours_format
 
-  def working_hours_format
-    errors.add(:working_hours, "Invalid format for Working Hours") unless Constants::WORKING_HOURS_REGEXP.match(working_hours)
-  end
-
   def available_slots(date)
     work_slots = working_hours.split(',')
     work_slots.select! { |slot| slot > Time.now.strftime('%k') } if date.today?
@@ -30,5 +26,9 @@ class Doctor < ApplicationRecord
 
   def booked_slots(date)
     appointments.where(date: date.strftime('%d/%m/%Y')).map(&:time)
+  end
+
+  def working_hours_format
+    errors.add(:working_hours, I18n.t('models.errors.invalid_hours')) unless Constants::WORKING_HOURS_REGEXP.match(working_hours)
   end
 end

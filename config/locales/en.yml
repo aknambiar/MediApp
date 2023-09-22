@@ -33,7 +33,7 @@ en:
   my_appointments: "My Appointments"
   email_entry: "Enter your email address"
   error_message: "Error! Please enter your details correctly"
-  error_message_email: "Invalid email!"
+  error_message_email: "Invalid email"
 
   layouts:
     application:
@@ -73,13 +73,20 @@ en:
       congratulations: "Congratulations"
       appointment_booked: 'Appointment Booked'
       start: "Meeting starts in"
-
+  
+  models:
+    errors:
+      invalid_hours: "Invalid format for Working Hours"
+      unsupported_currency: "Currency not supported"
+      invalid_date: "Invalid Date"
+      invalid_time: "Invalid Time Slot"
+      appointment_past: "Appointments cannot have past dates"
   
 es:
   my_appointments: "Mis citas"
   email_entry: "Introduce tu dirección de correo electrónico"
   error_message: "¡Error! Por favor, introduzca sus datos correctamente"
-  error_message_email: "¡Correo electrónico no válido!"
+  error_message_email: "¡Correo electrónico no válido"
 
   layouts:
     application:
@@ -119,6 +126,14 @@ es:
       congratulations: "Felicidades"
       appointment_booked: 'Cita reservada'
       start: "La reunión comienza en"
+  
+  models:
+    errors:
+      invalid_hours: "Formato no válido para horas de trabajo"
+      unsupported_currency: "Moneda no admitida"
+      invalid_date: "Fecha no válida"
+      invalid_time: "Intervalo de tiempo no válido"
+      appointment_past: "Las citas no pueden tener fechas anteriores"
 
 
 

@@ -7,10 +7,10 @@ class Client < ApplicationRecord
   private
 
   def email_format
-    errors.add(:email, "Invalid Email") unless Constants::EMAIL_REGEXP.match(email)
+    errors.add(:email, I18n.t('error_message_email')) unless Constants::EMAIL_REGEXP.match(email)
   end
 
   def supported_currency
-    errors.add(:currency_preference, "Currency not supported") unless Constants::ACCEPTED_CURRENCIES.include?(currency_preference)
+    errors.add(:currency_preference, I18n.t('models.errors.unsupported_currency')) unless Constants::ACCEPTED_CURRENCIES.include?(currency_preference)
   end
 end
