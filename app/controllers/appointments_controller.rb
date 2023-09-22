@@ -21,9 +21,9 @@ class AppointmentsController < ApplicationController
     respond_to do |format|
       if @appointment.save
         format.turbo_stream do
-          render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { appointment_id: @appointment.id, client: Client.new, rates: $fixer_client.standard_prices })
+          render turbo_stream: turbo_stream.replace('appointment-form', partial: 'clients/form', locals: { appointment_id: @appointment.id, rates: $fixer_client.standard_prices })
         end
-        format.html { redirect_to new_client_path(appointment_id: @appointment.id, client: Client.new, rates: $fixer_client.standard_prices) }
+        format.html { redirect_to new_client_path(appointment_id: @appointment.id, rates: $fixer_client.standard_prices) }
       else
         format.html { redirect_to new_appointment_path, notice: @appointment.errors }
       end
