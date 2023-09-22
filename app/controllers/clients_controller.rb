@@ -24,7 +24,7 @@ class ClientsController < ApplicationController
         format.turbo_stream do
           render turbo_stream: turbo_stream.replace('client-form', partial: 'appointments/success', locals: { appointment: @client_helper.appointment })
         end
-        # format.html { redirect_to Appointment.find(params[:appointment_id]) }
+        format.html { redirect_to Appointment.find(params[:appointment_id]) }
       else
         @rates = Constants::ACCEPTED_CURRENCIES.to_h { |c| [c, $fixer_client.convert(Constants::PRICE, c)] }
         format.turbo_stream do

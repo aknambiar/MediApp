@@ -29,7 +29,7 @@ export default class extends Controller {
       let spinner = this.paymentButtonTarget.nextElementSibling;
       this.paymentButtonTarget.classList.add("d-none");
       spinner.classList.remove("d-none");
-      this.formTarget.submit();
+      Turbo.navigator.submitForm(this.formTarget);
     }
     else {
       this.emailErrorTarget.classList.remove("d-none");
