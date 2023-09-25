@@ -9,7 +9,6 @@ class ClientsController < ApplicationController
 
   # GET /clients/1
   def show
-    @client = Client.find(params[:id])
   end
 
   # POST /clients or /clients.json

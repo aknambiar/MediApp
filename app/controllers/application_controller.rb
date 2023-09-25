@@ -15,6 +15,6 @@ class ApplicationController < ActionController::Base
   end
 
   def load_user_session
-    @client = Client.find_by(email: cookies[:email])
+    @current_user = Client.find_by(email: cookies[:email])
   end
 end

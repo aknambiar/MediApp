@@ -33,7 +33,7 @@
             <%= image_tag('calendar.svg') %>
           </div>
           <div class="col-auto my-auto fs-7">
-            <%= link_to t('my_appointments'), @client ? @client : login_path, class:"link-dark link-underline-none" %>
+            <%= link_to t('my_appointments'), @current_user ? @current_user : login_path, class:"link-dark link-underline-none" %>
           </div>
         </div>
       </div>
