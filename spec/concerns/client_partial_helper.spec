@@ -1,29 +1,39 @@
 require 'rails_helper'
 
 RSpec.describe ClientPartialHelper do
-  before(:all) do
+  before(:each) do
     @appointment = create(:appointment)
     client_params = { email: "mail@test.com", currency_preference: "USD" }
     params = { appointment_id: @appointment.id }
     @client_helper = ClientPartialHelper.new(client_params, params)
   end
 
-  it "should update the client and the associated appointment" do
-    # allow_any_instance_of(Client).to receive(:update).and_return(true)
-    # allow_any_instance_of(Appointment).to receive(:update).and_return(true)
+  context "on successful payment" do
+    it "should update the client and the associated appointment" do
+      result = @client_helper.process_appointment
 
-    success = @client_helper.update
+      expect(result).to be_truthy
+    end
 
-    expect(success).to be_truthy
+    it "should schedule an email" do
+      expect { @client_helper.process_appointment }.to have_enqueued_job(MailSchedulerJob)
+    end
   end
 
-  it "should schedule an email for the appointment" do
-    expect { @client_helper.schedule_email(@appointment.id) }.to have_enqueued_job(MailSchedulerJob)
-  end
+  context "on unsuccessful payment" do
+    it "should not update any records" do
+      allow_any_instance_of(PaymentProcessor).to receive(:pay).and_return(false)
+      allow(@client_helper).to receive(:update)
 
-  it "should return the date and time" do
-    data = @client_helper.get_date_and_time
+      @client_helper.process_appointment
 
-    expect(data).to eq({ date: "01/01/2099", time: "15" })
+      expect(@client_helper).not_to have_received(:update)
+    end
+
+    it "should not schedule an email" do
+      allow_any_instance_of(PaymentProcessor).to receive(:pay).and_return(false)
+
+      expect { @client_helper.process_appointment }.not_to have_enqueued_job(MailSchedulerJob)
+    end
   end
 end
