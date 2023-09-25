@@ -58,7 +58,7 @@
                 <div class="row g-0 mb-5 gx-3">
                     <% Constants::DOWNLOAD_FORMATS.each do |format| %>
                         <div class="col-auto">
-                            <%= link_to "#{format.upcase}", download_appointment_path(request.params.merge(format: format, id: app.id)), class: "btn btn-dark py-1 px-4 fw-light fs-7" %>
+                            <%= link_to "#{format.upcase}", download_appointments_path(request.params.merge(format: format, id: app.id)), class: "btn btn-dark py-1 px-4 fw-light fs-7" %>
                         </div>
                     <% end %>
                 </div>

@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 
     resources :appointments do
       collection do
-        get 'download', to: 'appointments#download', as: 'download_appointment'
+        get 'download', to: 'appointments#download', as: 'download'
       end
     end
 

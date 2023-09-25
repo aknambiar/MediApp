@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe "/clients", type: :request do
-  before(:each) { get login_path }
+  before(:each) { get login_clients_path }
 
   it "verifies the presence of an email entry field" do
     email_field = /type="email"/

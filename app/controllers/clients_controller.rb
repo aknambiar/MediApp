@@ -32,10 +32,15 @@ class ClientsController < ApplicationController
 
   def create_user_session
     client = Client.find_by(email: params[:email])
-    render(action: :login, status: :unprocessable_entity) && return unless client
+    if client
+      cookies.permanent[:email] = params[:email]
+      redirect_to client
+    else
+      flash.now[:notice] = t('clients.login.missing_client')
+      render(action: :login, status: :unprocessable_entity)
+    end
 
-    cookies.permanent[:email] = params[:email]
-    redirect_to client
+    
   end
 
   private
@@ -46,6 +51,6 @@ class ClientsController < ApplicationController
 
   def authenticate_user
     @client = Client.find(params[:id])
-    redirect_to login_path unless @client.email == cookies[:email]
+    redirect_to login_clients_path unless @client.email == cookies[:email]
   end
 end

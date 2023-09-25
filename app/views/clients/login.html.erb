@@ -7,17 +7,17 @@
         </div>
     </div>
 
-    <%= form_tag(session_path) do %>
+    <%= form_tag(session_clients_path) do %>
         <div class="row">
             <div class="col col-lg-5 mx-auto">
                 <%= email_field_tag :email, nil , class: "form-control py-3 border border-2 fs-6" %>
             </div>
         </div>
 
-        <% if response.response_code == 422 %>
+        <% if flash.notice %>
             <div class="row">
                 <div class="col col-lg-5 mx-auto px-4 text-danger">
-                    <%= t('.error_email') %>
+                    <%= flash.notice %>
                 </div>
             </div>
         <% end %>

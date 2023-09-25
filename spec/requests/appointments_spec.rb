@@ -63,14 +63,14 @@ RSpec.describe "/appointments", type: :request do
     it "redirects to clients/login" do
       delete appointment_url(appointment)
 
-      expect(response).to redirect_to(login_path)
+      expect(response).to redirect_to(login_clients_path)
     end
   end
 
   describe "GET /download" do
     context "for supported file types" do
       it 'should send the file as an attachment' do
-        get download_appointment_path(id: appointment.id, format: "csv")
+        get download_appointments_path(id: appointment.id, format: "csv")
 
         expect(response.headers["Content-Disposition"]).to include("attachment")
         expect(response.headers["Content-Type"]).to eq("text/csv")

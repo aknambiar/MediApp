@@ -47,7 +47,7 @@ en:
 
   clients:
     login:
-      error_email: "Invalid email address"
+      missing_client: "Client does not exist!"
 
     form:
       title: "Add Details 🧑🏻"
@@ -100,7 +100,7 @@ es:
 
   clients:
     login:
-      error_email: "Dirección de correo electrónico no válida"
+      missing_client: "¡El cliente no existe!"
       
     form:
       title: "Agregar detalles 🧑🏻"
