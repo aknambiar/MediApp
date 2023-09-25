@@ -16,16 +16,16 @@ class InvoiceDownloader
     currency = appointment.currency
     paid_amount = appointment.amount_in_original_currency
     { # id: appointment.id,
-      email: appointment.client.email,
-      doctor: appointment.doctor.name,
-      location: appointment.doctor.location,
-      date: appointment.date,
-      time: "#{appointment.time}:00",
-      paid_amount: "#{'%.2f' % [paid_amount]} #{currency}" }
+      "Your Email": appointment.client.email,
+      "Your Doctor": appointment.doctor.name,
+      "Clinic Location": appointment.doctor.location,
+      "Appointment Date": appointment.date,
+      "Appointment Time": "#{appointment.time}:00",
+      "Amount Paid": "#{'%.2f' % [paid_amount]} #{currency}" }
   end
 
   def csv(path, content)
-    IO.write(path, "Your Email, Your Doctor, Clinic Location, Appointment Date, Appointment Time, Amount Paid")
+    IO.write(path, content.keys.join(', ') + "\n")
     IO.write(path, content.values.join(', '), mode: 'a')
   end
 
@@ -43,14 +43,10 @@ class InvoiceDownloader
       text "Generated for #{content[:email]}", align: :center
       move_down 20
 
-      table_data = [
-        [{ content: 'Description', background_color: '0D6EFD' }, { content: 'Value', background_color: '0D6EFD' }],
-        ['Doctor', content[:doctor]],
-        ['Clinic Location', content[:location]],
-        ['Appointment Date', content[:date]],
-        ['Appointment Time', content[:time]],
-        ['Amount Paid', content[:paid_amount]]
-      ]
+      table_data = content.map { |key, value| [key.to_s, value] }
+      table_data.unshift([{ content: 'Description', background_color: '0D6EFD' }, { content: 'Value', background_color: '0D6EFD' }])
+
+      p table_data
 
       offset = 175
       bounding_box([offset, cursor], width: bounds.width - offset) { table(table_data) }
@@ -58,11 +54,7 @@ class InvoiceDownloader
   end
 
   def txt(path, content)
-    IO.write(path, "Your Email: #{content[:email]}")
-    IO.write(path, "\nYour Doctor: #{content[:doctor]}", mode: 'a')
-    IO.write(path, "\nClinic Location: #{content[:location]}", mode: 'a')
-    IO.write(path, "\nAppointment Date: #{content[:date]}", mode: 'a')
-    IO.write(path, "\nAppointment Time: #{content[:time]}", mode: 'a')
-    IO.write(path, "\nAmount Paid: #{content[:paid_amount]}", mode: 'a')
+    IO.write(path, content.keys.join(', ') + "\n")
+    IO.write(path, content.values.join(', '), mode: 'a')
   end
 end

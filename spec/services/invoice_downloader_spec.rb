@@ -13,11 +13,4 @@ RSpec.describe InvoiceDownloader do
 
     expect(invoice_downloader).to have_received(:csv)
   end
-
-  # it "generates an invoice" do
-  #   invoice = InvoiceDownloader.generate_invoice(appointment.id)
-
-  #   expect(invoice).to be_a(Hash)
-  #   expect(invoice).to include(:id, :email, :doctor, :location, :date, :time, :paid_amount)
-  # end
 end
