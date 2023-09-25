@@ -31,8 +31,6 @@ class ClientPartialHelper
   end
 
   def schedule_email
-    # send_time = appointment.get_datetime.asctime.in_time_zone("Kolkata") + 2.hours
-    send_time = DateTime.now + 10.seconds
     MailSchedulerJob.set(wait_until: send_time).perform_later(@appointment.id)
   end
 
@@ -44,5 +42,13 @@ class ClientPartialHelper
       paid: true,
       exchange_rate: $fixer_client.rates[currency],
       currency: currency }
+  end
+
+  def send_time
+    if Rails.env.production?
+      @appointment.get_datetime.asctime.in_time_zone("Kolkata") + 2.hours
+    else
+      DateTime.now + 10.seconds
+    end
   end
 end
