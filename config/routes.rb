@@ -1,15 +1,21 @@
 Rails.application.routes.draw do
   scope '(:locale)' do
-    get 'appointments/download', to: 'appointments#download', as: 'download_appointment'
-    post 'clients/session', to: 'clients#create_user_session', as: 'session'
-    get 'clients/session', to: 'clients#create_user_session', as: 'get_session'
-    get 'clients/login', to: 'clients#login', as: 'login'
+    resources :clients do
+      collection do
+        get 'login', to: 'clients#login', as: 'login'
+        get 'session', to: 'clients#create_user_session', as: 'get_session'
+        post 'session', to: 'clients#create_user_session', as: 'session'
+      end
+    end
 
-    resources :clients
     resources :doctors
-    resources :appointments
+
+    resources :appointments do
+      collection do
+        get 'download', to: 'appointments#download', as: 'download_appointment'
+      end
+    end
 
     root "doctors#index"
   end
-  
 end
